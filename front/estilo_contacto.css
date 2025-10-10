@@ -1,0 +1,169 @@
+/*maneja todos los estilos de cada elemento en la pagina , header, formularios, secciones y tarjeta*/
+.head {
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #922a10;
+    font-size: 70px;
+    background-color: #d15047;
+    border-radius: 20px;
+}
+
+form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Lemon';
+}
+
+fieldset {
+    border: none;
+}
+
+legend {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #0077cc;
+    outline: none;
+    background-color: #eef6ff;
+}
+
+
+
+
+
+.card-text {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #09751a;
+
+
+}
+
+.wapp {
+
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.texto2 {
+    font-size: 45px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #af5810;
+
+
+}
+
+.footer_contacto {
+    background-color: #5975d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 380px;
+
+    padding: 20px;
+    font-family: 'Lemon';
+    border-radius: 20px;
+}
+
+.footer_menu a:hover {
+    text-decoration: underline;
+}
+
+.inicio-btn {
+    background-color: #c06bda;
+    color: rgb(172, 57, 12);
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 18px 36px;
+    border-radius: 10px;
+    font-family: 'Lemon';
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.inicio-btn:hover {
+    background-color: #a12fa1;
+    transform: scale(1.05);
+
+}
+
+.menu-btn {
+    background-color: #50cab6;
+    color: rgb(196, 48, 11);
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 18px 36px;
+    border-radius: 10px;
+    font-family: 'Lemon';
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.menu-btn:hover {
+    background-color: #394ec5;
+    transform: scale(1.05);
+
+}
+
+button[type="submit"] {
+    background-color: #2e86de;
+    /* Azul vibrante */
+    color: white;
+    /* Texto blanco */
+    border: none;
+    /* Sin borde */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    font-size: 16px;
+    /* Tamaño de letra */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cursor tipo mano */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: 'Lemon';
+    /* Fuente divertida si ya la estás usando */
+}
+
+button[type="submit"]:hover {
+    background-color: #1b4f72;
+    /* Azul más oscuro al pasar el mouse */
+    transform: scale(1.05);
+    /* Efecto de agrandamiento sutil */
+}

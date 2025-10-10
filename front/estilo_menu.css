@@ -1,0 +1,232 @@
+/*multiples css de cada parte de la pagina menu secciones , textos , carruseles y botones*/
+.head {
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #32C332;
+    font-size: 70px;
+    background-color: #6587c7;
+    border-radius: 20px;
+}
+
+.menu1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 38px;
+    padding: 40px;
+    background-color: #9889d1;
+    border-radius: 20px;
+
+}
+
+.texto1 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #129125;
+
+
+}
+
+.texto2 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #129125;
+
+
+}
+
+.texto3 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #129125;
+
+
+}
+
+.texto4 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #129125;
+
+
+}
+
+
+.menu3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 40px;
+    background-color: #a5d35a;
+}
+
+.texto5 {
+    font-size: 45px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #2bb840;
+
+
+}
+
+
+
+.texto6 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #f2f7f3;
+
+
+}
+
+.texto7 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #eff3f0;
+
+
+}
+
+
+
+.texto8 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #f2f7f3;
+
+
+}
+
+.texto9 {
+    font-size: 30px;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Lemon';
+    margin: 0 auto;
+    color: #f2f7f3;
+
+
+}
+
+.footer_menu {
+    background-color: #e4bb4d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 380px;
+
+    padding: 20px;
+    font-family: 'Lemon';
+    border-radius: 20px;
+}
+
+
+
+.footer_menu a:hover {
+    text-decoration: underline;
+}
+
+.regresa-btn {
+    background-color: #8edd69;
+    color: rgb(15, 117, 29);
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 18px 36px;
+    border-radius: 10px;
+    font-family: 'Lemon';
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.regresa-btn:hover {
+    background-color: #239151;
+    transform: scale(1.05);
+
+}
+
+.ordena-btn {
+    background-color: #dad864;
+    color: rgb(15, 117, 29);
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 18px 36px;
+    border-radius: 10px;
+    font-family: 'Lemon';
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.ordena-btn:hover {
+    background-color: #1c974f;
+    transform: scale(1.05);
+
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+#carouselExample {
+    height: 550px;
+    /* Ajusta según lo que necesites */
+}
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+    /* Recorta la imagen para que llene el espacio sin deformarse */
+}
+
+#carouselExample {
+    max-width: 500px;
+    margin: auto;
+    /* Centra el carrusel */
+}
+
+#carouselExample2 {
+    max-width: 800px;
+    height: 400px;
+    margin: auto;
+    /* Centra el carrusel */
+    background-color: #5AD3B7;
+
+    /* Color de fondo suave */
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.carousel-item p {
+    font-size: 40px;
+    text-align: center;
+    color: #f7f4f4;
+    font-weight: 500;
+}

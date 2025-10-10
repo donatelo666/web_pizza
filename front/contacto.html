@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro y contacto</title>
+    <!--union con el css, fuentes de google , bootstrap-->
+    <link rel="stylesheet" href="estilo_contacto.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--color de fondo-->
+    <style>
+        body {
+            background-color: #DD9C52;
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!--header con css-->
+    <header class="head">
+        <p>Contacto, registro y login</p>
+    </header>
+    <!-- formulario de registro en la web de pizzas con input , nombre , sugerencias de texto
+     obligatorio de campos y boton -->
+    <form id="registroForm">
+        <h3>Registro en TMNT</h3>
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="password" name="password" placeholder="Contraseña" required />
+        <button type="submit">Registrarse</button>
+    </form>
+    <!--script que recibe elementos de formulario anterior, con el evento del boton
+    submit, previene el revargar pagina "e.preventdefault"-->
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);// define la informacion del usuario como data
+            const data = {
+                nombre: formData.get('nombre'),
+                password: formData.get('password')
+            };
+
+            const res = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });// usa la api post de register y transforma los datos en un jason
+
+            const result = await res.json();
+            if (res.ok) {
+                alert('Registro exitoso');//registra al usuario y alerta 
+                window.location.href = '/front/contacto.html'; // Redirige a la misma web para hacer login
+
+            } else {
+                alert(result.error || 'Error al registrar');
+            }
+        });
+    </script>
+    <!-- formulario para logearse con nombre y password, ambos campos requeridos y boton submit
+     tiene placeholder -->
+    <form id="loginForm">
+        <h3>Login para ordenar</h3>
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="password" name="password" placeholder="Contraseña" required />
+        <button type="submit">Entrar</button>
+    </form>
+    <!--formulario que recibe datos del evento submit , previene la recarga, tranforma 
+    la info en "data"-->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                nombre: formData.get('nombre'),
+                password: formData.get('password')
+            };
+
+            const res = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });// usa la api post de login y tranforma data en un jason
+            const result = await res.json();
+            if (res.ok && result.token) {
+                localStorage.setItem('token', result.token);
+                alert('Login exitoso');//confirma el login exitoso del jason y le da un token al usuario 
+                window.location.href = '/front/editar.html';// redirige a editar.html
+            } else {
+                alert(result.error || 'Error al iniciar sesión');
+            }
+        });
+    </script>
+    <!--tarjeta con estilos que contiene un texto e imagen con link a wapp , usa archivo css-->
+
+    <div class="container mt-5 ">
+        <div class="card mb-3 border-0 fondo-personalizado" style="background-color:#59ca68">
+            <div class="row g-0">
+
+                <div class="col-md-8">
+                    <div class="card-body ">
+
+                        <h2 class="card-text text-center"><br>Escribenos por whatsapp</h2>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">
+
+
+                        <img src="wapp.png" alt="boton wapp" class="wapp">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--seccion que contiene un texto con css-->
+    <section class="horario">
+
+        <p class="texto2">Horario:
+            viernes, sabado y domingo 4 a 11 pm.
+
+        </p>
+
+    </section>
+    <!--footer con dos botones que tiene estilos de css-->
+    <footer class="footer_contacto">
+        <a href="inicio.html" class="inicio-btn">INICIO</a>
+        <a href="menu.html" class="menu-btn">MENU</a>
+    </footer>
+    <!--estilo que da color de fondo a la tarjeta con texto e imagen de wapp-->
+    <style>
+        .fondo-personalizado {
+            background-color: #59ca68;
+        }
+    </style>
+    <!--bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <div id="notificacion2" class="oculto"></div>
+
+</body>
