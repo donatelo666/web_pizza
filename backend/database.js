@@ -7,7 +7,7 @@ const conexion = mysql.createConnection({
     host: process.env.host,
     database: process.env.database,
     user: process.env.user,
-    password: process.ebv.password
+    password: process.env.password
 
 })
 conexion.connect((err) => {
