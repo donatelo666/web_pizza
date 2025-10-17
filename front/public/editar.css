@@ -45,6 +45,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1em;
+    font-family: 'Lemon';
     box-sizing: border-box;
 }
 
@@ -53,6 +54,24 @@ textarea:focus {
     border-color: #0077cc;
     outline: none;
     background-color: #eef6ff;
+
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 16px;
+    font-family: 'Lemon';
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
 button {

@@ -4,12 +4,17 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/database.js'); // tu conexión MySQL
-
+const { body } = require('express-validator');
 
 // ruta registro define el body , encripta la contraseña con bcrypt, inserta en mysql
 //pone rol y maneja errores 
-router.post('/register', async (req, res) => {
+router.post('/register', [
+    body('password').isLength({ min: 4 }),
+    body('nombre').trim().escape()
+], async (req, res) => {
+
     const { nombre, password } = req.body;
+
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10); // 10 es el saltRounds
@@ -29,7 +34,10 @@ router.post('/register', async (req, res) => {
 
 
 //ruta login , define el body 
-router.post('/login', (req, res) => {
+router.post('/login', [
+    body('password').isLength({ min: 4 }),
+    body('nombre').trim().escape()
+], (req, res) => {
     const { nombre, password } = req.body;
     //hace consulta en la base de datos por nombre de usuario 
     db.query('SELECT * FROM usuarios WHERE nombre = ?', [nombre], async (err, results) => {

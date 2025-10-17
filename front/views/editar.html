@@ -29,21 +29,40 @@
     y placeholder -->
     <form id="formOrden">
         <h3>Ordenar una pizza</h3>
+        <br>
 
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+        <input type="text" id="nombre" name="nombre" required pattern="[A-Za-z0-9]{4,20}"
+            placeholder="Minimo 4 y maximo 20 caracteres"><br><br>
 
-        <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" required><br><br>
+        <label for="telefono">Teléfono celular:</label>
+        <input type="text" id="telefono" name="telefono" required pattern="[0-9]{10,10}"
+            placeholder="10 digitos"><br><br>
 
         <label for="tamano">Tamaño:</label>
-        <input type="text" id="tamano" name="tamano" required placeholder="Ej: Personal, Mediana, Familiar"><br><br>
+
+        <select id="tamano" name="tamano" required pattern="[A-Za-z]{4,10}">
+            <option value="">-- Selecciona una Tamaño --</option>
+            <option value="personal">Personal</option>
+            <option value="mediana">Mediana</option>
+            <option value="familiar">Familiar</option>
+
+        </select>
+
+        <br>
 
 
         <label for="sabor">Sabor:</label>
-        <input type="text" id="sabor" name="sabor" required
-            placeholder="Ej: Hawaiana, Mexicana, Cahmpiñones, Salami"><br><br>
-        <br>
+        <select id="sabor" name="sabor" required pattern="[A-Za-z]{4,20}">
+            <option value="">-- Selecciona un sabor --</option>
+            <option value="champiñones">Champiñones</option>
+            <option value="hawaiana">Hawaiana</option>
+            <option value="mexicana">Mexicana</option>
+            <option value="salami">Salami y cabano</option>
+
+
+        </select><br>
+
 
         <button type="submit">Enviar orden</button>
     </form>
@@ -112,7 +131,7 @@
         <h3>Consultar mi orden</h3>
 
         <label for="Orden_id">Id de la orden:</label>
-        <input type="text" id="Orden_id" name="Orden_id" required><br><br>
+        <input type="number" id="Orden_id" name="Orden_id" required pattern="[0-9]{1,999}"><br><br>
         <button type="submit">Consultar orden</button>
     </form>
     <!--div que contiene la tabla con informacion de la base de datos de la consulta-->
@@ -176,21 +195,39 @@
 
     <!--formulario para actualizar orden con id de campo obligatorio , y boton tipo submit -->
     <form id="editar">
-        <h3>Editar orden</h3>
+        <h3>Editar mi orden</h3>
         <label for="edit_id">ID:</label>
-        <input type="text" id="edit_id" name="edit_id" required><br>
+        <input type="number" id="edit_id" name="edit_id" required pattern="[0-9]{1,999}"><br>
 
         <label for="edit_nombre">Nombre:</label>
-        <input type="text" id="edit_nombre" name="edit_nombre"><br>
+        <input type="text" id="edit_nombre" name="edit_nombre" pattern="[A-Za-z0-9]{4,20}"
+            placeholder="Minimo 4 y maximo 20 caracteres"><br>
 
-        <label for="edit_telefono">Telefono:</label>
-        <input type="text" id="edit_telefono" name="edit_telefono"><br>
+        <label for="edit_telefono">Telefono celular:</label>
+        <input type="number" id="edit_telefono" name="edit_telefono" pattern="[0-9]{7,10}" placeholder="10 digitos"><br>
 
         <label for="edit_tamano">Tamaño:</label>
-        <input type="text" id="edit_tamano" name="edit_tamano"><br>
+        <br>
+        <select id="edit_tamano" name="edit_tamano" required>
+            <option value="">-- Selecciona una Tamaño --</option>
+            <option value="personal">Personal</option>
+            <option value="mediana">Mediana</option>
+            <option value="familiar">Familiar</option>
 
+        </select>
+        <br>
         <label for="edit_sabor">Sabor:</label>
-        <input type="text" id="edit_sabor" name="edit_sabor"><br><br>
+        <br>
+        <select id="edit_sabor" name="edit_sabor" required>
+            <option value="">-- Selecciona un sabor --</option>
+            <option value="champiñones">Champiñones</option>
+            <option value="hawaiana">Hawaiana</option>
+            <option value="mexicana">Mexicana</option>
+            <option value="salami">Salami y cabano</option>
+
+
+        </select>
+        <br>
 
         <button type="submit">Actualizar orden</button><br><br>
 
@@ -234,7 +271,7 @@
         <h3>Eliminar mi orden</h3>
 
         <label for="Orden_id">Id de la orden:</label>
-        <input type="text" id="idOrden" name="Orden_id"><br><br>
+        <input type="number" id="idOrden" name="Orden_id" pattern="[0-9]{1,999}"><br><br>
         <button id="eliminar" type="submit">Eliminar</button>
 
     </form>

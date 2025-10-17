@@ -32,15 +32,20 @@
      obligatorio de campos y boton -->
     <form id="registroForm">
         <h3>Registro en TMNT</h3>
-        <input type="text" name="nombre" placeholder="Nombre" required />
-        <input type="password" name="password" placeholder="Contraseña" required />
+        <input type="text" name="nombre" placeholder="Minimo 4 y maximo 20 caracteres" required
+            pattern="[A-Za-z0-9]{4,20}" />
+        <input type="password" name="password" placeholder="Minimo 4 y maximo 15 caracteres" required
+            pattern="[A-Za-z0-9]{4,15}" />
         <button type="submit">Registrarse</button>
     </form>
     <!--script que recibe elementos de formulario anterior, con el evento del boton
     submit, previene el revargar pagina "e.preventdefault"-->
     <script>
+        const sanitize = (str) => str.replace(/[<>"'`]/g, '');
+
         document.getElementById('registroForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
 
             const formData = new FormData(e.target);// define la informacion del usuario como data
             const data = {
@@ -68,13 +73,15 @@
      tiene placeholder -->
     <form id="loginForm">
         <h3>Login para ordenar</h3>
-        <input type="text" name="nombre" placeholder="Nombre" required />
-        <input type="password" name="password" placeholder="Contraseña" required />
+        <input type="text" name="nombre" placeholder="Nombre" required pattern="[A-Za-z0-9]{4,20}" />
+        <input type="password" name="password" placeholder="Contraseña" pattern="[A-Za-z0-9]{4,15}" required />
         <button type="submit">Entrar</button>
     </form>
     <!--formulario que recibe datos del evento submit , previene la recarga, tranforma 
     la info en "data"-->
     <script>
+        const sanitize2 = (str) => str.replace(/[<>"'`]/g, '');
+
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);

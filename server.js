@@ -6,6 +6,8 @@ const cors = require("cors");
 const database = require("./src/config/database.js");
 const verificarToken = require('./src/middleware/verificartoken.js');
 const authRoutes = require('./src/routes/auth.js');
+const { body, param } = require('express-validator');
+
 
 
 //configuracion inicial, uso de express , jason , cors y rutas de auth.js
@@ -17,7 +19,12 @@ app.use('/', authRoutes);
 
 // api post para insertar datos  usando un formulario con script en el html, verifica el token 
 // envia dos console log de verificacion
-router.post("/api/ordenes", verificarToken, (req, res) => {
+router.post("/api/ordenes", verificarToken, [
+    body('nombre').trim().escape().isLength({ min: 4, max: 20 }),
+    body('telefono').isMobilePhone('es-CO'),
+    body('tamano').isIn(['personal', 'mediana', 'familiar']),
+    body('sabor').isIn(['champiñones', 'hawaiana', 'mexicana', 'salami'])
+], (req, res) => {
     console.log("Solicitud recibida");
     console.log("Body:", req.body);
 
@@ -49,7 +56,9 @@ router.post("/api/ordenes", verificarToken, (req, res) => {
 
 
 // GET  consultar la orden por id y token presente,
-router.get('/ordenes/:id', verificarToken, (req, res) => {
+router.get('/ordenes/:id', verificarToken, [
+    param('id').isInt({ min: 1 }).withMessage('ID debe ser un número entero positivo')
+], (req, res) => {
     //define id del usuario e id de la orden 
     const usuarioId = req.usuarioId;
     const id = req.params.id;
@@ -68,7 +77,12 @@ router.get('/ordenes/:id', verificarToken, (req, res) => {
 
 
 // api put para editar la orden realizada usando el id , token 
-router.put('/ordenes/:id', verificarToken, (req, res) => {
+router.put('/ordenes/:id', verificarToken, [
+    body('nombre').trim().escape().isLength({ min: 4, max: 20 }),
+    body('telefono').isMobilePhone('es-CO'),
+    body('tamano').isIn(['personal', 'mediana', 'familiar']),
+    body('sabor').isIn(['champiñones', 'hawaiana', 'mexicana', 'salami'])
+], (req, res) => {
     // define id de la orden , body de la orden e id del usuario 
     const id = req.params.id;
     const { nombre, telefono, tamano, sabor } = req.body;
@@ -95,7 +109,9 @@ router.put('/ordenes/:id', verificarToken, (req, res) => {
 
 
 //api para borrar una orden de la base de datos usando el id y el token 
-router.delete('/ordenes/:id', verificarToken, (req, res) => {
+router.delete('/ordenes/:id', verificarToken, [
+    param('id').isInt({ min: 1 }).withMessage('ID inválido')
+], (req, res) => {
     //define id de orden e id de usuario
     const id = req.params.id;
     const usuarioId = req.usuarioId;
