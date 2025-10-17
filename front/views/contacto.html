@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro y contacto</title>
     <!--union con el css, fuentes de google , bootstrap-->
-    <link rel="stylesheet" href="estilo_contacto.css" />
+    <link rel="stylesheet" href="/front/public/estilo_contacto.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap" rel="stylesheet">
@@ -57,7 +57,7 @@
             const result = await res.json();
             if (res.ok) {
                 alert('Registro exitoso');//registra al usuario y alerta 
-                window.location.href = '/front/contacto.html'; // Redirige a la misma web para hacer login
+                window.location.href = '/front/views/contacto.html'; // Redirige a la misma web para hacer login
 
             } else {
                 alert(result.error || 'Error al registrar');
@@ -92,7 +92,7 @@
             if (res.ok && result.token) {
                 localStorage.setItem('token', result.token);
                 alert('Login exitoso');//confirma el login exitoso del jason y le da un token al usuario 
-                window.location.href = '/front/editar.html';// redirige a editar.html
+                window.location.href = '/front/views/editar.html';// redirige a editar.html
             } else {
                 alert(result.error || 'Error al iniciar sesión');
             }
@@ -115,7 +115,7 @@
                     <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">
 
 
-                        <img src="wapp.png" alt="boton wapp" class="wapp">
+                        <img src="/front/public/wapp.png" alt="boton wapp" class="wapp">
                     </a>
                 </div>
             </div>
@@ -132,8 +132,8 @@
     </section>
     <!--footer con dos botones que tiene estilos de css-->
     <footer class="footer_contacto">
-        <a href="inicio.html" class="inicio-btn">INICIO</a>
-        <a href="menu.html" class="menu-btn">MENU</a>
+        <a href="/front/views/inicio.html" class="inicio-btn">INICIO</a>
+        <a href="/front/views/menu.html" class="menu-btn">MENU</a>
     </footer>
     <!--estilo que da color de fondo a la tarjeta con texto e imagen de wapp-->
     <style>

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('./database.js'); // tu conexión MySQL
+const db = require('../config/database.js'); // tu conexión MySQL
 
 
 // ruta registro define el body , encripta la contraseña con bcrypt, inserta en mysql

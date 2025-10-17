@@ -1,2 +1,4 @@
-bootstrap.html
 web-pizza.session.sql
+.env
+node_modules/
+.vscode

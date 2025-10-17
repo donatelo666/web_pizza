@@ -11,7 +11,7 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="editar.css" />
+    <link rel="stylesheet" href="/front/public/editar.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap" rel="stylesheet">
@@ -294,7 +294,7 @@
 
     <!--footer con boton de retorno a pagina anterior y css -->
     <footer class="footer_editar">
-        <a href="contacto.html" class="contacto-btn">RETORNO</a>
+        <a href="/front/views/contacto.html" class="contacto-btn">RETORNO</a>
         <!--boton de cerrar sesion -->
         <button id="logout" class="logout-btn">Cerrar sesión</button>
         <!--script que escucha el submit para cerrar-->
@@ -302,7 +302,7 @@
             document.getElementById('logout').addEventListener('click', () => {
                 localStorage.removeItem('token'); // ✅ elimina el token al usuario
                 alert('Sesión cerrada');// exito cerrando
-                window.location.href = '/front/inicio.html'; // ✅ redirige al inicio de la web 
+                window.location.href = '/front/views/inicio.html'; // ✅ redirige al inicio de la web 
             });
         </script>
 

@@ -3,9 +3,9 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const database = require("./database.js");
-const verificarToken = require('./verificartoken.js');
-const authRoutes = require('./auth.js');
+const database = require("./backend/config/database.js");
+const verificarToken = require('./backend/middleware/verificartoken.js');
+const authRoutes = require('./backend/routes/auth.js');
 
 
 //configuracion inicial, uso de express , jason , cors y rutas de auth.js
