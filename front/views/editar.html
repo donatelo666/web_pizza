@@ -1,169 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!--color de fondo y union con archivo css, fuentes de google -->
     <style>
-        body {
-            background-color: #5293dd;
-
-        }
+      body {
+        background-color: #5293dd;
+      }
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/front/public/editar.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
 
     <title>Ordenar</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!--header con css-->
     <header class="head">
-        <p>Ordenar, consultar , editar o eliminar</p>
+      <p>Ordenar pizzas en TMNT</p>
     </header>
     <!--formulario para ordenar con nombre , telefono , tamaño y  sabor, campos obligatorios
     y placeholder -->
     <form id="formOrden">
-        <h3>Ordenar una pizza</h3>
-        <br>
+      <h3>Ordenar una pizza</h3>
+      <br />
 
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required pattern="[A-Za-z0-9]{4,20}"
-            placeholder="Minimo 4 y maximo 20 caracteres"><br><br>
+      <label for="nombre">Nombre:</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        required
+        pattern="[A-Za-z0-9]{4,20}"
+        placeholder="Minimo 4 y maximo 20 caracteres"
+      /><br /><br />
 
-        <label for="telefono">Teléfono celular:</label>
-        <input type="text" id="telefono" name="telefono" required pattern="[0-9]{10,10}"
-            placeholder="10 digitos"><br><br>
+      <label for="telefono">Teléfono celular:</label>
+      <input
+        type="text"
+        id="telefono"
+        name="telefono"
+        required
+        pattern="[0-9]{10,10}"
+        placeholder="10 digitos"
+      /><br /><br />
 
-        <label for="tamano">Tamaño:</label>
+      <label for="tamano">Tamaño:</label>
 
-        <select id="tamano" name="tamano" required pattern="[A-Za-z]{4,10}">
-            <option value="">-- Selecciona una Tamaño --</option>
-            <option value="personal">Personal</option>
-            <option value="mediana">Mediana</option>
-            <option value="familiar">Familiar</option>
+      <select id="tamano" name="tamano" required pattern="[A-Za-z]{4,10}">
+        <option value="">-- Selecciona una Tamaño --</option>
+        <option value="personal">Personal</option>
+        <option value="mediana">Mediana</option>
+        <option value="familiar">Familiar</option>
+      </select>
 
-        </select>
+      <br />
 
-        <br>
+      <label for="sabor">Sabor:</label>
+      <select id="sabor" name="sabor" required pattern="[A-Za-z]{4,20}">
+        <option value="">-- Selecciona un sabor --</option>
+        <option value="champiñones">Champiñones</option>
+        <option value="hawaiana">Hawaiana</option>
+        <option value="mexicana">Mexicana</option>
+        <option value="salami">Salami y cabano</option></select
+      ><br />
 
-
-        <label for="sabor">Sabor:</label>
-        <select id="sabor" name="sabor" required pattern="[A-Za-z]{4,20}">
-            <option value="">-- Selecciona un sabor --</option>
-            <option value="champiñones">Champiñones</option>
-            <option value="hawaiana">Hawaiana</option>
-            <option value="mexicana">Mexicana</option>
-            <option value="salami">Salami y cabano</option>
-
-
-        </select><br>
-
-
-        <button type="submit">Enviar orden</button>
+      <button type="submit">Enviar orden</button>
     </form>
     <script>
-        function mostrarNotificacion(id) {
-            const mensaje = `✅ Orden enviada con éxito<br>ID: <strong>${id}</strong><br>Guarda este número ID para consultar o editar tu orden.`;
-            const notificacion = document.getElementById('notificacion');
-            notificacion.innerHTML = mensaje;
-            notificacion.classList.remove('oculto');//quita el oculto del div que contiene la notificaion 
-            notificacion.classList.add('visible');// define funcion que muestra una notificacion
-            //  con estilos 
-            //mensaje para el usuario , la pone en modo "visible" 
+      function mostrarNotificacion(id) {
+        const mensaje = `✅ Orden enviada con éxito<br><br>ID: <strong>${id}</strong><br><br>Guarda este número ID para consultar, editar o eliminar tu orden.`;
+        const notificacion = document.getElementById("notificacion");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
+        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+        //  con estilos
+        //mensaje para el usuario , la pone en modo "visible"
 
-            // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
-            // a la notificacion
-            setTimeout(() => {
-                notificacion.classList.remove('visible');
-                notificacion.classList.add('oculto');
-            }, 25000);
-        }
-        //recibe la informacion del formulario con el evento submit , previene la recarga
+        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
+        // a la notificacion
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 25000);
+      }
+      //recibe la informacion del formulario con el evento submit , previene la recarga
 
-        document.getElementById("formOrden").addEventListener("submit", function (e) {
-            e.preventDefault();
-            //almacena los valores escritos por el usuario en variables  y obtiene el token 
-            const nombre = document.getElementById("nombre").value;
-            const telefono = document.getElementById("telefono").value;
-            const tamano = document.getElementById("tamano").value;
-            const sabor = document.getElementById("sabor").value;
-            const token = localStorage.getItem('token');
+      document
+        .getElementById("formOrden")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          //almacena los valores escritos por el usuario en variables  y obtiene el token
+          const nombre = document.getElementById("nombre").value;
+          const telefono = document.getElementById("telefono").value;
+          const tamano = document.getElementById("tamano").value;
+          const sabor = document.getElementById("sabor").value;
+          const token = localStorage.getItem("token");
 
-            if (!nombre || !telefono || !tamano || !sabor) {
-                alert("¡Por favor, completa todos los campos de la orden!");
-                return; // Detiene el proceso si faltan datos y envia alerta 
-            }
-            // 2. Continúa con el envío de la orden si la validación pasa en api tipo post de ordenes 
-            fetch("http://localhost:3000/api/ordenes", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": token // ✅ aquí va el token para darselo al usuario 
-                },
-                body: JSON.stringify({ nombre, telefono, tamano, sabor })//convierte datos en jason
+          if (!nombre || !telefono || !tamano || !sabor) {
+            alert("¡Por favor, completa todos los campos de la orden!");
+            return; // Detiene el proceso si faltan datos y envia alerta
+          }
+          // 2. Continúa con el envío de la orden si la validación pasa en api tipo post de ordenes
+          fetch("http://localhost:3000/api/ordenes", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token, // ✅ aquí va el token para darselo al usuario
+            },
+            body: JSON.stringify({ nombre, telefono, tamano, sabor }), //convierte datos en jason
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.error) {
+                alert("Error: " + data.error); // envia error
+              } else {
+                mostrarNotificacion(data.id); // ejecuta la funcion y muestra la notificacion
+              }
             })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.error) {
-                        alert("Error: " + data.error);// envia error 
-                    } else {
-                        mostrarNotificacion(data.id); // ejecuta la funcion y muestra la notificacion 
-
-                    }
-                })
-                .catch(err => {
-                    console.error("Error al enviar la orden:", err);
-                    alert("No se pudo enviar la orden.");// muestra errores 
-                });
+            .catch((err) => {
+              console.error("Error al enviar la orden:", err);
+              alert("No se pudo enviar la orden."); // muestra errores
+            });
         });
-
     </script>
     <!--pone la notificaion en oculto que despues se activa a modo visible para formulario de ordenar -->
     <div id="notificacion" class="oculto"></div>
     <!--formulario para consultar una orden realizada , pide el id de la orden en texto
     campo obligatorio , y boton con submit-->
     <form id="consultar">
-        <h3>Consultar mi orden</h3>
+      <h3>Consultar mi orden</h3>
 
-        <label for="Orden_id">Id de la orden:</label>
-        <input type="number" id="Orden_id" name="Orden_id" required pattern="[0-9]{1,999}"><br><br>
-        <button type="submit">Consultar orden</button>
+      <label for="Orden_id">Id de la orden:</label>
+      <input
+        type="number"
+        id="Orden_id"
+        name="Orden_id"
+        required
+        pattern="[0-9]{1,999}"
+      /><br /><br />
+      <button type="submit">Consultar orden</button>
     </form>
     <!--div que contiene la tabla con informacion de la base de datos de la consulta-->
     <div id="resultado"></div>
     <!--script que toma el id del formulario con evento submit y prevencion de recarga
     toma el id y el token -->
     <script>
-        document.getElementById('consultar').addEventListener('submit', function (e) {
-            e.preventDefault();
+      document
+        .getElementById("consultar")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-            const ordenId = document.getElementById('Orden_id').value;
-            const token = localStorage.getItem('token');
-            //usa la api get y pone el token
-            fetch(`http://localhost:3000/ordenes/${ordenId}`, {
-                method: 'GET',
-                "Content-Type": "application/json",
-                headers: { "Authorization": token },// ✅ aquí va el token
+          const ordenId = document.getElementById("Orden_id").value;
+          const token = localStorage.getItem("token");
+          //usa la api get y pone el token
+          fetch(`http://localhost:3000/ordenes/${ordenId}`, {
+            method: "GET",
+            "Content-Type": "application/json",
+            headers: { Authorization: token }, // ✅ aquí va el token
+          })
+            .then((response) => {
+              if (!response.ok) {
+                if (response.status === 404) {
+                  throw new Error("Orden no encontrada"); //error
+                } else {
+                  throw new Error("Error al consultar la orden"); //error
+                }
+              }
+              return response.json();
             })
-                .then(response => {
-                    if (!response.ok) {
-                        if (response.status === 404) {
-                            throw new Error('Orden no encontrada');//error 
-                        } else {
-                            throw new Error('Error al consultar la orden');//error
-                        }
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Construir la tabla con los datos de la base de datos
-                    //usa html , tiene estilos 
-                    const tablaHTML = `
+            .then((data) => {
+              // Construir la tabla con los datos de la base de datos
+              //usa html , tiene estilos
+              const tablaHTML = `
                 <table border="1" cellpadding="8" cellspacing="0">
                     <thead>
                         <tr>
@@ -184,167 +199,260 @@
                         </tr>
                     </tbody>
                 </table>
-            `;//ingresa la tabla contruida al div resultado para mostrar al usuario 
-                    document.getElementById('resultado').innerHTML = tablaHTML;
-                })
-                .catch(error => {
-                    document.getElementById('resultado').innerHTML = `<p style="color:red;">${error.message}</p>`;
-                });// error
+            `; //ingresa la tabla contruida al div resultado para mostrar al usuario
+              document.getElementById("resultado").innerHTML = tablaHTML;
+            })
+            .catch((error) => {
+              document.getElementById(
+                "resultado"
+              ).innerHTML = `<p style="color:red;">${error.message}</p>`;
+            }); // error
         });
     </script>
 
     <!--formulario para actualizar orden con id de campo obligatorio , y boton tipo submit -->
     <form id="editar">
-        <h3>Editar mi orden</h3>
-        <label for="edit_id">ID:</label>
-        <input type="number" id="edit_id" name="edit_id" required pattern="[0-9]{1,999}"><br>
+      <h3>Editar mi orden</h3>
+      <label for="edit_id">ID:</label>
+      <input
+        type="number"
+        id="edit_id"
+        name="edit_id"
+        required
+        pattern="[0-9]{1,999}"
+      /><br />
 
-        <label for="edit_nombre">Nombre:</label>
-        <input type="text" id="edit_nombre" name="edit_nombre" pattern="[A-Za-z0-9]{4,20}"
-            placeholder="Minimo 4 y maximo 20 caracteres"><br>
+      <label for="edit_nombre">Nombre:</label>
+      <input
+        type="text"
+        id="edit_nombre"
+        name="edit_nombre"
+        pattern="[A-Za-z0-9]{4,20}"
+        placeholder="Minimo 4 y maximo 20 caracteres"
+      /><br />
 
-        <label for="edit_telefono">Telefono celular:</label>
-        <input type="number" id="edit_telefono" name="edit_telefono" pattern="[0-9]{7,10}" placeholder="10 digitos"><br>
+      <label for="edit_telefono">Telefono celular:</label>
+      <input
+        type="number"
+        id="edit_telefono"
+        name="edit_telefono"
+        pattern="[0-9]{7,10}"
+        placeholder="10 digitos"
+      /><br />
 
-        <label for="edit_tamano">Tamaño:</label>
-        <br>
-        <select id="edit_tamano" name="edit_tamano" required>
-            <option value="">-- Selecciona una Tamaño --</option>
-            <option value="personal">Personal</option>
-            <option value="mediana">Mediana</option>
-            <option value="familiar">Familiar</option>
+      <label for="edit_tamano">Tamaño:</label>
+      <br />
+      <select id="edit_tamano" name="edit_tamano" required>
+        <option value="">-- Selecciona una Tamaño --</option>
+        <option value="personal">Personal</option>
+        <option value="mediana">Mediana</option>
+        <option value="familiar">Familiar</option>
+      </select>
+      <br />
+      <label for="edit_sabor">Sabor:</label>
+      <br />
+      <select id="edit_sabor" name="edit_sabor" required>
+        <option value="">-- Selecciona un sabor --</option>
+        <option value="champiñones">Champiñones</option>
+        <option value="hawaiana">Hawaiana</option>
+        <option value="mexicana">Mexicana</option>
+        <option value="salami">Salami y cabano</option>
+      </select>
+      <br />
 
-        </select>
-        <br>
-        <label for="edit_sabor">Sabor:</label>
-        <br>
-        <select id="edit_sabor" name="edit_sabor" required>
-            <option value="">-- Selecciona un sabor --</option>
-            <option value="champiñones">Champiñones</option>
-            <option value="hawaiana">Hawaiana</option>
-            <option value="mexicana">Mexicana</option>
-            <option value="salami">Salami y cabano</option>
-
-
-        </select>
-        <br>
-
-        <button type="submit">Actualizar orden</button><br><br>
-
+      <button type="submit">Actualizar orden</button><br /><br />
     </form>
     <!--script que toma la informacion del formulario con evento submit, previene la recarga
     crea variables y el token , usa la api put del sever , pone el token -->
     <script>
-        document.getElementById('editar').addEventListener('submit', function (e) {
-            e.preventDefault();
+      function mostrarNotificacion2() {
+        const mensaje = `✅ Muy bien<br><br>tu orden ha sido actualizada y<br><br>pronto estara en el horno. `;
+        const notificacion = document.getElementById("notificacion2");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
+        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+        //  con estilos
+        //mensaje para el usuario , la pone en modo "visible"
 
-            const id = document.getElementById('edit_id').value;
-            const nombre = document.getElementById('edit_nombre').value;
-            const telefono = document.getElementById('edit_telefono').value;
-            const tamano = document.getElementById('edit_tamano').value;
-            const sabor = document.getElementById('edit_sabor').value;
-            const token = localStorage.getItem('token');
+        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
+        // a la notificacion
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 25000);
+      }
 
-            fetch(`http://localhost:3000/ordenes/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": token // ✅ aquí va el token
-                },
-                //convierte el archivo a jason 
-                body: JSON.stringify({ nombre, telefono, tamano, sabor })
+      document
+        .getElementById("editar")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const id = document.getElementById("edit_id").value;
+          const nombre = document.getElementById("edit_nombre").value;
+          const telefono = document.getElementById("edit_telefono").value;
+          const tamano = document.getElementById("edit_tamano").value;
+          const sabor = document.getElementById("edit_sabor").value;
+          const token = localStorage.getItem("token");
+
+          fetch(`http://localhost:3000/ordenes/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token, // ✅ aquí va el token
+            },
+            //convierte el archivo a jason
+            body: JSON.stringify({ nombre, telefono, tamano, sabor }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              mostrarNotificacion2(); // ejecuta la funcion y muestra la notificacion
             })
-                .then(response => response.json())
-                .then(data => {
-
-
-                    alert(data.mensaje || 'Orden actualizada');// mensaje de exito 
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Error al actualizar la orden');// mensaje de error
-                });
+            .catch((error) => {
+              console.error(error);
+              alert("Error al actualizar la orden"); // mensaje de error
+            });
         });
     </script>
+    <!--div de la notificacion2 para mostrarla en pantalla-->
+    <div id="notificacion2" class="oculto"></div>
+
     <!--formulario para eliminar con campo id y boton submit -->
     <form id="eliminarOrden">
-        <h3>Eliminar mi orden</h3>
+      <h3>Eliminar mi orden</h3>
 
-        <label for="Orden_id">Id de la orden:</label>
-        <input type="number" id="idOrden" name="Orden_id" pattern="[0-9]{1,999}"><br><br>
-        <button id="eliminar" type="submit">Eliminar</button>
-
+      <label for="Orden_id">Id de la orden:</label>
+      <input
+        type="number"
+        id="idOrden"
+        name="Orden_id"
+        pattern="[0-9]{1,999}"
+      /><br /><br />
+      <button id="eliminar" type="submit">Eliminar</button>
     </form>
     <!-- lee el dom de la pagina para evitar errores , toma la info del formulario 
      con submit y previene recarga-->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('eliminarOrden').addEventListener('submit', function (e) {
-                e.preventDefault();
-                //toma el valor ingresado le quita espacios y envia un console log 
-                const ordenId = document.getElementById('idOrden').value.trim();
-                console.log("ID ingresado:", `"${ordenId}"`);
-                //agrega token 
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    alert('No estás autenticado. Inicia sesión primero.');
-                    return;// error por no tener token 
-                }
+      function eliminarOrden(ordenId) {
+        const token = localStorage.getItem("token");
 
-                if (!ordenId || ordenId.length === 0) {
-                    alert('Por favor ingresa el ID de la orden');
-                    return;//error por no ingresar el id 
-                }
-                //confirma con el usuario y llama la api delete , pone el token 
-                if (confirm(`¿Estás seguro de que deseas eliminar la orden #${ordenId}? Esta acción no se puede deshacer.`)) {
-                    fetch(`http://localhost:3000/ordenes/${ordenId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            "Authorization": token
-                        }
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                if (response.status === 403) {
-                                    throw new Error('No tienes permiso para eliminar esta orden');
-                                } else if (response.status === 404) {
-                                    throw new Error('Orden no encontrada');
-                                } else {
-                                    throw new Error('Error al eliminar la orden');//manejo de errores 
-                                }
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            alert(data.mensaje || 'Orden eliminada con éxito');//exito al eliminar 
-                            document.getElementById('eliminarOrden').reset();//limpia formulario 
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            alert(error.message);//errores
-                        });
-                }
-            });
-        });
+        fetch(`http://localhost:3000/ordenes/${ordenId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              if (response.status === 403) {
+                throw new Error("No tienes permiso para eliminar esta orden");
+              } else if (response.status === 404) {
+                throw new Error("Orden no encontrada");
+              } else {
+                throw new Error("Error al eliminar la orden");
+              }
+            }
+            return response.json();
+          })
+          .then((data) => {
+            mostrarNotificacion3();
+            document.getElementById("eliminarOrden").reset();
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(error.message);
+          });
+      }
+      //modal que confirma con el usuario si quiere eliminar o no
+      function mostrarModalEliminar(ordenId) {
+        document.getElementById("ordenIdTexto").textContent = ordenId;
+        const modal = document.getElementById("modalConfirmacion");
+        modal.classList.remove("modal-oculto");
+        modal.classList.add("modal-visible");
 
+        // Confirmar eliminación, llamando a la funcion que contiene el fetch
+        document.getElementById("btnConfirmarEliminar").onclick = () => {
+          modal.classList.remove("modal-visible");
+          modal.classList.add("modal-oculto");
+          eliminarOrden(ordenId); // tu función para eliminar
+        };
+
+        // Cancelar
+        document.getElementById("btnCancelarEliminar").onclick = () => {
+          modal.classList.remove("modal-visible");
+          modal.classList.add("modal-oculto");
+        };
+      }
+
+      function mostrarNotificacion3() {
+        const mensaje = `✅ Muy bien , tu orden  ha sido eliminada con exito. <br><br>`;
+        const notificacion = document.getElementById("notificacion3");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
+        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+        //  con estilos
+        //mensaje para el usuario , la pone en modo "visible"
+
+        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
+        // a la notificacion
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 25000);
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("eliminarOrden")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            //toma el valor ingresado le quita espacios y envia un console log
+            const ordenId = document.getElementById("idOrden").value.trim();
+            console.log("ID ingresado:", `"${ordenId}"`);
+            //agrega token
+            const token = localStorage.getItem("token");
+            if (!token) {
+              alert("No estás autenticado. Inicia sesión primero.");
+              return; // error por no tener token
+            }
+
+            if (!ordenId || ordenId.length === 0) {
+              alert("Por favor ingresa el ID de la orden");
+              return; //error por no ingresar el id
+            }
+            //confirma con el usuario y llama la notificacion con dos botones
+            mostrarModalEliminar(ordenId);
+          });
+      });
     </script>
+
+    <div id="modalConfirmacion" class="modal-oculto">
+      <div class="modal-contenido">
+        <h3>¿Eliminar orden #<span id="ordenIdTexto"></span>?</h3>
+        <p>Esta acción no se puede deshacer.</p>
+        <button id="btnConfirmarEliminar" class="btn btn-danger">
+          Sí, eliminar
+        </button>
+        <button id="btnCancelarEliminar" class="btn btn-secondary">
+          Cancelar
+        </button>
+      </div>
+    </div>
+
+    <!--pone la notificaion en oculto que despues se activa a modo visible para formulario de ordenar -->
+    <div id="notificacion3" class="oculto"></div>
 
     <!--footer con boton de retorno a pagina anterior y css -->
     <footer class="footer_editar">
-        <a href="/front/views/contacto.html" class="contacto-btn">RETORNO</a>
-        <!--boton de cerrar sesion -->
-        <button id="logout" class="logout-btn">Cerrar sesión</button>
-        <!--script que escucha el submit para cerrar-->
-        <script>
-            document.getElementById('logout').addEventListener('click', () => {
-                localStorage.removeItem('token'); // ✅ elimina el token al usuario
-                alert('Sesión cerrada');// exito cerrando
-                window.location.href = '/front/views/inicio.html'; // ✅ redirige al inicio de la web 
-            });
-        </script>
-
+      <a href="/front/views/contacto.html" class="contacto-btn">RETORNO</a>
+      <!--boton de cerrar sesion -->
+      <button id="logout" class="logout-btn">Cerrar sesión</button>
+      <!--script que escucha el submit para cerrar-->
+      <script>
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("token"); // ✅ elimina el token al usuario
+          alert("Sesión cerrada"); // exito cerrando
+          window.location.href = "/front/views/inicio.html"; // ✅ redirige al inicio de la web
+        });
+      </script>
     </footer>
-
-</body>
-
+  </body>
 </html>

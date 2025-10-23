@@ -1,217 +1,298 @@
 /*estilos para cada objeto de la pagina headers , formularios , botones y cerrar sesion*/
 .head {
-    padding: 20px 0;
-    text-align: center;
-    font-family: 'Lemon';
-    margin: 0 auto;
-    color: #8675cf;
-    font-size: 70px;
-    background-color: #63caa3;
-    border-radius: 20px;
+  padding: 20px 0;
+  text-align: center;
+  font-family: "Lemon";
+  margin: 0 auto;
+  color: #8675cf;
+  font-size: 70px;
+  background-color: #63caa3;
+  border-radius: 20px;
 }
 
 form {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Lemon';
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Lemon";
 }
 
 fieldset {
-    border: none;
+  border: none;
 }
 
 legend {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 label {
-    display: block;
-    margin-top: 15px;
-    font-weight: 600;
-    color: #555;
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #555;
 }
 
 input,
 textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
-    font-family: 'Lemon';
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  font-family: "Lemon";
+  box-sizing: border-box;
 }
 
 input:focus,
 textarea:focus {
-    border-color: #0077cc;
-    outline: none;
-    background-color: #eef6ff;
-
+  border-color: #0077cc;
+  outline: none;
+  background-color: #eef6ff;
 }
 
 select {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    background-color: #fff;
-    font-size: 16px;
-    font-family: 'Lemon';
-    margin-bottom: 20px;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 16px;
+  font-family: "Lemon";
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
 }
 
 select:focus {
-    border-color: #007bff;
-    outline: none;
+  border-color: #007bff;
+  outline: none;
 }
 
 button {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background-color: #4075e7;
-    color: rgb(248, 246, 245);
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #4075e7;
+  color: rgb(248, 246, 245);
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #005fa3;
-    transform: scale(1.05);
-
+  background-color: #005fa3;
+  transform: scale(1.05);
 }
 
 #eliminar {
-    background-color: #e53935;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 10px;
+  background-color: #e53935;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 #eliminar:hover {
-    background-color: #c62828;
-    transform: scale(1.05);
-
+  background-color: #c62828;
+  transform: scale(1.05);
 }
 
 .footer_editar {
-    background-color: #af73ca;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 380px;
+  background-color: #af73ca;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 380px;
 
-    padding: 20px;
-    font-family: 'Lemon';
-    border-radius: 20px;
+  padding: 20px;
+  font-family: "Lemon";
+  border-radius: 20px;
 }
 
 .contacto-btn {
-    background-color: #5fafe4;
-    color: rgb(58, 33, 204);
-    font-weight: bold;
-    font-size: 28px;
-    text-decoration: none;
-    padding: 18px 36px;
-    border-radius: 10px;
-    font-family: 'Lemon';
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 .contacto-btn:hover {
-    background-color: #544ae4;
-    transform: scale(1.05);
-
+  background-color: #544ae4;
+  transform: scale(1.05);
 }
 
 .logout-btn {
-    background-color: #5fafe4;
-    color: rgb(58, 33, 204);
-    font-weight: bold;
-    font-size: 28px;
-    text-decoration: none;
-    padding: 18px 36px;
-    border-radius: 10px;
-    font-family: 'Lemon';
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 .logout-btn:hover {
-    background-color: #544ae4;
-    transform: scale(1.05);
-
+  background-color: #544ae4;
+  transform: scale(1.05);
 }
 
 .card-text {
-    color: #168024;
-    font-family: 'Lemon';
+  color: #168024;
+  font-family: "Lemon";
 }
 
 table {
-    margin: 20px auto;
-    width: 80%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: 'Lemon';
-    background-color: #e8ebf0;
+  margin: 20px auto;
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: "Lemon";
+  background-color: #e8ebf0;
 }
 
 thead {
-    background-color: #77c57a;
-    color: rgb(6, 78, 27);
+  background-color: #77c57a;
+  color: rgb(6, 78, 27);
 }
 
 th,
 td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 tr:hover {
-    background-color: #76c795;
+  background-color: #76c795;
 }
 
 #resultado {
-    margin-top: 20px;
-
+  margin-top: 20px;
 }
 
 #notificacion {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
+  position: fixed;
+  top: 60px;
+  left: 430px;
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
 }
 
 .oculto {
-    display: none;
+  display: none;
 }
 
 .visible {
-    display: block;
-    opacity: 1;
+  display: block;
+  opacity: 1;
+}
+
+#notificacion2 {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}
+#notificacion3 {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}
+.modal-oculto {
+  display: none;
+}
+
+.modal-contenido {
+  position: fixed;
+  top: 20%;
+  left: 35%;
+  background: rgb(184, 120, 90);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 2000;
+  text-align: center;
+  font-family: "Lemon";
+  font-size: large;
+  color: #e4e9ec;
+}
+
+#modalConfirmacion.modal-visible {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#btnConfirmarEliminar {
+  background-color: #e53935;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#btnCancelarEliminar {
+  background-color: #665756;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#btnCancelarEliminar:hover {
+  background-color: #645b5b;
+  transform: scale(1.05);
+}
+#btnConfirmarEliminar:hover {
+  background-color: #c62828;
+  transform: scale(1.05);
 }
