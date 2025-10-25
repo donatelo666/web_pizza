@@ -1,0 +1,146 @@
+.tarjeta-elegante {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 350px;
+  text-align: center;
+  font-family: "Lemon";
+}
+
+.tarjeta-elegante:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.tarjeta-elegante h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-family: "Lemon";
+}
+
+.tarjeta-elegante p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.tarjeta-elegante .btn {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.tarjeta-elegante .btn:hover {
+  background-color: #e64a19;
+}
+.contenedor-tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.head {
+  padding: 20px 0;
+  text-align: center;
+  font-family: "Lemon";
+  margin: 0 auto;
+  color: #771385;
+  font-size: 70px;
+  background-color: #b76aca;
+  border-radius: 20px;
+}
+.menu-btn {
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.menu-btn:hover {
+  background-color: #544ae4;
+  transform: scale(1.05);
+}
+.inicio-btn {
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.inicio-btn:hover {
+  background-color: #544ae4;
+  transform: scale(1.05);
+}
+
+.footer_promo {
+  background-color: #af73ca;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 300px;
+
+  padding: 20px;
+  font-family: "Lemon";
+  border-radius: 20px;
+}
+.oculto {
+  display: none;
+}
+
+.visible {
+  display: block;
+  opacity: 1;
+}
+
+#notificacion {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}
+.contacto-btn {
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.contacto-btn:hover {
+  background-color: #544ae4;
+  transform: scale(1.05);
+}

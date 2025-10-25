@@ -536,18 +536,51 @@
 
     <!--footer con boton de retorno a pagina anterior y css -->
     <footer class="footer_editar">
-      <a href="/front/views/contacto.html" class="contacto-btn">RETORNO</a>
+      <a href="/front/views/inicio.html" class="inicio-btn" id="inicio-btn"
+        >Inicio</a
+      >
+      <a href="/front/views/contacto.html" class="contacto-btn" id="contact-btn"
+        >Contacto</a
+      >
+
+      <a href="/front/views/menu.html" class="menu-btn" id="menu-btn">Menu</a>
+
       <!--boton de cerrar sesion -->
       <button id="logout" class="logout-btn">Cerrar sesión</button>
-      <!--script que escucha el submit para cerrar-->
-      <script>
-        document.getElementById("logout").addEventListener("click", () => {
-          localStorage.removeItem("token"); // ✅ elimina el token al usuario
-          alert("Sesión cerrada"); // exito cerrando
-          window.location.href = "/front/views/inicio.html"; // ✅ redirige al inicio de la web
-        });
-      </script>
     </footer>
+    <!--script que escucha el submit para cerrar-->
+    <script>
+      function mostrarNotificacion4() {
+        //mensaje para el usuario , la pone en modo "visible"
+        const mensaje = `✅ Sesion cerrada<br>
+    Serás redirigido a la página de inicio en unos segundos...<br><br>
+    <button id="btnIrInicio" class="btn btn-light">Ir ahora</button>`;
+        const notificacion = document.getElementById("Notificacion4");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
+        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+        //  con estilos
+      }
+
+      document.getElementById("logout").addEventListener("click", () => {
+        localStorage.removeItem("token"); // ✅ elimina el token al usuario
+        mostrarNotificacion4(); // ejecuta la funcion y muestra la notificacion
+        //redirige a la siguiente pagina si el usuario espera
+
+        document.getElementById("btnIrInicio").addEventListener("click", () => {
+          clearTimeout(redireccion); // cancela el temporizador
+          window.location.href = "/front/views/inicio.html"; // link para pagina inicio
+        });
+
+        const redireccion = setTimeout(() => {
+          window.location.href = "/front/views/inicio.html";
+        }, 10000);
+        // 🧭 Redirige inmediatamente si el usuario hace clic en el botón
+      });
+    </script>
+    <!--div de cerrar sesion -->
+    <div id="Notificacion4" class="oculto"></div>
+
     <!--script de bootstrap-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

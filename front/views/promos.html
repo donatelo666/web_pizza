@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promociones</title>
+    <!--union con el css, fuentes de google , bootstrap-->
+    <link rel="stylesheet" href="/front/public/promos.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <!--color de fondo-->
+    <style>
+      body {
+        background-color: #dd5287;
+      }
+    </style>
+  </head>
+  <body>
+    <!--header con css-->
+    <header class="head">
+      <p>Promociones vigentes hoy</p>
+    </header>
+    <div class="contenedor-tarjetas">
+      <div class="tarjeta-elegante">
+        <h4>🍕 2x1 en pizzas medianas</h4>
+        <p>Válido todos los martes. Solo para pedidos en línea.</p>
+        <a href="/front/views/editar.html" class="btn btn-ordenar"
+          >Ordenar ahora</a
+        >
+      </div>
+
+      <div class="tarjeta-elegante">
+        <h4>🎁 Combo familiar</h4>
+        <p>Pizza grande + Pizza personal por $80.000</p>
+        <a href="/front/views/editar.html" class="btn btn-ordenar"
+          >Ordenar ahora</a
+        >
+      </div>
+      <div class="tarjeta-elegante">
+        <h4>Combo miercoles doble</h4>
+        <p>2 Pizza personal por $35.000</p>
+        <p>Válido todos los miercoles. Solo para pedidos en línea.</p>
+
+        <a href="/front/views/editar.html" class="btn btn-ordenar"
+          >Ordenar ahora</a
+        >
+      </div>
+    </div>
+
+    <script>
+      function mostrarNotificacion() {
+        const mensaje = `✅ Debes iniciar sesión para ordenar,<br> si no tienes cuenta debes registrarte<br>`;
+        const notificacion = document.getElementById("notificacion");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 10000);
+      }
+
+      document.querySelectorAll(".btn-ordenar").forEach((boton) => {
+        boton.addEventListener("click", (e) => {
+          if (!localStorage.getItem("token")) {
+            e.preventDefault(); // evita navegación si es un link a otra pestaña
+            mostrarNotificacion();
+          } else {
+            // lógica para mostrar la pestaña editar
+            window.location.href = "/front/views/editar.html";
+          }
+        });
+      });
+    </script>
+
+    <!--div de la notificacion para mostrarla en pantalla-->
+    <div id="notificacion" class="oculto"></div>
+    <!--footer con boton de inico y menu  con css -->
+    <footer class="footer_promo">
+      <a href="/front/views/inicio.html" class="inicio-btn" id="inicio"
+        >Inicio</a
+      >
+      <a
+        href="/front/views/contacto.html#registroForm"
+        class="contacto-btn"
+        id="contacto"
+      >
+        Registro y login</a
+      >
+
+      <a href="/front/views/menu.html" class="menu-btn" id="menu-btn">MENU</a>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

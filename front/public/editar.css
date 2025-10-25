@@ -138,11 +138,11 @@ select:focus {
 }
 
 .footer_editar {
-  background-color: #af73ca;
+  background-color: #a453ca;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 380px;
+  gap: 70px;
 
   padding: 20px;
   font-family: "Lemon";
@@ -346,4 +346,63 @@ tr:hover {
   border: none;
   padding: 4px 8px;
   cursor: pointer;
+}
+#Notificacion4 {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}
+#btnIrInicio {
+  background-color: #4bc77f;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: "Lemon";
+}
+.menu-btn {
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.menu-btn:hover {
+  background-color: #544ae4;
+  transform: scale(1.05);
+}
+.inicio-btn {
+  background-color: #5fafe4;
+  color: rgb(58, 33, 204);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.inicio-btn:hover {
+  background-color: #544ae4;
+  transform: scale(1.05);
 }

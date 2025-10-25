@@ -42,7 +42,7 @@
       <input
         type="text"
         name="nombre"
-        placeholder="Minimo 4 y maximo 20 caracteres"
+        placeholder="Minimo 4 y maximo 20 caracteres sin espacios"
         required
         pattern="[A-Za-z0-9]{4,20}"
       />
@@ -56,7 +56,7 @@
       <button type="submit">Registrarse</button>
     </form>
     <!--script que recibe elementos de formulario anterior, con el evento del boton
-    submit, previene el revargar pagina "e.preventdefault"-->
+    submit, previene el recargar pagina "e.preventdefault"-->
     <script>
       const sanitize = (str) => str.replace(/[<>"'`]/g, "");
       function mostrarNotificacion() {
@@ -123,10 +123,10 @@
       />
       <button type="submit">Entrar</button>
     </form>
-    <!--formulario que recibe datos del evento submit , previene la recarga, tranforma 
+    <!--script que recibe datos del evento submit , previene la recarga, tranforma 
     la info en "data"-->
     <script>
-      const sanitize2 = (str) => str.replace(/[<>"'`]/g, "");
+      const sanitize2 = (str) => str.replace(/[<>"'`]/g, ""); //sanitizacion de ingreso de datos
 
       function mostrarNotificacion2() {
         //mensaje para el usuario , la pone en modo "visible"
