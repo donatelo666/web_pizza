@@ -1,56 +1,108 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teenage mutant ninja turtles PIZZA </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teenage mutant ninja turtles PIZZA</title>
 
-<head>
+  <head>
     <!--  da el color de fondo de la web -->
     <style>
-        body {
-            background-color: #69C76C;
-        }
+      body {
+        background-color: #69c76c;
+      }
     </style>
     <!-- relacion con la pagina de css , links para fuentes de google "lemon"-->
     <link rel="stylesheet" href="../public/estilo.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
 
+  <body>
+    <!--header de la pagina que tiene un nav bar con links y manejo de css-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mi-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">🍕 Tortugas Ninja Pizzeria</a>
 
+    <!-- Botón para colapsar en móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse" id="navbarContenido">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link " href="/front/views/menu.html">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/front/views/contacto.html">Contacto y registro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/front/views/promo.html">Promociones</a>
+        </li>
+      </ul>
+<!--boton para ir a iniciar sesion -->
+<a class="btn btn-outline-light me-2" href="/front/views/contacto.html">Iniciar sesión</a>
 
+            <!-- Botón de cerrar sesión o perfil -->
+      <button class="btn btn-outline-light" id="logout">Cerrar sesión</button>
 
-</head>
+    </div>
+  </div>
+</nav>
+<!--script que escucha el submit para cerrar-->
+      <script>
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("token"); // ✅ elimina el token al usuario
+          alert("Sesión cerrada"); // exito cerrando
+          window.location.href = "/front/views/inicio.html"; // ✅ redirige al inicio de la web
+        });
+      </script>
 
-<body>
-    <!--header de la pagina que tiene un css "head"-->
-    <header class="head">
-        <p> TMNT PIZZA</p>
     </header>
     <!--seccion de la pagina con un boton manejado con css y una imagen simple que tambien tiene css-->
     <section class="pizza-layout">
-        <a href="/front/views/contacto.html" class="contact-btn">CONTACTO Y ORDENAR</a>
+      <a href="/front/views/contacto.html" class="contact-btn"
+        >CONTACTO Y ORDENAR</a
+      >
 
-        <img src="/front/public/pizza.jpg" alt="Ninja Turtles comiendo pizza" class="pizza-img">
+      <img
+        src="/front/public/pizza.jpg"
+        alt="Ninja Turtles comiendo pizza"
+        class="pizza-img"
+      />
     </section>
     <!--segunda seccion de la pagina con un texto y boton para la segunda pagina, ambos con css-->
     <section class="seccion2">
-        <p class="texto">Sabrosas pizzas para ordenar en linea , dale un vistazo al menu!</p>
+      <p class="texto">
+        Sabrosas pizzas para ordenar en linea , dale un vistazo al menu!
+      </p>
 
-        <a href="/front/views/menu.html" class="menu-btn">MENU</a>
+      <a href="/front/views/menu.html" class="menu-btn">MENU</a>
     </section>
 
     <!--footer con texto y link a facebook tambien usa css -->
     <footer class="site-footer">
-        <p>Síguenos en facebook
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                TMNT pizza
-            </a>
-        </p>
+      <p>
+        Síguenos en facebook
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          TMNT pizza
+        </a>
+      </p>
     </footer>
-
-
-</body>
-
+     <!--script de bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+  </body>
 </html>

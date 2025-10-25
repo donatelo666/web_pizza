@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!--color de fondo y union con archivo css, fuentes de google -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/front/public/editar.css" />
+    <!--union con css-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--fuentes de google -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <!--bootstrap-->
+
+    <!--color de fondo  -->
     <style>
       body {
         background-color: #5293dd;
       }
     </style>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/front/public/editar.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
-      rel="stylesheet"
-    />
 
     <title>Ordenar</title>
   </head>
@@ -25,10 +35,10 @@
     <header class="head">
       <p>Ordenar pizzas en TMNT</p>
     </header>
-    <!--formulario para ordenar con nombre , telefono , tamaño y  sabor, campos obligatorios
-    y placeholder -->
-    <form id="formOrden">
-      <h3>Ordenar una pizza</h3>
+
+    <!--formulario para agregar al carrito y funcion de enviar orden de varias pizzas-->
+    <form id="form-pizza">
+      <h3>Carrito de pizzas</h3>
       <br />
 
       <label for="nombre">Nombre:</label>
@@ -37,7 +47,7 @@
         id="nombre"
         name="nombre"
         required
-        pattern="[A-Za-z0-9]{4,20}"
+        pattern="[A-Za-z0-9 ]{4,20}"
         placeholder="Minimo 4 y maximo 20 caracteres"
       /><br /><br />
 
@@ -70,68 +80,151 @@
         <option value="mexicana">Mexicana</option>
         <option value="salami">Salami y cabano</option></select
       ><br />
-
-      <button type="submit">Enviar orden</button>
+      <button type="submit" class="agregar">Agregar al carrito</button>
     </form>
-    <script>
-      function mostrarNotificacion(id) {
-        const mensaje = `✅ Orden enviada con éxito<br><br>ID: <strong>${id}</strong><br><br>Guarda este número ID para consultar, editar o eliminar tu orden.`;
-        const notificacion = document.getElementById("notificacion");
-        notificacion.innerHTML = mensaje;
-        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
-        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
-        //  con estilos
-        //mensaje para el usuario , la pone en modo "visible"
+    <!-- Contenedor principal del carrito con bootstrap-->
+    <div class="container mt-4">
+      <h2 class="mb-3">🛒 Tu Carrito</h2>
 
-        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
-        // a la notificacion
-        setTimeout(() => {
-          notificacion.classList.remove("visible");
-          notificacion.classList.add("oculto");
-        }, 25000);
-      }
-      //recibe la informacion del formulario con el evento submit , previene la recarga
+      <div id="carrito-contenido" class="row g-3"></div>
+      <!-- Aquí se insertan las pizzas como tarjetas -->
 
-      document
-        .getElementById("formOrden")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          //almacena los valores escritos por el usuario en variables  y obtiene el token
-          const nombre = document.getElementById("nombre").value;
-          const telefono = document.getElementById("telefono").value;
-          const tamano = document.getElementById("tamano").value;
-          const sabor = document.getElementById("sabor").value;
-          const token = localStorage.getItem("token");
+      <div class="d-flex justify-content-between mt-4">
+        <button onclick="enviarOrden()" class="btn btn-success">
+          Enviar orden</button
+        ><!--boton-->
+        <span id="contador-carrito" class="badge bg-primary fs-5">0 pizzas</span
+        ><!--contador de pizza en carrito -->
+      </div>
 
-          if (!nombre || !telefono || !tamano || !sabor) {
-            alert("¡Por favor, completa todos los campos de la orden!");
-            return; // Detiene el proceso si faltan datos y envia alerta
-          }
-          // 2. Continúa con el envío de la orden si la validación pasa en api tipo post de ordenes
-          fetch("http://localhost:3000/api/ordenes", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token, // ✅ aquí va el token para darselo al usuario
-            },
-            body: JSON.stringify({ nombre, telefono, tamano, sabor }), //convierte datos en jason
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.error) {
-                alert("Error: " + data.error); // envia error
-              } else {
-                mostrarNotificacion(data.id); // ejecuta la funcion y muestra la notificacion
-              }
+      <script>
+        const carrito = []; // pone el carrito vacio
+
+        //notificacion que muestra todos los ids , recorre los ids con html y una coma con espacio
+        //envia mensaje con html
+        function mostrarNotificacion(ids) {
+          const listaIds = ids.map((id) => `<strong>${id}</strong>`).join(", ");
+          const mensaje = `
+    ✅ Orden enviada con éxito<br><br>
+    IDs generados: ${listaIds}<br>
+    Guarda estos números para consultar, editar o eliminar tus órdenes.
+  `;
+
+          const notificacion = document.getElementById("notificacion");
+          notificacion.innerHTML = mensaje;
+          notificacion.classList.remove("d-none"); //quita el estado invisible
+          notificacion.classList.add("show"); // muestra la notificacion
+
+          setTimeout(() => {
+            notificacion.classList.add("d-none");
+            notificacion.classList.remove("show");
+          }, 25000); //muestra por 25 segundos y despues borra
+        }
+
+        document
+          .getElementById("form-pizza") //toma los datos del formulario
+          .addEventListener("submit", function (e) {
+            e.preventDefault(); //previene el borrado del formulario
+            const form = e.target;
+
+            const nuevaPizza = {
+              nombre: form.nombre.value,
+              telefono: form.telefono.value,
+              tamano: form.tamano.value,
+              sabor: form.sabor.value,
+            }; //convierte los datos del formulario en un objeto jason
+
+            carrito.push(nuevaPizza); //Agrega esa pizza al arreglo carrito, que actúa como una lista temporal de órdenes.
+
+            mostrarCarrito(); //muestra info del carrito por pantalla
+            form.reset(); // pone en blanco el formulario para agregar mas pizzas
+          });
+
+        function mostrarCarrito() {
+          const contenedor = document.getElementById("carrito-contenido");
+          contenedor.innerHTML = "";
+
+          carrito.forEach((item, index) => {
+            const div = document.createElement("div");
+            div.className = "col-md-6 col-lg-4";
+
+            div.innerHTML = `
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">${item.nombre}</h5>
+          <p class="card-text">
+            <strong>Teléfono:</strong> ${item.telefono}<br>
+            <strong>Tamaño:</strong> ${item.tamano}<br>
+            <strong>Sabor:</strong> ${item.sabor}
+          </p>
+          <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito(${index})">Eliminar</button>
+        </div>
+      </div>
+    `;
+
+            contenedor.appendChild(div);
+          });
+
+          document.getElementById(
+            "contador-carrito"
+          ).textContent = `${carrito.length} pizzas`;
+        } //construye con html el carrito en pantalla y la info del formulario mas boton de eliminar
+        //estilos de bootstrap
+
+        function eliminarDelCarrito(index) {
+          carrito.splice(index, 1);
+          mostrarCarrito();
+        } //elimina el index 1 del carrito y refresca la pantalla
+
+        function enviarOrden() {
+          if (carrito.length === 0) {
+            alert("Tu carrito está vacío");
+            return;
+          } //error del carrito vacio
+
+          const token = localStorage.getItem("token"); // define el token
+          const idsEnviados = []; //crea  el array de ids vacio
+          let pendientes = carrito.length; //define pendientes
+
+          carrito.forEach((orden) => {
+            fetch("http://localhost:3000/api/ordenes/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: token, // pone el token
+              },
+              body: JSON.stringify(orden), // convierte el array en objeto jason
             })
-            .catch((err) => {
-              console.error("Error al enviar la orden:", err);
-              alert("No se pudo enviar la orden."); // muestra errores
-            });
-        });
-    </script>
-    <!--pone la notificaion en oculto que despues se activa a modo visible para formulario de ordenar -->
-    <div id="notificacion" class="oculto"></div>
+              .then((res) => {
+                if (!res.ok) throw new Error(`Error ${res.status}`);
+                return res.json();
+              })
+              .then((data) => {
+                idsEnviados.push(data.id);
+                pendientes--;
+
+                if (pendientes === 0) {
+                  mostrarNotificacion(idsEnviados);
+                  carrito.length = 0;
+                  mostrarCarrito(); //pone el carrito en cero cuando pendientes esta en cero
+                }
+              })
+              .catch((err) => {
+                console.error("Error al enviar orden:", err);
+                alert("Error al enviar la orden: " + err.message);
+              });
+          });
+        }
+      </script>
+
+      <!-- div de la Notificación -->
+      <div
+        id="notificacion"
+        class="alert alert-success mt-4 d-none"
+        role="alert"
+      ></div>
+    </div>
+
     <!--formulario para consultar una orden realizada , pide el id de la orden en texto
     campo obligatorio , y boton con submit-->
     <form id="consultar">
@@ -145,7 +238,7 @@
         required
         pattern="[0-9]{1,999}"
       /><br /><br />
-      <button type="submit">Consultar orden</button>
+      <button type="submit" class="consultar">Consultar orden</button>
     </form>
     <!--div que contiene la tabla con informacion de la base de datos de la consulta-->
     <div id="resultado"></div>
@@ -248,7 +341,7 @@
         <option value="mediana">Mediana</option>
         <option value="familiar">Familiar</option>
       </select>
-      <br />
+      <br /><br />
       <label for="edit_sabor">Sabor:</label>
       <br />
       <select id="edit_sabor" name="edit_sabor" required>
@@ -258,9 +351,10 @@
         <option value="mexicana">Mexicana</option>
         <option value="salami">Salami y cabano</option>
       </select>
-      <br />
+      <br /><br />
 
-      <button type="submit">Actualizar orden</button><br /><br />
+      <button type="submit" class="actualizar">Actualizar orden</button
+      ><br /><br />
     </form>
     <!--script que toma la informacion del formulario con evento submit, previene la recarga
     crea variables y el token , usa la api put del sever , pone el token -->
@@ -454,5 +548,11 @@
         });
       </script>
     </footer>
+    <!--script de bootstrap-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

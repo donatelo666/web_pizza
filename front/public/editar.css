@@ -73,19 +73,51 @@ select:focus {
   outline: none;
 }
 
-button {
+.agregar {
   margin-top: 20px;
   padding: 12px 20px;
   background-color: #4075e7;
   color: rgb(248, 246, 245);
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.agregar:hover {
+  background-color: #005fa3;
+  transform: scale(1.05);
+}
+.consultar {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #4075e7;
+  color: rgb(248, 246, 245);
+  border: none;
+  border-radius: 12px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.consultar:hover {
+  background-color: #005fa3;
+  transform: scale(1.05);
+}
+.actualizar {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #4075e7;
+  color: rgb(248, 246, 245);
+  border: none;
+  border-radius: 12px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actualizar:hover {
   background-color: #005fa3;
   transform: scale(1.05);
 }
@@ -144,7 +176,7 @@ button:hover {
   padding: 18px 36px;
   border-radius: 10px;
   font-family: "Lemon";
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(129, 120, 120, 0.856);
   transition: background-color 0.3s ease;
 }
 
@@ -295,4 +327,23 @@ tr:hover {
 #btnConfirmarEliminar:hover {
   background-color: #c62828;
   transform: scale(1.05);
+}
+#carrito {
+  margin-top: 30px;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+}
+
+.item-carrito {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.item-carrito button {
+  background-color: #d62828;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
 }
