@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Promociones</title>
     <!--union con el css, fuentes de google , bootstrap-->
-    <link rel="stylesheet" href="/front/public/promos.css" />
+    <link rel="stylesheet" href="/promos.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,26 +34,20 @@
       <div class="tarjeta-elegante">
         <h4>🍕 2x1 en pizzas medianas</h4>
         <p>Válido todos los martes. Solo para pedidos en línea.</p>
-        <a href="/front/views/editar.html" class="btn btn-ordenar"
-          >Ordenar ahora</a
-        >
+        <a href="/editar" class="btn btn-ordenar">Ordenar ahora</a>
       </div>
 
       <div class="tarjeta-elegante">
         <h4>🎁 Combo familiar</h4>
         <p>Pizza grande + Pizza personal por $80.000</p>
-        <a href="/front/views/editar.html" class="btn btn-ordenar"
-          >Ordenar ahora</a
-        >
+        <a href="/editar" class="btn btn-ordenar">Ordenar ahora</a>
       </div>
       <div class="tarjeta-elegante">
         <h4>Combo miercoles doble</h4>
         <p>2 Pizza personal por $35.000</p>
         <p>Válido todos los miercoles. Solo para pedidos en línea.</p>
 
-        <a href="/front/views/editar.html" class="btn btn-ordenar"
-          >Ordenar ahora</a
-        >
+        <a href="/editar" class="btn btn-ordenar">Ordenar ahora</a>
       </div>
     </div>
 
@@ -78,7 +72,7 @@
             mostrarNotificacion();
           } else {
             // lógica para mostrar la pestaña editar
-            window.location.href = "/front/views/editar.html";
+            window.location.href = "/editar";
           }
         });
       });
@@ -88,18 +82,12 @@
     <div id="notificacion" class="oculto"></div>
     <!--footer con boton de inico y menu  con css -->
     <footer class="footer_promo">
-      <a href="/front/views/inicio.html" class="inicio-btn" id="inicio"
-        >Inicio</a
-      >
-      <a
-        href="/front/views/contacto.html#registroForm"
-        class="contacto-btn"
-        id="contacto"
-      >
+      <a href="/inicio" class="inicio-btn" id="inicio">Inicio</a>
+      <a href="/contacto#registroForm" class="contacto-btn" id="contacto">
         Registro y login</a
       >
 
-      <a href="/front/views/menu.html" class="menu-btn" id="menu-btn">MENU</a>
+      <a href="/menu" class="menu-btn" id="menu-btn">MENU</a>
     </footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

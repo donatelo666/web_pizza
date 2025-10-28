@@ -12,7 +12,7 @@
       }
     </style>
     <!-- relacion con la pagina de css , links para fuentes de google "lemon"-->
-    <link rel="stylesheet" href="../public/estilo.css" />
+    <link rel="stylesheet" href="/estilo.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -47,15 +47,15 @@
         <div class="collapse navbar-collapse" id="navbarContenido">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/front/views/menu.html">Menu</a>
+              <a class="nav-link" href="/menu">Menu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/front/views/contacto.html"
+              <a class="nav-link" href="/contacto"
                 >Contacto y registro</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/front/views/promos.html">Promociones</a>
+              <a class="nav-link" href="/promos">Promociones</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="irOrdenar" href="/front/views/editar.html"
@@ -88,7 +88,7 @@
                 }
 
                 // ✅  lógica para mostrar la pestaña "Ordenar"
-                window.location.href = "/front/views/editar.html";
+                window.location.href = "/editar";
               });
           </script>
 
@@ -98,7 +98,7 @@
           <!--boton para ir a iniciar sesion -->
           <a
             class="btn btn-outline-light me-2"
-            href="/front/views/contacto.html#loginForm"
+            href="/contacto#loginForm"
             >Iniciar sesión</a
           >
 
@@ -143,7 +143,7 @@
 
     <!--seccion de la pagina con un boton manejado con css y una imagen simple que tambien tiene css-->
     <section class="pizza-layout">
-      <a href="/front/views/contacto.html" class="contact-btn"
+      <a href="/contacto" class="contact-btn"
         >CONTACTO Y ORDENAR</a
       >
 
@@ -154,21 +154,21 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img
-              src="/front/public/tortugas.jpg"
+              src="/tortugas.jpg"
               class="d-block w-100"
               alt="pizza personal"
             />
           </div>
           <div class="carousel-item">
             <img
-              src="/front/public/caliente.jpg"
+              src="/caliente.jpg"
               class="d-block w-100"
               alt="pizza mediana"
             />
           </div>
           <div class="carousel-item">
             <img
-              src="/front/public/pizza.jpg"
+              src="/pizza.jpg"
               class="d-block w-100"
               alt="pizza familiar"
             />
@@ -196,7 +196,7 @@
         </button>
       </div>
     </section>
-    <!--segunda seccion de la pagina con un texto y boton para la segunda pagina, ambos con css-->
+    <!--segunda seccion de la pagina con un boton y carrusel de bootstrap-->
     <section class="seccion2">
       <!--carrusel de bootstrap, tipo transicion slide ,pone contenedor para las imgenes,
      agrega imagenes primera en active , en block , tamaño 100%,
@@ -205,21 +205,21 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img
-              src="/front/public/gourmet.png"
+              src="/gourmet.png"
               class="d-block w-100"
               alt="pizza personal"
             />
           </div>
           <div class="carousel-item">
             <img
-              src="/front/public/turtles.jpg"
+              src="/turtles.jpg"
               class="d-block w-100"
               alt="pizza mediana"
             />
           </div>
           <div class="carousel-item">
             <img
-              src="/front/public/gg2.png"
+              src="/gg2.png"
               class="d-block w-100"
               alt="pizza familiar"
             />
@@ -247,7 +247,7 @@
         </button>
       </div>
 
-      <a href="/front/views/menu.html" class="menu-btn">MENU</a>
+      <a href="/menu" class="menu-btn">MENU</a>
     </section>
 
     <!--footer con texto y link a facebook tambien usa css -->

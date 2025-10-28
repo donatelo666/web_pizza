@@ -1,63 +1,85 @@
-//paquetes necesarios para las rutas 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const db = require('../config/database.js'); // tu conexión MySQL
-const { body } = require('express-validator');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const db = require("../config/database");
+const { body, validationResult } = require("express-validator");
 
-// ruta registro define el body , encripta la contraseña con bcrypt, inserta en mysql
-//pone rol y maneja errores 
-router.post('/register', [
-    body('password').isLength({ min: 4 }),
-    body('nombre').trim().escape()
-], async (req, res) => {
+console.log("auth.js cargado");
 
+// Registro de usuario
+router.post(
+  "/register",
+  [body("password").isLength({ min: 4 }), body("nombre").trim().escape()],
+  async (req, res) => {
+    console.log("Entró a /register");
     const { nombre, password } = req.body;
-
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+      return res.status(400).json({ error: "Datos inválidos" });
+    }
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10); // 10 es el saltRounds
-        db.query('INSERT INTO usuarios SET ?', {
-            nombre,
-            password: hashedPassword,
-            rol: 'cliente'
-        }, (err, result) => {
-            if (err) return res.status(500).json({ error: 'Error al registrar' });
-            res.status(201).json({ message: 'Usuario registrado, puede iniciar sesion con esos datos' });
-        });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log("Ejecutando consulta...");
+      const [result] = await db.query("INSERT INTO usuarios SET ?", {
+        nombre,
+        password: hashedPassword,
+        rol: "cliente",
+      });
+      console.log("Enviando respuesta...");
+      return res.status(200).json({ mensaje: "Registro exitoso" });
     } catch (error) {
-        res.status(500).json({ error: 'Error al encriptar la contraseña' });
+      console.error("Error en DB:", error);
+      return res.status(500).json({ error: "Error al registrar" });
     }
-});
+  }
+);
 
-
-
-//ruta login , define el body 
-router.post('/login', [
-    body('password').isLength({ min: 4 }),
-    body('nombre').trim().escape()
-], (req, res) => {
+// Login de usuario
+router.post(
+  "/login",
+  [body("password").isLength({ min: 4 }), body("nombre").trim().escape()],
+  async (req, res) => {
+    console.log("Entró a /login");
     const { nombre, password } = req.body;
-    //hace consulta en la base de datos por nombre de usuario 
-    db.query('SELECT * FROM usuarios WHERE nombre = ?', [nombre], async (err, results) => {
-        if (err || results.length === 0) return res.status(401).json({ error: 'Usuario no encontrado' });
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+      return res.status(400).json({ error: "Datos inválidos" });
+    }
 
-        const usuario = results[0];
-        //compara la contraseña encriptada
-        const match = await bcrypt.compare(password, usuario.password);
-        if (!match) {
-            return res.status(401).json({ error: 'Contraseña incorrecta' });
-        }//error
+    try {
+      console.log("Ejecutando consulta...");
+      const [results] = await db.query(
+        "SELECT * FROM usuarios WHERE nombre = ?",
+        [nombre]
+      );
 
-        const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, 'clave_secreta', { expiresIn: '1h' });
-        res.json({ token });//exito , otroga el token por 1 h al usuario 
-    });
-});
+      if (results.length === 0) {
+        return res.status(401).json({ error: "Usuario no encontrado" });
+      }
 
+      console.log("Callback ejecutado");
+      const usuario = results[0];
+      const match = await bcrypt.compare(password, usuario.password);
+      if (!match) {
+        return res
+          .status(401)
+          .json({ error: "Usuario o contraseña incorrectos" });
+      }
 
+      const token = jwt.sign(
+        { id: usuario.id, rol: usuario.rol },
+        "clave_secreta",
+        { expiresIn: "1h" }
+      );
+      console.log("Enviando respuesta...");
+      return res.status(200).json({ token });
+    } catch (error) {
+      console.error("Error en DB:", error);
+      return res.status(500).json({ error: "Error en el login" });
+    }
+  }
+);
 
-
-
-//activa las rutas para ser usadas
 module.exports = router;

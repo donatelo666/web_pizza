@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/front/public/editar.css" />
+    <link rel="stylesheet" href="/editar.css" />
     <!--union con css-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -536,14 +536,10 @@
 
     <!--footer con boton de retorno a pagina anterior y css -->
     <footer class="footer_editar">
-      <a href="/front/views/inicio.html" class="inicio-btn" id="inicio-btn"
-        >Inicio</a
-      >
-      <a href="/front/views/contacto.html" class="contacto-btn" id="contact-btn"
-        >Contacto</a
-      >
+      <a href="/inicio" class="inicio-btn" id="inicio-btn">Inicio</a>
+      <a href="/contacto" class="contacto-btn" id="contact-btn">Contacto</a>
 
-      <a href="/front/views/menu.html" class="menu-btn" id="menu-btn">Menu</a>
+      <a href="/menu" class="menu-btn" id="menu-btn">Menu</a>
 
       <!--boton de cerrar sesion -->
       <button id="logout" class="logout-btn">Cerrar sesión</button>
@@ -573,7 +569,7 @@
         });
 
         const redireccion = setTimeout(() => {
-          window.location.href = "/front/views/inicio.html";
+          window.location.href = "/inicio";
         }, 10000);
         // 🧭 Redirige inmediatamente si el usuario hace clic en el botón
       });

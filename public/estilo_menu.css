@@ -159,59 +159,46 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
+/* Estilo general del carrusel de tamaños */
+#carouselExample {
+  margin: 40px auto;
+  max-width: 450px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Imágenes del carrusel */
+#carouselExample .carousel-item img {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  border-radius: 10px;
+}
+
+/* Efecto hover */
+#carouselExample .carousel-item:hover img {
+  transform: scale(1.03);
+}
+
+/* Botones de navegación */
+#carouselExample .carousel-control-prev-icon,
+#carouselExample .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  padding: 10px;
+}
+
+#carouselExample .carousel-control-prev:hover,
+#carouselExample .carousel-control-next:hover {
+  opacity: 0.85;
+}
 
 .ordena-btn:hover {
   background-color: #1c974f;
   transform: scale(1.05);
 }
 
-.carouselExample .carousel-item img {
-  height: 500px;
-  object-fit: cover;
-}
-
-#carouselExample {
-  height: 550px;
-  /* Ajusta según lo que necesites */
-}
-
-.carousel-item img {
-  height: 100%;
-  object-fit: cover;
-  /* Recorta la imagen para que llene el espacio sin deformarse */
-}
-
-#carouselExample {
-  max-width: 500px;
-  margin: auto;
-  /* Centra el carrusel */
-}
-
-.carouselpizza .carousel-item {
-  font-size: 40px;
-  text-align: center;
-  color: #f7f4f4;
-  font-weight: 500;
-}
-#carouselpizza {
-  height: 700px;
-  overflow: hidden;
-  /* Ajusta según lo que necesites */
-  margin-bottom: 2rem; /* espacio antes del footer */
-}
-.carouselpizza .carousel-item img {
-  width: 100%; /* ocupa todo el ancho del contenedor */
-  height: 100%; /* mantiene proporción */
-  object-fit: cover; /* recorta sin deformar */
-  border-radius: 8px; /* esquinas redondeadas */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* sombra suave */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.carouselpizza .carousel-item img:hover {
-  transform: scale(1.05); /* efecto zoom al pasar el mouse */
-  opacity: 0.95; /* leve transparencia */
-}
 .editar-btn {
   background-color: #dad864;
   color: rgb(15, 117, 29);
@@ -251,4 +238,61 @@
 .visible {
   display: block;
   opacity: 1;
+}
+
+/* Carrusel general */
+#carouselpizza {
+  margin: 40px auto;
+  max-width: 800px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Imágenes del carrusel */
+#carouselpizza .carousel-item img {
+  object-fit: cover;
+  height: 400px;
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+#carouselpizza .carousel-item:hover img {
+  transform: scale(1.03);
+}
+
+/* Texto del carrusel */
+#carouselpizza .carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px;
+  border-radius: 10px;
+  bottom: 10px;
+}
+
+#carouselpizza .carousel-caption h5 {
+  font-family: "Lemon";
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+#carouselpizza .carousel-caption p {
+  font-size: 1.2rem;
+
+  color: #f0f0f0;
+  font-family: "Lemon";
+}
+
+/* Botones de navegación */
+#carouselpizza .carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #000;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+#carouselpizza .carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 0.8;
 }
