@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administracion TMNT</title>
+    <!--  da el color de fondo de la web -->
+    <style>
+      body {
+        background-color: #682424;
+      }
+    </style>
+    <!-- relacion con la pagina de css , links para fuentes de google "lemon", bootstrap-->
+    <link rel="stylesheet" href="/panel.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--fuente Lemon-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!--header de la pagina que tiene un nav bar con links y manejo de css-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mi-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          >🍕🍕🍕 Tortugas Ninja Administracion</a
+        >
+
+        <!-- Botón para colapsar en móviles -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContenido"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido colapsable -->
+        <div class="collapse navbar-collapse" id="navbarContenido">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/usuarios">Ver usuarios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/promos">Editar menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/ordenes">Ver ordenes</a>
+            </li>
+          </ul>
+
+          <!-- Botón de cerrar sesión o perfil -->
+          <button class="btn btn-outline-light" id="logout">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!--div de la notificacion para mostrarla en pantalla-->
+    <div id="notificacion" class="oculto"></div>
+
+    <script>
+      let redireccion; // ✅ variable global
+
+      function mostrarNotificacion() {
+        const mensaje = `✅ Sesión cerrada<br>
+    Serás redirigido a la página de inicio en unos segundos...<br><br>
+    <button id="btnIrInicio" class="btn btn-light">Ir ahora</button>`;
+        const notificacion = document.getElementById("notificacion");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        document.getElementById("btnIrInicio").addEventListener("click", () => {
+          clearTimeout(redireccion);
+          window.location.href = "/inicio";
+        });
+      }
+
+      document.getElementById("logout").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        mostrarNotificacion();
+
+        redireccion = setTimeout(() => {
+          window.location.href = "/inicio";
+        }, 10000);
+      });
+    </script>
+
+    <!--script de bootstrap-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

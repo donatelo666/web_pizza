@@ -47,6 +47,7 @@
   font-family: "Lemon";
   margin: 0 auto;
   color: #129125;
+  font-weight: bold;
 }
 
 .texto4 {
@@ -56,6 +57,7 @@
   font-family: "Lemon";
   margin: 0 auto;
   color: #129125;
+  font-weight: bold;
 }
 
 .menu3 {
@@ -64,7 +66,7 @@
   justify-content: center;
   border-radius: 20px;
   padding: 40px;
-  background-color: #a5d35a;
+  background-color: #ad5abe;
 }
 
 .texto5 {
@@ -73,43 +75,8 @@
   text-align: center;
   font-family: "Lemon";
   margin: 0 auto;
-  color: #2bb840;
-}
-
-.texto6 {
-  font-size: 30px;
-  padding: 50px 0;
-  text-align: center;
-  font-family: "Lemon";
-  margin: 0 auto;
-  color: #f2f7f3;
-}
-
-.texto7 {
-  font-size: 30px;
-  padding: 50px 0;
-  text-align: center;
-  font-family: "Lemon";
-  margin: 0 auto;
-  color: #eff3f0;
-}
-
-.texto8 {
-  font-size: 30px;
-  padding: 50px 0;
-  text-align: center;
-  font-family: "Lemon";
-  margin: 0 auto;
-  color: #f2f7f3;
-}
-
-.texto9 {
-  font-size: 30px;
-  padding: 50px 0;
-  text-align: center;
-  font-family: "Lemon";
-  margin: 0 auto;
-  color: #f2f7f3;
+  color: #c0b237;
+  font-weight: bold;
 }
 
 .footer_menu {

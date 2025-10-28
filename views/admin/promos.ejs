@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #4bc065;
+      }
+    </style>
+    <!-- relacion con la pagina de css , links para fuentes de google "lemon", bootstrap-->
+    <link rel="stylesheet" href="/edit.menu.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--fuente Lemon-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <%- include('../partials/navbarAdmin') %>
+
+    <table class="table table-dark table-striped">
+      <h1 class="text">Editar menú de pizzas</h1>
+
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Ingredientes</th>
+          <th>Imagen</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pizzas.forEach(pizza => { %>
+        <tr>
+          <form id="form-<%= pizza.id %>" enctype="multipart/form-data">
+            >
+            <td>
+              <input
+                type="text"
+                name="nombre"
+                value="<%= pizza.nombre %>"
+                required
+              />
+            </td>
+            <td>
+              <textarea name="ingredientes" required>
+<%= pizza.ingredientes %></textarea
+              >
+            </td>
+            <td>
+              <img src="<%= pizza.imagen %>" width="80" />
+              <input
+                type="hidden"
+                name="imagenActual"
+                value="<%= pizza.imagen %>"
+              />
+              <input type="file" name="imagen" accept="image/*" />
+            </td>
+            <td>
+              <input type="hidden" name="pizzaId" value="<%= pizza.id %>" />
+              <button type="submit" class="btn btn-success">Guardar</button>
+            </td>
+          </form>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <div id="notificacion2" class="oculto alert text-center"></div>
+
+    <script>
+      function mostrarNotificacion2(tipo, mensaje) {
+        const noti = document.getElementById("notificacion2");
+        noti.innerHTML = mensaje;
+        noti.className = `visible alert ${
+          tipo === "exito" ? "exito" : "error"
+        }`;
+        setTimeout(() => {
+          noti.className = "oculto";
+        }, 4000);
+      }
+
+      document.querySelectorAll("form[id^='form-']").forEach((form) => {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(form);
+
+          try {
+            const res = await fetch("/admin/promos/actualizar", {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+              mostrarNotificacion2(
+                "exito",
+                data.mensaje || "✅ Pizza actualizada"
+              );
+            } else {
+              mostrarNotificacion2(
+                "error",
+                data.error || "❌ Error al actualizar"
+              );
+            }
+          } catch (err) {
+            mostrarNotificacion2("error", "❌ Error de conexión");
+          }
+        });
+      });
+    </script>
+
+    <form enctype="multipart/form-data" id="formCrearPizza">
+      <hr class="text" />
+
+      <h2 class="text">Crear nueva pizza</h2>
+
+      <label class="text">Nombre:</label>
+      <input type="text" name="nombre" required />
+
+      <label class="text">Ingredientes:</label>
+      <textarea name="ingredientes" required></textarea>
+
+      <label class="text">Imagen:</label>
+      <input type="file" name="imagen" accept="image/*" required />
+
+      <button type="submit" class="btn btn-primary mt-2">Crear Pizza</button>
+    </form>
+
+    <div id="notificacion" class="oculto alert text-center"></div>
+    <script>
+      function mostrarNotificacion(tipo, mensaje) {
+        const noti = document.getElementById("notificacion");
+        noti.innerHTML = mensaje;
+        noti.className = `visible alert ${
+          tipo === "exito" ? "exito" : "error"
+        }`;
+        setTimeout(() => {
+          noti.className = "oculto";
+        }, 4000);
+      }
+
+      document
+        .getElementById("formCrearPizza")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+
+          const res = await fetch("/admin/promos/crear", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            mostrarNotificacion("exito", data.mensaje || "✅ Pizza creada");
+            e.target.reset(); // limpia el formulario
+          } else {
+            mostrarNotificacion(
+              "error",
+              data.error || "❌ Error al crear pizza"
+            );
+          }
+        });
+    </script>
+
+    <!--script de bootstrap-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -83,7 +83,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 380px;
+  gap: 200px;
 
   padding: 20px;
   font-family: "Lemon";
@@ -206,4 +206,21 @@ button[type="submit"]:hover {
   cursor: pointer;
   font-size: 18px;
   font-family: "Lemon";
+}
+.editar-btn {
+  background-color: #6b89da;
+  color: rgb(172, 57, 12);
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: "Lemon";
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.editar-btn:hover {
+  background-color: #2f5da1;
+  transform: scale(1.05);
 }

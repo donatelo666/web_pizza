@@ -1,0 +1,32 @@
+.mi-navbar {
+  font-size: 1.3rem; /* tamaño */
+  font-weight: bold; /* aplica negrita */
+  font-family: "Lemon"; /*  fuente que prefieras */
+}
+.mi-navbar .nav-link {
+  color: #9ae372;
+}
+.oculto {
+  display: none;
+}
+
+.visible {
+  display: block;
+  opacity: 1;
+}
+
+#notificacion {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Lemon";
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}

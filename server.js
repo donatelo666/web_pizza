@@ -12,15 +12,18 @@ const contactoRoutes = require("./src/routes/contacto.js");
 const editarRoutes = require("./src/routes/editar.js");
 const promosRoutes = require("./src/routes/promos.js");
 const adminRoutes = require("./src/routes/admin.js");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cookieParser());
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
+app.locals.basedir = path.join(__dirname, "views");
 
 app.use("/menu", menuRoutes);
 app.use("/inicio", inicioRoutes);
@@ -29,6 +32,7 @@ app.use("/editar", editarRoutes);
 app.use("/promos", promosRoutes);
 app.use("/admin", adminRoutes);
 app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
 
 // Rutas protegidas con token y base de datos con promesas
 const router = express.Router();
