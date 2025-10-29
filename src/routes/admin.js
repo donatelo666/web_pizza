@@ -3,7 +3,20 @@ const router = express.Router();
 const db = require("../config/database");
 const verificarToken = require("../middleware/verificartoken");
 const multer = require("multer");
-const upload = multer({ dest: "public/uploads/" });
+const path = require("path");
+
+// Configurar almacenamiento de multer en uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "/public/uploads"));
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({ storage });
 
 //ruta para ver la pestaña panel con verificacion de token
 router.get("/panel", verificarToken, async (req, res) => {
@@ -12,9 +25,6 @@ router.get("/panel", verificarToken, async (req, res) => {
       req.usuarioId,
     ]);
     const usuario = rows[0];
-
-    console.log("Usuario ID desde token:", req.usuarioId);
-    console.log("Rol recibido:", usuario?.rol);
 
     if (!usuario || usuario.rol.trim() !== "admin") {
       return res.status(403).send("Acceso denegado");
@@ -59,23 +69,73 @@ router.post("/promos/actualizar", upload.single("imagen"), async (req, res) => {
   }
 });
 
-router.post("/promos/crear", async (req, res) => {
-  const ruta_imagen = req.file
-    ? `/uploads/${req.file.filename}`
-    : req.body.ruta_imagen;
+// Ruta para crear pizza
+router.post("/promos/crear", upload.single("ruta_imagen"), async (req, res) => {
+  // 🔥 Ahora req.body y req.file estarán disponibles
   const { nombre, ingredientes } = req.body;
+  const ruta_imagen = req.file ? `/uploads/${req.file.filename}` : null;
+
+  if (!nombre || !ingredientes) {
+    return res.status(400).json({ error: "Faltan datos requeridos" });
+  }
 
   try {
     await db.query(
       "INSERT INTO pizzas (nombre, ingredientes, ruta_imagen) VALUES (?, ?, ?)",
       [nombre, ingredientes, ruta_imagen]
     );
-
-    res.status(200).json({ mensaje: "Pizza creada correctamente" });
+    res.status(200).json({ mensaje: "Pizza creada correctamente ✅" });
   } catch (err) {
     console.error("Error al crear pizza:", err);
     res.status(500).json({ error: "Error al crear la pizza" });
   }
+});
+
+//ruta pa ver usuarios
+router.get("/usuarios", async (req, res) => {
+  try {
+    const [usuarios] = await db.query("SELECT * FROM usuarios");
+
+    let usuarioParaEditar = null;
+    if (req.query.editar) {
+      const [resultado] = await db.query(
+        "SELECT * FROM usuarios WHERE id = ?",
+        [req.query.editar]
+      );
+      usuarioParaEditar = resultado[0] || null;
+    }
+
+    // 🔥 pasa ambas variables SIEMPRE
+    res.render("admin/usuarios", { usuarios, usuarioParaEditar });
+  } catch (err) {
+    console.error("Error al obtener usuarios:", err);
+    res.status(500).send("Error al cargar usuarios");
+  }
+});
+
+// 🟩 Ruta para editar usuario
+router.put("/usuarios/:id", async (req, res) => {
+  const { id } = req.params;
+  const { nombre, rol } = req.body;
+
+  try {
+    await db.query("UPDATE usuarios SET nombre = ?, rol = ? WHERE id = ?", [
+      nombre,
+      rol,
+      id,
+    ]);
+    res.redirect("/admin/usuarios"); // vuelve al panel
+  } catch (err) {
+    console.error("Error al actualizar usuario:", err);
+    res.status(500).send("Error al editar el usuario");
+  }
+});
+
+//ruta para eliminar con override
+router.delete("/usuarios/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.query("DELETE FROM usuarios WHERE id = ?", [id]);
+  res.redirect("/admin/usuarios");
 });
 
 module.exports = router;

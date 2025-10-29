@@ -1,0 +1,8 @@
+.la-navbar {
+  font-size: 1.3rem; /* tamaño */
+  font-weight: bold; /* aplica negrita */
+  font-family: "Lemon"; /*  fuente que prefieras */
+}
+.la-navbar .nav-link {
+  color: #9ae372;
+}

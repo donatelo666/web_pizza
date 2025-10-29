@@ -36,6 +36,21 @@
       <p>Ordenar pizzas en TMNT</p>
     </header>
 
+    <!-- Solo visible si el usuario es administrador-->
+    <div id="adminLinks" style="display: none">
+      <a href="/admin/panel">Panel Admin</a>
+    </div>
+    <!--scrpt para acceder a las pestañas d administracion -->
+    <script>
+      const token = localStorage.getItem("token");
+      if (token) {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        if (payload.rol === "admin") {
+          document.getElementById("adminLinks").style.display = "block";
+        }
+      }
+    </script>
+
     <!--formulario para agregar al carrito y funcion de enviar orden de varias pizzas-->
     <form id="form-pizza">
       <h3>Carrito de pizzas</h3>
@@ -534,22 +549,6 @@
     <!--pone la notificaion en oculto que despues se activa a modo visible para formulario de ordenar -->
     <div id="notificacion3" class="oculto"></div>
 
-    <!-- Solo visible si el usuario es administrador-->
-    <div id="adminLinks" style="display: none">
-      <a href="/admin/panel">Panel Admin</a>
-      <a href="/admin/promos">Editar menú</a>
-    </div>
-    <!--scrpt para acceder a las pestañas d administracion -->
-    <script>
-      const token = localStorage.getItem("token");
-      if (token) {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        if (payload.rol === "admin") {
-          document.getElementById("adminLinks").style.display = "block";
-        }
-      }
-    </script>
-
     <!--footer con boton de retorno a pagina anterior y css -->
     <footer class="footer_editar">
       <a href="/inicio" class="inicio-btn" id="inicio-btn">Inicio</a>
@@ -560,6 +559,9 @@
       <!--boton de cerrar sesion -->
       <button id="logout" class="logout-btn">Cerrar sesión</button>
     </footer>
+
+    <!--div de cerrar sesion -->
+    <div id="Notificacion4" class="oculto"></div>
     <!--script que escucha el submit para cerrar-->
     <script>
       function mostrarNotificacion4() {
@@ -590,8 +592,6 @@
         // 🧭 Redirige inmediatamente si el usuario hace clic en el botón
       });
     </script>
-    <!--div de cerrar sesion -->
-    <div id="Notificacion4" class="oculto"></div>
 
     <!--script de bootstrap-->
     <script

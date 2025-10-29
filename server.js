@@ -13,18 +13,26 @@ const editarRoutes = require("./src/routes/editar.js");
 const promosRoutes = require("./src/routes/promos.js");
 const adminRoutes = require("./src/routes/admin.js");
 const cookieParser = require("cookie-parser");
+const methodOverride = require("method-override");
 
 const app = express();
+
+// Middlewares de Express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+
+// Middlewares de terceros
 app.use(cors());
 app.use(cookieParser());
+app.use(methodOverride("_method"));
 
+// Configuración de vistas
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
 app.locals.basedir = path.join(__dirname, "views");
 
+//rutas de vistas y acceso a las rutas de admin
 app.use("/menu", menuRoutes);
 app.use("/inicio", inicioRoutes);
 app.use("/contacto", contactoRoutes);

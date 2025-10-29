@@ -406,3 +406,29 @@ tr:hover {
   background-color: #544ae4;
   transform: scale(1.05);
 }
+
+#adminLinks {
+  position: fixed;
+  top: 200px;
+  left: 50px;
+  height: 80px;
+  background-color: #198754; /* Bootstrap success */
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#adminLinks a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: "Lemon";
+}
+
+#adminLinks:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}

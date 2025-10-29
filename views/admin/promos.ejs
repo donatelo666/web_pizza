@@ -3,12 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      body {
-        background-color: #4bc065;
-      }
-    </style>
+    <title>editar el menu</title>
+
     <!-- relacion con la pagina de css , links para fuentes de google "lemon", bootstrap-->
     <link rel="stylesheet" href="/edit.menu.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +20,12 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+
+    <style>
+      body {
+        background-color: #58c06e;
+      }
+    </style>
   </head>
   <body>
     <%- include('../partials/navbarAdmin') %>
@@ -75,18 +77,24 @@
         <% }) %>
       </tbody>
     </table>
-    <div id="notificacion2" class="oculto alert text-center"></div>
+    <div id="notificacion" class="oculto"></div>
 
     <script>
-      function mostrarNotificacion2(tipo, mensaje) {
-        const noti = document.getElementById("notificacion2");
-        noti.innerHTML = mensaje;
-        noti.className = `visible alert ${
-          tipo === "exito" ? "exito" : "error"
-        }`;
+      function mostrarNotificacion() {
+        const mensaje = `✅ Muy bien pizza actualizada con exito en el menu `;
+        const notificacion = document.getElementById("notificacion");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
+        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+        //  con estilos
+        //mensaje para el usuario , la pone en modo "visible"
+
+        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
+        // a la notificacion
         setTimeout(() => {
-          noti.className = "oculto";
-        }, 4000);
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 8000);
       }
 
       document.querySelectorAll("form[id^='form-']").forEach((form) => {
@@ -102,24 +110,22 @@
 
             const data = await res.json();
             if (res.ok) {
-              mostrarNotificacion2(
-                "exito",
-                data.mensaje || "✅ Pizza actualizada"
-              );
+              mostrarNotificacion();
             } else {
-              mostrarNotificacion2(
-                "error",
-                data.error || "❌ Error al actualizar"
-              );
+              alert(data.error || "❌ Error al crear pizza");
             }
           } catch (err) {
-            mostrarNotificacion2("error", "❌ Error de conexión");
+            alert(data.error || "error", "❌ Error al crear pizza");
           }
         });
       });
     </script>
 
-    <form enctype="multipart/form-data" id="formCrearPizza">
+    <form
+      enctype="multipart/form-data"
+      id="formCrearPizza"
+      action="/promos/crear"
+    >
       <hr class="text" />
 
       <h2 class="text">Crear nueva pizza</h2>
@@ -131,22 +137,28 @@
       <textarea name="ingredientes" required></textarea>
 
       <label class="text">Imagen:</label>
-      <input type="file" name="imagen" accept="image/*" required />
+      <input type="file" name="ruta_imagen" accept="image/*" required />
 
       <button type="submit" class="btn btn-primary mt-2">Crear Pizza</button>
     </form>
 
-    <div id="notificacion" class="oculto alert text-center"></div>
+    <div id="notificacion2" class="oculto"></div>
     <script>
-      function mostrarNotificacion(tipo, mensaje) {
-        const noti = document.getElementById("notificacion");
-        noti.innerHTML = mensaje;
-        noti.className = `visible alert ${
-          tipo === "exito" ? "exito" : "error"
-        }`;
+      function mostrarNotificacion2() {
+        const mensaje = `✅ Muy bien pizza creada con exito en el menu  `;
+        const notificacion = document.getElementById("notificacion2");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
+        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+        //  con estilos
+        //mensaje para el usuario , la pone en modo "visible"
+
+        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
+        // a la notificacion
         setTimeout(() => {
-          noti.className = "oculto";
-        }, 4000);
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 8000);
       }
 
       document
@@ -162,15 +174,42 @@
 
           const data = await res.json();
           if (res.ok) {
-            mostrarNotificacion("exito", data.mensaje || "✅ Pizza creada");
+            mostrarNotificacion2();
             e.target.reset(); // limpia el formulario
           } else {
-            mostrarNotificacion(
-              "error",
-              data.error || "❌ Error al crear pizza"
-            );
+            alert(data.error || "❌ Error al crear pizza");
           }
         });
+    </script>
+
+    <div id="notificacion3" class="oculto"></div>
+
+    <script>
+      let redireccion; // ✅ variable global
+
+      function mostrarNotificacion3() {
+        const mensaje = `✅ Sesión cerrada<br>
+    Serás redirigido a la página de inicio en unos segundos...<br><br>
+    <button id="btnIrInicio" class="btn btn-light">Ir ahora</button>`;
+        const notificacion = document.getElementById("notificacion3");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        document.getElementById("btnIrInicio").addEventListener("click", () => {
+          clearTimeout(redireccion);
+          window.location.href = "/inicio";
+        });
+      }
+
+      document.getElementById("logout").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        mostrarNotificacion3();
+
+        redireccion = setTimeout(() => {
+          window.location.href = "/inicio";
+        }, 10000);
+      });
     </script>
 
     <!--script de bootstrap-->
