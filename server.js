@@ -40,7 +40,6 @@ app.use("/editar", editarRoutes);
 app.use("/promos", promosRoutes);
 app.use("/admin", adminRoutes);
 app.use("/auth", authRoutes);
-app.use("/admin", adminRoutes);
 
 // Rutas protegidas con token y base de datos con promesas
 const router = express.Router();

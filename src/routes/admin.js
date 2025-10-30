@@ -8,7 +8,7 @@ const path = require("path");
 // Configurar almacenamiento de multer en uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "/public/uploads"));
+    cb(null, path.join(__dirname, "../../public/uploads"));
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "-" + file.originalname;
@@ -39,7 +39,7 @@ router.get("/panel", verificarToken, async (req, res) => {
 
 //ruta para ver promos con verificacion de admin , muestra las pizzas del menu con opcion de editar
 //agregar nuevas
-router.get("/promos", verificarToken, async (req, res) => {
+router.get("/edit_menu", verificarToken, async (req, res) => {
   const [rows] = await db.query("SELECT rol FROM usuarios WHERE id = ?", [
     req.usuarioId,
   ]);
@@ -50,46 +50,59 @@ router.get("/promos", verificarToken, async (req, res) => {
   }
 
   const [pizzas] = await db.query("SELECT * FROM pizzas");
-  res.render("admin/promos", { pizzas });
+  res.render("admin/edit_menu", { pizzas });
 });
 
-// Actualizar pizza
-router.post("/promos/actualizar", upload.single("imagen"), async (req, res) => {
-  const { pizzaId, nombre, ingredientes, imagenActual } = req.body;
-  const nuevaImagen = req.file ? `/uploads/${req.file.filename}` : imagenActual;
+//actualizar menu de pizzas desde admin
+router.post(
+  "/edit_menu/actualizar",
+  upload.single("imagen"),
+  async (req, res) => {
+    const { pizzaId, nombre, ingredientes, imagenActual } = req.body;
 
-  try {
-    await db.query(
-      "UPDATE pizzas SET nombre = ?, ingredientes = ?, ruta_imagen = ? WHERE id = ?",
-      [nombre, ingredientes, nuevaImagen, pizzaId]
-    );
-    res.status(200).json({ mensaje: "Pizza actualizada correctamente" });
-  } catch (err) {
-    res.status(500).json({ error: "Error al actualizar la pizza" });
+    const nuevaImagen = req.file
+      ? `/uploads/${req.file.filename}`
+      : imagenActual;
+
+    try {
+      const [result] = await db.query(
+        "UPDATE pizzas SET nombre = ?, ingredientes = ?, ruta_imagen = ? WHERE id = ?",
+        [nombre, ingredientes, nuevaImagen, pizzaId]
+      );
+
+      res.status(200).json({ mensaje: "Pizza actualizada correctamente" });
+    } catch (err) {
+      console.error("❌ Error al actualizar pizza:", err);
+      res.status(500).json({ error: "Error al actualizar la pizza" });
+    }
   }
-});
+);
 
 // Ruta para crear pizza
-router.post("/promos/crear", upload.single("ruta_imagen"), async (req, res) => {
-  // 🔥 Ahora req.body y req.file estarán disponibles
-  const { nombre, ingredientes } = req.body;
-  const ruta_imagen = req.file ? `/uploads/${req.file.filename}` : null;
+router.post(
+  "/edit_menu/crear",
+  upload.single("ruta_imagen"),
+  async (req, res) => {
+    // 🔥 Ahora req.body y req.file estarán disponibles
+    const { nombre, ingredientes } = req.body;
+    const ruta_imagen = req.file ? `/uploads/${req.file.filename}` : null;
 
-  if (!nombre || !ingredientes) {
-    return res.status(400).json({ error: "Faltan datos requeridos" });
-  }
+    if (!nombre || !ingredientes) {
+      return res.status(400).json({ error: "Faltan datos requeridos" });
+    }
 
-  try {
-    await db.query(
-      "INSERT INTO pizzas (nombre, ingredientes, ruta_imagen) VALUES (?, ?, ?)",
-      [nombre, ingredientes, ruta_imagen]
-    );
-    res.status(200).json({ mensaje: "Pizza creada correctamente ✅" });
-  } catch (err) {
-    console.error("Error al crear pizza:", err);
-    res.status(500).json({ error: "Error al crear la pizza" });
+    try {
+      await db.query(
+        "INSERT INTO pizzas (nombre, ingredientes, ruta_imagen) VALUES (?, ?, ?)",
+        [nombre, ingredientes, ruta_imagen]
+      );
+      res.status(200).json({ mensaje: "Pizza creada correctamente ✅" });
+    } catch (err) {
+      console.error("Error al crear pizza:", err);
+      res.status(500).json({ error: "Error al crear la pizza" });
+    }
   }
-});
+);
 
 //ruta pa ver usuarios
 router.get("/usuarios", async (req, res) => {

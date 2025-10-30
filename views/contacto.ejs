@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro y contacto</title>
     <!--union con el css, fuentes de google , bootstrap-->
-    <link rel="stylesheet" href="/estilo_contacto.css" />
+    <link rel="stylesheet" href="/css/estilo_contacto.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -103,19 +103,46 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src="/wapp.png" alt="boton wapp" class="wapp" />
+              <img src="/img/wapp.png" alt="boton wapp" class="wapp" />
             </a>
           </div>
         </div>
       </div>
     </div>
-
+    <!--div de la notificacion para mostrarla en pantalla-->
     <!--footer con dos botones que tiene estilos de css-->
     <footer class="footer_contacto">
       <a href="/inicio" class="inicio-btn">Inicio</a>
       <a href="/menu" class="menu-btn">Menu</a>
-      <a href="/editar" class="editar-btn">Ordenar</a>
+      <a href="/editar" class="editar-btn" id="editar-btn">Ordenar</a>
     </footer>
+
+    <script>
+      function mostrarNotificacion3() {
+        const mensaje = `✅ Debes iniciar sesión para ordenar,<br>Si no tienes una cuenta<br> debes registrarte`;
+        const notificacion = document.getElementById("notificacion3");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 10000);
+      }
+
+      document.getElementById("editar-btn").addEventListener("click", (e) => {
+        if (!localStorage.getItem("token")) {
+          e.preventDefault(); // ⛔ detiene el comportamiento por defecto (como ir al href)
+          mostrarNotificacion3(); // ✅ muestra el mensaje
+          return; // ⛔ evita que siga ejecutando el resto
+        }
+
+        // ✅  lógica para mostrar la pestaña "Ordenar"
+        window.location.href = "/editar";
+      });
+    </script>
+
     <!--estilo que da color de fondo a la tarjeta con texto e imagen de wapp-->
     <style>
       .fondo-personalizado {
@@ -129,5 +156,7 @@
       crossorigin="anonymous"
     ></script>
     <div id="notificacion2" class="oculto"></div>
+
+    <div id="notificacion3" class="oculto"></div>
   </body>
 </html>

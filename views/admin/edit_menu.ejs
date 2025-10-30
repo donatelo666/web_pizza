@@ -6,7 +6,7 @@
     <title>editar el menu</title>
 
     <!-- relacion con la pagina de css , links para fuentes de google "lemon", bootstrap-->
-    <link rel="stylesheet" href="/edit.menu.css" />
+    <link rel="stylesheet" href="/css/edit.menu.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!--fuente Lemon-->
@@ -41,56 +41,48 @@
           <th>Editar</th>
         </tr>
       </thead>
-      <tbody>
-        <% pizzas.forEach(pizza => { %>
-        <tr>
-          <form id="form-<%= pizza.id %>" enctype="multipart/form-data">
-            >
-            <td>
-              <input
-                type="text"
-                name="nombre"
-                value="<%= pizza.nombre %>"
-                required
-              />
-            </td>
-            <td>
-              <textarea name="ingredientes" required>
-<%= pizza.ingredientes %></textarea
-              >
-            </td>
-            <td>
-              <img src="<%= pizza.imagen %>" width="80" />
-              <input
-                type="hidden"
-                name="imagenActual"
-                value="<%= pizza.imagen %>"
-              />
-              <input type="file" name="imagen" accept="image/*" />
-            </td>
-            <td>
-              <input type="hidden" name="pizzaId" value="<%= pizza.id %>" />
-              <button type="submit" class="btn btn-success">Guardar</button>
-            </td>
-          </form>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
+      
+    <table class="table table-dark table-striped">
+  <tbody>
+    <% pizzas.forEach(pizza => { %>
+      <tr>
+        <form id="form-<%= pizza.id %>" enctype="multipart/form-data">
+          <td>
+            <input type="text" name="nombre" value="<%= pizza.nombre %>" required />
+          </td>
+          <td>
+            <textarea name="ingredientes" required><%= pizza.ingredientes %></textarea>
+          </td>
+          <td>
+            <img src="<%= pizza.imagen %>" width="80" />
+            <input type="hidden" name="imagenActual" value="<%= pizza.imagen %>" />
+            <input type="file" name="imagen" accept="image/*" />
+          </td>
+          <td>
+            <input type="hidden" name="pizzaId" value="<%= pizza.id %>" />
+            <button type="submit" class="btn btn-success">Guardar</button>
+          </td>
+        </form>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+
     <div id="notificacion" class="oculto"></div>
 
     <script>
       function mostrarNotificacion() {
-        const mensaje = `✅ Muy bien pizza actualizada con exito en el menu `;
+        const mensaje = `✅ Muy bien, pizza actualizada con éxito en el menú`;
         const notificacion = document.getElementById("notificacion");
-        notificacion.innerHTML = mensaje;
-        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
-        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
-        //  con estilos
-        //mensaje para el usuario , la pone en modo "visible"
 
-        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
-        // a la notificacion
+        if (!notificacion) return; // evita error si el div no existe
+
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        // Ocultar después de 8 segundos
         setTimeout(() => {
           notificacion.classList.remove("visible");
           notificacion.classList.add("oculto");
@@ -103,19 +95,30 @@
           const formData = new FormData(form);
 
           try {
-            const res = await fetch("/admin/promos/actualizar", {
+            const res = await fetch("/admin/edit_menu/actualizar", {
               method: "POST",
               body: formData,
             });
 
-            const data = await res.json();
+            let data;
+            try {
+              data = await res.json(); // puede fallar si el servidor responde con HTML
+            } catch (jsonError) {
+              console.warn("La respuesta no es JSON:", jsonError);
+              const raw = await res.text();
+              console.log("Respuesta cruda:", raw);
+              alert("❌ Error inesperado del servidor");
+              return;
+            }
+
             if (res.ok) {
               mostrarNotificacion();
             } else {
-              alert(data.error || "❌ Error al crear pizza");
+              alert(data.error || "❌ Error al actualizar pizza");
             }
           } catch (err) {
-            alert(data.error || "error", "❌ Error al crear pizza");
+            console.error("Error en la solicitud:", err);
+            alert("❌ Error de red o del servidor");
           }
         });
       });
@@ -124,7 +127,7 @@
     <form
       enctype="multipart/form-data"
       id="formCrearPizza"
-      action="/promos/crear"
+      action="/edit_menu/crear"
     >
       <hr class="text" />
 
@@ -167,21 +170,32 @@
           e.preventDefault();
           const formData = new FormData(e.target);
 
-          const res = await fetch("/admin/promos/crear", {
-            method: "POST",
-            body: formData,
-          });
+          try {
+            const res = await fetch("/admin/edit_menu/crear", {
+              method: "POST",
+              body: formData,
+            });
 
-          const data = await res.json();
-          if (res.ok) {
-            mostrarNotificacion2();
-            e.target.reset(); // limpia el formulario
-          } else {
-            alert(data.error || "❌ Error al crear pizza");
+            let data;
+            try {
+              data = await res.json(); // puede fallar si no hay JSON
+            } catch (err) {
+              console.warn("Respuesta no es JSON:", err);
+              data = {};
+            }
+
+            if (res.ok) {
+              mostrarNotificacion2();
+              e.target.reset(); // limpia el formulario
+            } else {
+              alert(data.error || "❌ Error al crear pizza");
+            }
+          } catch (err) {
+            console.error("Error en la solicitud:", err);
+            alert("❌ Error de red o servidor");
           }
         });
     </script>
-
     <div id="notificacion3" class="oculto"></div>
 
     <script>
