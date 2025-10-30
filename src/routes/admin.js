@@ -106,7 +106,10 @@ router.get("/usuarios", async (req, res) => {
     }
 
     // 🔥 pasa ambas variables SIEMPRE
-    res.render("admin/usuarios", { usuarios, usuarioParaEditar });
+    res.render("admin/usuarios", {
+      usuarios,
+      usuarioParaEditar,
+    });
   } catch (err) {
     console.error("Error al obtener usuarios:", err);
     res.status(500).send("Error al cargar usuarios");
@@ -131,11 +134,100 @@ router.put("/usuarios/:id", async (req, res) => {
   }
 });
 
-//ruta para eliminar con override
+//ruta para eliminar usuarios con override
 router.delete("/usuarios/:id", async (req, res) => {
   const { id } = req.params;
   await db.query("DELETE FROM usuarios WHERE id = ?", [id]);
-  res.redirect("/admin/usuarios");
+  res.redirect("/admin/usuarios?eliminado=1"); // ✅ redirige con flag
+});
+
+//ruta pa ver ordenes
+router.get("/ordenes", async (req, res) => {
+  try {
+    const [ordenes] = await db.query("SELECT * FROM ordenes");
+
+    let ordenParaEditar = null;
+    if (req.query.editar) {
+      const [resultado] = await db.query("SELECT * FROM ordenes WHERE id = ?", [
+        req.query.editar,
+      ]);
+      ordenParaEditar = resultado[0] || null;
+    }
+
+    // 🔥 pasa varias variables SIEMPRE
+    res.render("admin/ordenes", {
+      ordenes,
+      ordenParaEditar,
+    });
+  } catch (err) {
+    console.error("Error al obtener usuarios:", err);
+    res.status(500).send("Error al cargar usuarios");
+  }
+});
+
+// 🟩 Ruta para editar orden
+router.put("/ordenes/:id", async (req, res) => {
+  const { id } = req.params;
+  const { nombre, telefono, tamano, sabor } = req.body;
+
+  try {
+    await db.query(
+      "UPDATE ordenes SET nombre = ?, telefono = ?, tamano = ?, sabor = ? WHERE id = ?",
+      [nombre, telefono, tamano, sabor, id]
+    );
+    res.redirect("/admin/ordenes"); // vuelve al panel
+  } catch (err) {
+    console.error("Error al actualizar usuario:", err);
+    res.status(500).send("Error al editar el usuario");
+  }
+});
+
+//ruta para eliminar orden con override
+router.delete("/ordenes/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.query("DELETE FROM ordenes WHERE id = ?", [id]);
+  res.redirect("/admin/ordenes?eliminado=1"); // ✅ redirige con flag
+});
+
+// Mostrar promociones y vista
+router.get("/promociones", async (req, res) => {
+  const [promociones] = await db.query("SELECT * FROM promociones");
+  let promoParaEditar = null;
+
+  if (req.query.editar) {
+    const [[promo]] = await db.query("SELECT * FROM promociones WHERE id = ?", [
+      req.query.editar,
+    ]);
+    promoParaEditar = promo;
+  }
+
+  res.render("admin/promociones", { promociones, promoParaEditar });
+});
+
+// Crear nueva promoción
+router.post("/promociones/crear", async (req, res) => {
+  const { titulo, descripcion } = req.body;
+  await db.query(
+    "INSERT INTO promociones (titulo, descripcion) VALUES (?, ?)",
+    [titulo, descripcion]
+  );
+  res.redirect("/admin/promociones?creado=1");
+});
+
+// Editar promoción
+router.put("/promociones/:id", async (req, res) => {
+  const { titulo, descripcion, precio } = req.body;
+  await db.query(
+    "UPDATE promociones SET titulo = ?, descripcion = ? WHERE id = ?",
+    [titulo, descripcion, req.params.id]
+  );
+  res.redirect("/admin/promociones?editado=1");
+});
+
+// Eliminar promoción
+router.delete("/promociones/:id", async (req, res) => {
+  await db.query("DELETE FROM promociones WHERE id = ?", [req.params.id]);
+  res.redirect("/admin/promociones?eliminado=1");
 });
 
 module.exports = router;

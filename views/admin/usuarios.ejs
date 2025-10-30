@@ -42,7 +42,7 @@
                   <td>
                     <a href="/admin/usuarios?editar=<%= usuario.id %>#formEditar" class="btn btn-sm btn-warning">✏️ Editar</a>
                     <form action="/admin/usuarios/<%= usuario.id %>?_method=DELETE" method="POST" class="d-inline">
-                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este usuario?')">🗑️ Borrar</button>
+                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion('¿Eliminar este usuario?')">🗑️ Borrar</button>
                     </form>
                   </td>
                 </tr>
@@ -71,6 +71,25 @@
         </form>
       <% } %>
     </div>
+    <script>
+  function confirmarEliminacion() {
+  const confirmado = confirm("¿Eliminar este usuario?");
+  if (confirmado) {
+    alert("✅ Usuario eliminado con éxito");
+    return true; // permite que el formulario se envíe
+  } else {
+    alert("❌ Eliminación cancelada");
+    return false; // evita que se envíe el formulario
+  }
+}
+</script>
+<div id="notificacion" class="oculto"></div>
+
+
+    <script src="/js/logout.js"></script>
+    
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   </body>

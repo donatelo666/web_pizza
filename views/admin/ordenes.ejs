@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Ordenes</title>
+
+    <link rel="stylesheet" href="/ordenes.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        background-color: #58c06e;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('../partials/navbarAdmin') %>
+
+    <div class="container mt-4">
+      <h2 class="text-white">👥 Lista de Ordenes</h2>
+
+      <div class="card bg-dark text-white mt-3">
+        <div class="card-body">
+          <table class="table table-dark table-striped table-hover mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Tamaño</th>
+                <th>Sabor</th>
+                <th>Usuario id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% ordenes.forEach(orden => { %>
+              <tr>
+                <td><%= orden.id %></td>
+                <td><%= orden.nombre %></td>
+                <td><%= orden.telefono %></td>
+                <td><%= orden.Tamano %></td>
+                <td><%= orden.sabor %></td>
+                <td><%= orden.usuario_id %></td>
+
+                <td>
+                  <a
+                    href="/admin/ordenes?editar=<%= orden.id %>#formEditarOrden"
+                    class="btn btn-sm btn-warning"
+                    >✏️ Editar</a
+                  >
+                  <form
+                    action="/admin/ordenes/<%= orden.id %>?_method=DELETE"
+                    method="POST"
+                    class="d-inline"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-danger"
+                      onclick="return confirmarEliminacion('¿Eliminar esta orden?')"
+                    >
+                      🗑️ Borrar
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <% if (ordenParaEditar) { %>
+      <hr class="text-white" />
+      <h3 class="text-white">✏️ Editar Orden</h3>
+      <form
+        action="/admin/ordenes/<%= ordenParaEditar.id %>?_method=PUT"
+        method="POST"
+        class="bg-dark p-3 rounded text-white"
+        id="formEditarOrden"
+      >
+        <div class="mb-3">
+          <label>Nombre</label>
+          <input
+            type="text"
+            name="nombre"
+            value="<%= ordenParaEditar.nombre %>"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label>Telefono</label>
+          <input
+            type="text"
+            name="telefono"
+            value="<%= ordenParaEditar.telefono %>"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label>Tamaño</label>
+          <input
+            type="text"
+            name="tamano"
+            value="<%= ordenParaEditar.tamano %>"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label>Sabor</label>
+          <input
+            type="text"
+            name="sabor"
+            value="<%= ordenParaEditar.sabor %>"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success">
+          💾 Guardar cambios
+        </button>
+      </form>
+      <% } %>
+    </div>
+
+    <script>
+      function confirmarEliminacion() {
+        const confirmado = confirm("¿Eliminar este orden?");
+        if (confirmado) {
+          alert("✅ Orden eliminada con éxito");
+          return true; // permite que el formulario se envíe
+        } else {
+          alert("❌ Eliminación cancelada");
+          return false; // evita que se envíe el formulario
+        }
+      }
+    </script>
+    <div id="notificacion" class="oculto"></div>
+
+    <script src="/js/logout.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -30,25 +30,16 @@
     <header class="head">
       <p>Promociones vigentes hoy</p>
     </header>
+
     <div class="contenedor-tarjetas">
+      <% promociones.forEach(promo => { %>
       <div class="tarjeta-elegante">
-        <h4>🍕 2x1 en pizzas medianas</h4>
-        <p>Válido todos los martes. Solo para pedidos en línea.</p>
-        <a href="/editar" class="btn btn-ordenar">Ordenar ahora</a>
-      </div>
-
-      <div class="tarjeta-elegante">
-        <h4>🎁 Combo familiar</h4>
-        <p>Pizza grande + Pizza personal por $80.000</p>
-        <a href="/editar" class="btn btn-ordenar">Ordenar ahora</a>
-      </div>
-      <div class="tarjeta-elegante">
-        <h4>Combo miercoles doble</h4>
-        <p>2 Pizza personal por $35.000</p>
-        <p>Válido todos los miercoles. Solo para pedidos en línea.</p>
+        <h4><%= promo.titulo %></h4>
+        <p><%= promo.descripcion %></p>
 
         <a href="/editar" class="btn btn-ordenar">Ordenar ahora</a>
       </div>
+      <% }) %>
     </div>
 
     <script>
