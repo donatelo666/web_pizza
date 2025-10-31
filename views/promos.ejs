@@ -31,6 +31,8 @@
       <p>Promociones vigentes hoy</p>
     </header>
 
+    <!--bucle que arma tarjeta elegante, titulo y descripcion y link para cada promo
+    dentro del contenedor de tarjetas-->
     <div class="contenedor-tarjetas">
       <% promociones.forEach(promo => { %>
       <div class="tarjeta-elegante">
@@ -42,6 +44,8 @@
       <% }) %>
     </div>
 
+    <!--script que escucha el click del boton ordenar ,  notificacion que desaparece
+    despues de diez segundos, frena el avance si el usuario no es cliente ni admin -->
     <script>
       function mostrarNotificacion() {
         const mensaje = `✅ Debes iniciar sesión para ordenar,<br> si no tienes cuenta debes registrarte<br>`;
@@ -59,10 +63,10 @@
       document.querySelectorAll(".btn-ordenar").forEach((boton) => {
         boton.addEventListener("click", (e) => {
           if (!localStorage.getItem("token")) {
-            e.preventDefault(); // evita navegación si es un link a otra pestaña
+            e.preventDefault(); // evita navegación
             mostrarNotificacion();
           } else {
-            // lógica para mostrar la pestaña editar
+            //  para mostrar la pestaña editar
             window.location.href = "/editar";
           }
         });
@@ -71,7 +75,8 @@
 
     <!--div de la notificacion para mostrarla en pantalla-->
     <div id="notificacion" class="oculto"></div>
-    <!--footer con boton de inico y menu  con css -->
+
+    <!--footer con boton de inico, contacto y menu  con css -->
     <footer class="footer_promo">
       <a href="/inicio" class="inicio-btn" id="inicio">Inicio</a>
       <a href="/contacto#registroForm" class="contacto-btn" id="contacto">
@@ -80,6 +85,8 @@
 
       <a href="/menu" class="menu-btn" id="menu-btn">MENU</a>
     </footer>
+
+    <!--bootstrap-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

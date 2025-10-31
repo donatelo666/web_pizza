@@ -11,7 +11,7 @@
         background-color: #69c76c;
       }
     </style>
-    <!-- relacion con la pagina de css , links para fuentes de google "lemon"-->
+    <!-- relacion con la pagina de css , links para fuentes de google "lemon" y script de bootstrap-->
     <link rel="stylesheet" href="/css/estilo.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +28,7 @@
   </head>
 
   <body>
-    <!--header de la pagina que tiene un nav bar con links y manejo de css-->
+    <!--header con nav bar con links y manejo de css-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mi-navbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">🍕 Tortugas Ninja Pizzeria</a>
@@ -46,6 +46,7 @@
         <!-- Contenido colapsable -->
         <div class="collapse navbar-collapse" id="navbarContenido">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!--links del navbar-->
             <li class="nav-item">
               <a class="nav-link" href="/menu">Menu</a>
             </li>
@@ -65,6 +66,8 @@
           </ul>
 
           <script>
+            //script que bloquea el acceso sin token
+            //envia notificacion con tiempo y escuchando el evento click
             function mostrarNotificacion() {
               const mensaje = `✅ Debes iniciar sesión para ordenar,<br> si no tienes cuenta debes registrarte<br>`;
               const notificacion = document.getElementById("notificacion");
@@ -83,11 +86,11 @@
               .addEventListener("click", (e) => {
                 if (!localStorage.getItem("token")) {
                   e.preventDefault(); // ⛔ detiene el comportamiento por defecto (como ir al href)
-                  mostrarNotificacion(); // ✅ muestra el mensaje
-                  return; // ⛔ evita que siga ejecutando el resto
+                  mostrarNotificacion(); // ✅ muestra la notificacion
+                  return; 
                 }
 
-                // ✅  lógica para mostrar la pestaña "Ordenar"
+                // ✅  redireccion para ordenar
                 window.location.href = "/editar";
               });
           </script>
@@ -95,21 +98,22 @@
           <!--div de la notificacion para mostrarla en pantalla-->
           <div id="notificacion" class="oculto"></div>
 
-          <!--boton para ir a iniciar sesion -->
+          <!--boton para ir a iniciar sesion con link #-->
           <a
             class="btn btn-outline-light me-2"
             href="/contacto#loginForm"
             >Iniciar sesión</a
           >
 
-          <!-- Botón de cerrar sesión o perfil -->
+          <!-- Botón de cerrar sesión con id para usar logout.js-->
           <button class="btn btn-outline-light" id="logout">
             Cerrar sesión
           </button>
         </div>
       </div>
     </nav>
-    <!--script que escucha el submit para cerrar con  notificacion que desaparece-->
+    <!--script que escucha el submit para cerrar con  notificacion que desaparece
+    despues de diez segundos -->
     <script>
   function mostrarNotificacion4() {
     const mensaje = `✅ Sesión cerrada<br>Nos veremos pronto`;
@@ -141,7 +145,7 @@
 
     </script>
 
-    <!--seccion de la pagina con un boton manejado con css y una imagen simple que tambien tiene css-->
+    <!-- boton manejado con css  -->
     <section class="pizza-layout">
       <a href="/contacto" class="contact-btn"
         >CONTACTO Y ORDENAR</a
@@ -174,7 +178,7 @@
             />
           </div>
         </div>
-        <!--agrega los dos botones , prev y next, indica su carrusel "carruselexample", 
+        <!--agrega los dos botones , prev y next, id="carruselexample", 
         pone los iconos"carrusel control prev icon" -->
         <button
           class="carousel-control-prev"
@@ -198,7 +202,7 @@
     </section>
     <!--segunda seccion de la pagina con un boton y carrusel de bootstrap-->
     <section class="seccion2">
-      <!--carrusel de bootstrap, tipo transicion slide ,pone contenedor para las imgenes,
+      <!-- segundo carrusel de bootstrap, tipo transicion slide ,pone contenedor para las imgenes,
      agrega imagenes primera en active , en block , tamaño 100%,
     descripcion 3 veces  -->
       <div id="carousel2" class="carousel slide">
@@ -225,7 +229,7 @@
             />
           </div>
         </div>
-        <!--agrega los dos botones , prev y next, indica su carrusel "carruselexample", 
+        <!--agrega los dos botones , prev y next,id="carrusel2", 
         pone los iconos"carrusel control prev icon" -->
         <button
           class="carousel-control-prev"
@@ -246,11 +250,11 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-
+      <!--boton-->
       <a href="/menu" class="menu-btn">MENU</a>
     </section>
 
-    <!--footer con texto y link a facebook tambien usa css -->
+    <!--footer con texto y link a facebook, css -->
     <footer class="site-footer">
       <p>
         Síguenos en facebook

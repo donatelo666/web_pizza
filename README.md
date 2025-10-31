@@ -1,57 +1,111 @@
-TMNT PIZZA WEB
+# 🍕 TMNT PIZZA
 
-Proyecto académico de desarrollo web que implementa un sistema completo de autenticación y gestión de pedidos de pizza. Utiliza Node.js, Express, router, cors, bcrypt, jsonwebtoken y MySQL para el backend, y HTML/CSS/JavaScript/Bootstrap para el frontend.
+Aplicación web completa para administrar y ordenar pizzas con carrito, desarrollada con Node.js, Express, EJS y MySQL. Incluye autenticación, panel de administración, subida de imágenes, control de roles y una experiencia de usuario moderna y responsiva.
 
-Características
-•	Registro de usuarios con validación
-•	Inicio de sesión con autenticación JWT
-•	Protección de rutas sensibles (CRUD solo para usuarios autenticados)
-•	Gestión de pedidos de pizza (crear, leer, actualizar, eliminar)
-•	Bootstrap para diseño responsivo
+---
 
-Estructura
+## 🚀 Características principales
 
-Tiene una carpeta para el frontend y otra para el backend.
+- 🔐 Autenticación con JWT y cookies seguras
+- 🧑‍🍳 Panel de administración con edición de menú, usuarios, órdenes y promociones
+- 🖼️ Subida de imágenes con Multer y eliminación automática de archivos antiguos
+- 🎠 Carruseles dinámicos de pizzas, imágenes y menú con Bootstrap 5
+- 🧾 Notificaciones visuales animadas con CSS
+- 🧩 Modularización de rutas y vistas
+- 🧠 Control de acceso por roles (admin / cliente)
+- 📱 Diseño responsive y experiencia de usuario pulida
 
-Instalacion
+---
 
-Clona el repositorio, instala dependencias, configura archivo .env con datos propios, crea la base de datos así :
+## 🛠️ Tecnologías utilizadas
 
-Nombre : pizzas 
+- **Backend:** Node.js, Express.js, method-override, bcrypt
+- **Frontend:** EJS, Bootstrap 5, CSS personalizado, HTML
+- **Base de datos:** MySQL con promesas
+- **Autenticación:** JSON Web Tokens (JWT), cookie-parser
+- **Subida de archivos:** Multer
+- **Gestión de imágenes:** fs, path
 
-1. 	tabla : usuarios
-	- id (INT, PRIMARY KEY , NOT NULL, AUTO INCREMENT)
-	-nombre(VARCHAR 50)
-	-password(VARCHAR 50)
-	-rol(VARCHAR 50)
+---
 
-2. 	Tabla: ordenes 
-    -id (INT, PRIMARY KEY,AUTO INCREMENT)
-    -nombre (VARCHAR 50)
-    -telefono (VARCHAR 50)
-    -tamano (VARCHAR 50)
-    -sabor (VARCHAR 50)
-    -usuario_id  (INT)
-3.	usa sql para relacionar  las tablas ALTER TABLE ordenes  ADD CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id).
+## 📸 Capturas de pantalla
 
-Endpoints principales
+- ![Panel admin](./public/demo/panel%20admin.jpg)
+- ![Inicio](./public/demo/incio.jpg)
+- ![Menú Bootstrap](./public/demo/menu%20bootstrap.jpg)
+- ![Registro/Login](./public/demo/registro-login.jpg)
+- ![Carrito](./public/demo/carrito.jpg)
 
-Método	Ruta	                Descripción
-POST	/api/register	     Registro de usuario
-POST	/api/login	         Inicio de sesión
-GET	    /api/orders	         Obtener pedidos (protegido)
-POST	/api/orders	         Crear pedido (protegido)
-PUT	    /api/orders/:id	     Actualizar pedido (protegido)
-DELETE	/api/orders/:id	     Eliminar pedido (protegido)
+---
 
-Seguridad
-•	Contraseñas cifradas con bcrypt
-•	Tokens JWT para autenticación
-•	Middleware de protección de rutas
+## ⚙️ Instalación y ejecución
 
-Desarrollado por Sebastian Sandoval en el sena 2025
-		
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/donatelo666/web_pizza
+cd web_pizza
+npm install
+
+2 Configura tu archivo .env:
+
+## Base de Datos
+
+-- Tabla usuarios
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  rol ENUM('admin', 'cliente') DEFAULT 'cliente'
+);
+
+-- Tabla pizzas
+CREATE TABLE pizzas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  ingredientes TEXT NOT NULL,
+  ruta_imagen VARCHAR(255)
+);
+
+-- Tabla órdenes
+CREATE TABLE ordenes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100),
+  telefono VARCHAR(20),
+  tamano VARCHAR(50),
+  sabor VARCHAR(100),
+  id_usuario INT
+);
+
+-- Tabla promociones
+CREATE TABLE promociones (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(100),
+  descripcion TEXT
+);
+
+Endpoints  principales
+Método	        Ruta	      Descripción
+POST	/api/register	  Registro de usuario
+POST	/api/login	      Inicio de sesión
+GET	    /api/orders	      Consultar carrito (protegido)
+POST	/api/orders	      Crear carrito (protegido)
+PUT	    /api/orders/:id	  Actualizar pedido(protegido)
+DELETE	/api/orders/:id	  Eliminar pedido(protegido)
+
+
+
+🔐 Seguridad
+Contraseñas cifradas con bcrypt
+
+Tokens JWT para autenticación
+
+Middleware para protección de rutas y control de roles
+
+👨‍💻 Autor
+David Sebastian Sandoval Desarrollador web apasionado por crear aplicaciones dinámicas, seguras y visualmente atractivas. 📫 [chopolonsio@hotmail.com]
 
 
 
 
+```

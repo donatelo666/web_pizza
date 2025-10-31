@@ -1,3 +1,4 @@
+//importacion de modulos principales, router , middlewares, database y express validator
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
@@ -5,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const db = require("../config/database");
 const { body, validationResult } = require("express-validator");
 
+//ruta de registro , sanitizacion
 router.post(
   "/register",
   [
@@ -15,7 +17,7 @@ router.post(
     const { nombre, password } = req.body;
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
-      return res.status(400).json({ error: "Datos inválidos" });
+      return res.status(400).json({ error: "Datos inválidos" }); //error por mala insercion de datos
     }
 
     try {
@@ -28,7 +30,7 @@ router.post(
         [nombreNormalizado]
       );
       if (existe.length > 0) {
-        return res.status(409).json({ error: "El usuario ya está registrado" });
+        return res.status(409).json({ error: "El usuario ya está registrado" }); //error
       }
 
       // Encripta la contraseña
@@ -38,15 +40,17 @@ router.post(
       const [result] = await db.query("INSERT INTO usuarios SET ?", {
         nombre: nombreNormalizado,
         password: hashedPassword,
-        rol: "cliente",
+        rol: "cliente", //rol
       });
 
-      return res.status(200).json({ mensaje: "Registro exitoso" });
+      return res.status(200).json({ mensaje: "Registro exitoso" }); //respuesta
     } catch (error) {
       return res.status(500).json({ error: "Error al registrar" });
     }
   }
 );
+
+//ruta login, sanitizacion, validacion de datos(mensaje)
 router.post(
   "/login",
   [
@@ -71,38 +75,39 @@ router.post(
 
       if (results.length === 0) {
         console.log("Usuario no encontrado");
-        return res.status(401).json({ error: "Usuario no encontrado" });
+        return res.status(401).json({ error: "Usuario no encontrado" }); //verificacion por valor
       }
 
       const usuario = results[0];
 
-      const match = await bcrypt.compare(password, usuario.password);
+      const match = await bcrypt.compare(password, usuario.password); //compara el password
 
       if (!match) {
         return res
           .status(401)
-          .json({ error: "Usuario o contraseña incorrectos" });
+          .json({ error: "Usuario o contraseña incorrectos" }); //no hace match el password
       }
 
       const token = jwt.sign(
         { id: usuario.id, rol: usuario.rol },
         process.env.JWT_SECRET || "clave_secreta",
         { expiresIn: "1h" }
-      );
+      ); //pone el token
 
       // Enviar el token como cookie segura
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // pon true si usas HTTPS
+        secure: false,
         sameSite: "Strict",
         maxAge: 3600000, // 1 hora
       });
 
-      return res.status(200).json({ token });
+      return res.status(200).json({ token }); //respuesta
     } catch (error) {
       return res.status(500).json({ error: "Error en el login" });
     }
   }
 );
 
+//exporta router para activar las rutas
 module.exports = router;

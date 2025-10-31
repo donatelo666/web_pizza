@@ -1,8 +1,9 @@
+//modulo principal y el router
 const express = require("express");
 const router = express.Router();
-const db = require("../config/database.js"); // tu conexión MySQL
+const db = require("../config/database.js"); // conexión MySQL
 
-// Define la ruta. DEBE ser exactamente '/menu' si es lo que pide el navegador.
+// ruta que renderiza menu y llena un carrusel menu con la info de pizzas
 router.get("/", async (req, res) => {
   try {
     // ... Consulta a MySQL ...
@@ -18,4 +19,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router; // ¡ Exportar el router!
+module.exports = router; //Exportar el router

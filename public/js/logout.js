@@ -1,3 +1,4 @@
+//carga primero el dom, define redireccion, notificacion, escucha el click
 document.addEventListener("DOMContentLoaded", () => {
   let redireccion; // ✅ variable global
 
@@ -17,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.getElementById("logout").addEventListener("click", () => {
-    localStorage.removeItem("token");
-    mostrarNotificacion();
+    localStorage.removeItem("token"); //quita el token
+    mostrarNotificacion(); // llama notificacion
 
     redireccion = setTimeout(() => {
       window.location.href = "/inicio";
-    }, 10000);
+    }, 8000); //redireccion
   });
 });

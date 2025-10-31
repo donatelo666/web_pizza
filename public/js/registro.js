@@ -1,22 +1,21 @@
-console.log("Script cargado");
+//script de registro con sanitizacion de datos,notificacion
 const sanitize = (str) => str.replace(/[<>"'`]/g, "");
 function mostrarNotificacion() {
   const mensaje = `✅ Registro de usuario completado con éxito<br> ahora puedes hacer login y ordenar`;
   const notificacion = document.getElementById("notificacion");
   notificacion.innerHTML = mensaje;
-  notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
-  notificacion.classList.add("visible"); // define funcion que muestra una notificacion
-  //  con estilos
-  //mensaje para el usuario , la pone en modo "visible"
+  notificacion.classList.remove("oculto"); //quita el oculto
+  notificacion.classList.add("visible"); // pone
 
-  // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
-  // a la notificacion
+  // Ocultar después de 10 segundos
+
   setTimeout(() => {
     notificacion.classList.remove("visible");
     notificacion.classList.add("oculto");
-  }, 25000);
+  }, 10000);
 }
 
+//carga el DOM , esucha el submit , previene default , sanitiza
 document.addEventListener("DOMContentLoaded", () => {
   const registroForm = document.getElementById("registroForm");
   if (!registroForm) {
@@ -33,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       password: sanitize(formData.get("password")),
     };
 
+    //usa el backend
     try {
       const res = await fetch("/auth/register", {
         method: "POST",
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (res.ok) {
-        mostrarNotificacion();
+        mostrarNotificacion(); //llama la notificacion
       } else {
         alert(result.error || "Error al registrar");
       }

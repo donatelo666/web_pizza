@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Administracion TMNT</title>
 
-    <!-- relacion con la pagina de css , links para fuentes de google "lemon", bootstrap-->
+    <!-- relacion con  css ,  fuentes de google "lemon", bootstrap-->
     <link rel="stylesheet" href="/css/panel.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,7 +44,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Contenido colapsable -->
+        <!-- Contenido colapsable con links -->
         <div class="collapse navbar-collapse" id="navbarContenido">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -72,6 +72,7 @@
       </div>
     </nav>
 
+    <!--imagen de fondo para en panel-->
     <div class="TMNT">
       <img src="/img/TMNT.png" alt="boton wapp" />
     </div>
@@ -79,6 +80,7 @@
     <!--div de la notificacion para mostrarla en pantalla-->
     <div id="notificacion" class="oculto"></div>
 
+    <!--script para cerrar sesion escuchando el click, notificacion, quita token y redirige-->
     <script>
       let redireccion; // ✅ variable global
 

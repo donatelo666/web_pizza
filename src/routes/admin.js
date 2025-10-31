@@ -1,35 +1,27 @@
+//modulos principales, router, database, midlleware, multer
 const express = require("express");
 const router = express.Router();
 const db = require("../config/database");
-const verificarToken = require("../middleware/verificartoken");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
-// Configurar almacenamiento de multer en uploads
+// Configurar almacenamiento de multer en carpeta uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../public/uploads"));
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "-" + file.originalname;
-    cb(null, uniqueName);
+    cb(null, uniqueName); //crea nombres unicos para cada subida
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage }); //ubicacion de las uploads
 
 //ruta para ver la pestaña panel con verificacion de token
-router.get("/panel", verificarToken, async (req, res) => {
+router.get("/panel", async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT rol FROM usuarios WHERE id = ?", [
-      req.usuarioId,
-    ]);
-    const usuario = rows[0];
-
-    if (!usuario || usuario.rol.trim() !== "admin") {
-      return res.status(403).send("Acceso denegado");
-    }
-
     res.render("admin/panel"); // Vista EJS del panel
   } catch (err) {
     console.error("Error en /admin/panel:", err);
@@ -37,39 +29,47 @@ router.get("/panel", verificarToken, async (req, res) => {
   }
 });
 
-//ruta para ver promos con verificacion de admin , muestra las pizzas del menu con opcion de editar
-//agregar nuevas
-router.get("/edit_menu", verificarToken, async (req, res) => {
-  const [rows] = await db.query("SELECT rol FROM usuarios WHERE id = ?", [
-    req.usuarioId,
-  ]);
-  const usuario = rows[0];
-
-  if (!usuario || usuario.rol.trim() !== "admin") {
-    return res.status(403).send("Acceso denegado");
-  }
-
+//ruta para ver edicion del menu con edicion de cada pizza
+router.get("/edit_menu", async (req, res) => {
   const [pizzas] = await db.query("SELECT * FROM pizzas");
   res.render("admin/edit_menu", { pizzas });
 });
 
-//actualizar menu de pizzas desde admin
+// 🧀 Actualizar menú de pizzas
 router.post(
   "/edit_menu/actualizar",
   upload.single("imagen"),
   async (req, res) => {
     const { pizzaId, nombre, ingredientes, imagenActual } = req.body;
 
-    const nuevaImagen = req.file
-      ? `/uploads/${req.file.filename}`
-      : imagenActual;
-
     try {
-      const [result] = await db.query(
+      // Si se subió una nueva imagen...
+      let nuevaImagen = imagenActual;
+
+      if (req.file) {
+        // 🟡 Eliminar la imagen anterior si existe
+        const rutaAntigua = path.join(
+          __dirname,
+          "../public",
+          imagenActual.replace("/", "\\") // reemplaza
+        );
+
+        if (fs.existsSync(rutaAntigua)) {
+          fs.unlinkSync(rutaAntigua);
+          console.log("🗑️ Imagen anterior eliminada:", rutaAntigua);
+        }
+
+        // 🆕 Guardar la nueva imagen
+        nuevaImagen = `/uploads/${req.file.filename}`;
+      }
+
+      // 🧩 Actualizar registro en la base de datos
+      await db.query(
         "UPDATE pizzas SET nombre = ?, ingredientes = ?, ruta_imagen = ? WHERE id = ?",
         [nombre, ingredientes, nuevaImagen, pizzaId]
       );
 
+      console.log("✅ Pizza actualizada correctamente:", pizzaId);
       res.status(200).json({ mensaje: "Pizza actualizada correctamente" });
     } catch (err) {
       console.error("❌ Error al actualizar pizza:", err);
@@ -83,12 +83,11 @@ router.post(
   "/edit_menu/crear",
   upload.single("ruta_imagen"),
   async (req, res) => {
-    // 🔥 Ahora req.body y req.file estarán disponibles
     const { nombre, ingredientes } = req.body;
-    const ruta_imagen = req.file ? `/uploads/${req.file.filename}` : null;
+    const ruta_imagen = req.file ? `/uploads/${req.file.filename}` : null; //definicion de ruta
 
     if (!nombre || !ingredientes) {
-      return res.status(400).json({ error: "Faltan datos requeridos" });
+      return res.status(400).json({ error: "Faltan datos requeridos" }); //ausencia de datos
     }
 
     try {
@@ -96,7 +95,7 @@ router.post(
         "INSERT INTO pizzas (nombre, ingredientes, ruta_imagen) VALUES (?, ?, ?)",
         [nombre, ingredientes, ruta_imagen]
       );
-      res.status(200).json({ mensaje: "Pizza creada correctamente ✅" });
+      res.status(200).json({ mensaje: "Pizza creada correctamente ✅" }); //respuesta
     } catch (err) {
       console.error("Error al crear pizza:", err);
       res.status(500).json({ error: "Error al crear la pizza" });
@@ -104,7 +103,7 @@ router.post(
   }
 );
 
-//ruta pa ver usuarios
+//ruta para ver usuarios, llenado de formulario para editar usuario en frontend
 router.get("/usuarios", async (req, res) => {
   try {
     const [usuarios] = await db.query("SELECT * FROM usuarios");
@@ -118,10 +117,11 @@ router.get("/usuarios", async (req, res) => {
       usuarioParaEditar = resultado[0] || null;
     }
 
-    // 🔥 pasa ambas variables SIEMPRE
+    // 🔥 pasa variables para renderizar la informacion
     res.render("admin/usuarios", {
       usuarios,
       usuarioParaEditar,
+      mensaje: "",
     });
   } catch (err) {
     console.error("Error al obtener usuarios:", err);
@@ -129,7 +129,7 @@ router.get("/usuarios", async (req, res) => {
   }
 });
 
-// 🟩 Ruta para editar usuario
+// 🟩 Ruta para editar usuario con un query ,
 router.put("/usuarios/:id", async (req, res) => {
   const { id } = req.params;
   const { nombre, rol } = req.body;
@@ -140,7 +140,16 @@ router.put("/usuarios/:id", async (req, res) => {
       rol,
       id,
     ]);
-    res.redirect("/admin/usuarios"); // vuelve al panel
+
+    // ✅ Consultar la lista actualizada de usuarios
+    const [usuarios] = await db.query("SELECT id, nombre, rol FROM usuarios");
+
+    // Enviar mensaje de éxito a la vista
+    res.render("admin/usuarios", {
+      usuarios,
+      mensaje: "Usuario actualizado correctamente",
+      usuarioParaEditar: null, //  para ocultar el formulario de edición
+    });
   } catch (err) {
     console.error("Error al actualizar usuario:", err);
     res.status(500).send("Error al editar el usuario");
@@ -150,14 +159,14 @@ router.put("/usuarios/:id", async (req, res) => {
 //ruta para eliminar usuarios con override
 router.delete("/usuarios/:id", async (req, res) => {
   const { id } = req.params;
-  await db.query("DELETE FROM usuarios WHERE id = ?", [id]);
+  await db.query("DELETE FROM usuarios WHERE id = ?", [id]); //elimina por id
   res.redirect("/admin/usuarios?eliminado=1"); // ✅ redirige con flag
 });
 
 //ruta pa ver ordenes
 router.get("/ordenes", async (req, res) => {
   try {
-    const [ordenes] = await db.query("SELECT * FROM ordenes");
+    const [ordenes] = await db.query("SELECT * FROM ordenes"); //query
 
     let ordenParaEditar = null;
     if (req.query.editar) {
@@ -165,12 +174,13 @@ router.get("/ordenes", async (req, res) => {
         req.query.editar,
       ]);
       ordenParaEditar = resultado[0] || null;
-    }
+    } //llena con datos el formulario para editar (query)
 
-    // 🔥 pasa varias variables SIEMPRE
+    // 🔥 renderiza la info de  varias variables
     res.render("admin/ordenes", {
       ordenes,
       ordenParaEditar,
+      mensaje: "",
     });
   } catch (err) {
     console.error("Error al obtener usuarios:", err);
@@ -178,69 +188,137 @@ router.get("/ordenes", async (req, res) => {
   }
 });
 
-// 🟩 Ruta para editar orden
+// 🟩 Ruta para editar orden con querys y alert
 router.put("/ordenes/:id", async (req, res) => {
   const { id } = req.params;
   const { nombre, telefono, tamano, sabor } = req.body;
 
   try {
+    //query de edicion
     await db.query(
       "UPDATE ordenes SET nombre = ?, telefono = ?, tamano = ?, sabor = ? WHERE id = ?",
       [nombre, telefono, tamano, sabor, id]
     );
-    res.redirect("/admin/ordenes"); // vuelve al panel
+
+    // Traer todas las órdenes actualizadas
+    const [ordenes] = await db.query("SELECT * FROM ordenes");
+
+    // Enviar mensaje de éxito a la vista
+    res.render("admin/ordenes", {
+      ordenes,
+      mensaje: "Orden actualizada correctamente",
+      ordenParaEditar: null, //necesario para editar
+    });
   } catch (err) {
     console.error("Error al actualizar usuario:", err);
     res.status(500).send("Error al editar el usuario");
   }
 });
 
-//ruta para eliminar orden con override
+//ruta para eliminar orden con override y alert
 router.delete("/ordenes/:id", async (req, res) => {
   const { id } = req.params;
   await db.query("DELETE FROM ordenes WHERE id = ?", [id]);
   res.redirect("/admin/ordenes?eliminado=1"); // ✅ redirige con flag
 });
 
-// Mostrar promociones y vista
+// 🟢 Mostrar todas las promociones mas vista (querys)
 router.get("/promociones", async (req, res) => {
-  const [promociones] = await db.query("SELECT * FROM promociones");
-  let promoParaEditar = null;
-
-  if (req.query.editar) {
-    const [[promo]] = await db.query("SELECT * FROM promociones WHERE id = ?", [
-      req.query.editar,
-    ]);
-    promoParaEditar = promo;
+  try {
+    const [promociones] = await db.query("SELECT * FROM promociones");
+    res.render("admin/promociones", {
+      promociones,
+      mensaje: "",
+      promoParaEditar: null,
+    });
+  } catch (err) {
+    console.error("Error al cargar promociones:", err);
+    res.status(500).send("Error al cargar las promociones");
   }
-
-  res.render("admin/promociones", { promociones, promoParaEditar });
 });
 
-// Crear nueva promoción
+// 🟢 Crear nueva promoción con query , mensaje
 router.post("/promociones/crear", async (req, res) => {
   const { titulo, descripcion } = req.body;
-  await db.query(
-    "INSERT INTO promociones (titulo, descripcion) VALUES (?, ?)",
-    [titulo, descripcion]
-  );
-  res.redirect("/admin/promociones?creado=1");
+
+  try {
+    await db.query(
+      "INSERT INTO promociones (titulo, descripcion) VALUES (?, ?)",
+      [titulo, descripcion]
+    ); //inserta en database
+
+    const [promociones] = await db.query("SELECT * FROM promociones"); //actualiza
+
+    res.render("admin/promociones", {
+      promociones,
+      mensaje: "✅ Promoción creada correctamente", //mensaje
+      promoParaEditar: null,
+    });
+  } catch (err) {
+    console.error("Error al crear promoción:", err);
+    res.status(500).send("Error al crear la promoción");
+  }
 });
 
-// Editar promoción
+// 🟢 Editar promoción (mostrar formulario con datos)
+router.get("/promociones/editar/:id", async (req, res) => {
+  try {
+    const [promos] = await db.query("SELECT * FROM promociones WHERE id = ?", [
+      req.params.id,
+    ]); //busca la promo por id
+
+    const [promociones] = await db.query("SELECT * FROM promociones"); //actualiza
+
+    res.render("admin/promociones", {
+      promociones,
+      promoParaEditar: promos[0], // se usa en el formulario de edicion
+      mensaje: "",
+    });
+  } catch (err) {
+    console.error("Error al cargar promoción:", err);
+    res.status(500).send("Error al cargar la promoción");
+  }
+});
+
+// 🟢 Actualizar promoción con query mas mensaje
 router.put("/promociones/:id", async (req, res) => {
-  const { titulo, descripcion, precio } = req.body;
-  await db.query(
-    "UPDATE promociones SET titulo = ?, descripcion = ? WHERE id = ?",
-    [titulo, descripcion, req.params.id]
-  );
-  res.redirect("/admin/promociones?editado=1");
+  const { titulo, descripcion } = req.body;
+
+  try {
+    await db.query(
+      "UPDATE promociones SET titulo = ?, descripcion = ? WHERE id = ?",
+      [titulo, descripcion, req.params.id]
+    ); //actualiza
+
+    const [promociones] = await db.query("SELECT * FROM promociones");
+
+    res.render("admin/promociones", {
+      promociones,
+      mensaje: "✏️ Promoción editada correctamente", //mensaje
+      promoParaEditar: null,
+    });
+  } catch (err) {
+    console.error("Error al editar promoción:", err);
+    res.status(500).send("Error al editar la promoción");
+  }
 });
 
-// Eliminar promoción
+// 🟢 Eliminar promoción con query mas mensaje
 router.delete("/promociones/:id", async (req, res) => {
-  await db.query("DELETE FROM promociones WHERE id = ?", [req.params.id]);
-  res.redirect("/admin/promociones?eliminado=1");
+  try {
+    await db.query("DELETE FROM promociones WHERE id = ?", [req.params.id]); //busca el id y elimina
+
+    const [promociones] = await db.query("SELECT * FROM promociones"); //actualiza
+
+    res.render("admin/promociones", {
+      promociones,
+      mensaje: "🗑️ Promoción eliminada correctamente", //mensaje
+      promoParaEditar: null,
+    });
+  } catch (err) {
+    console.error("Error al eliminar promoción:", err);
+    res.status(500).send("Error al eliminar la promoción");
+  }
 });
 
 module.exports = router;

@@ -1,17 +1,12 @@
+//modulo principal , router y mysql
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const db = require("../config/database");
 
-router.get("/usuarios", verificarToken, async (req, res) => {
-  const [admin] = await db.query("SELECT rol FROM usuarios WHERE id = ?", [
-    req.usuarioId,
-  ]);
-  if (admin.length === 0 || admin[0].rol !== "admin") {
-    return res.status(403).json({ error: "Acceso denegado" });
-  }
-
+//ruta renderiza ususarios , y la info para la tabla de usuarios
+router.get("/usuarios", async (req, res) => {
   const [usuarios] = await db.query("SELECT id, nombre, rol FROM usuarios");
-  res.render("admin", { usuarios });
+  res.render("usuarios", { usuarios });
 });
+
+module.exports = router;

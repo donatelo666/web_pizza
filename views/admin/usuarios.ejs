@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panel de Usuarios</title>
-
+    <!--union con css, fuentes google, color y bootstrap-->
     <link rel="stylesheet" href="/css/usuarios.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Sigmar&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-
+    
     <style>
       body {
         background-color: #58c06e;
@@ -17,8 +19,11 @@
   </head>
 
   <body>
+
+    <!--navbar de partials-->
     <%- include('../partials/navbarAdmin') %>
 
+    <!--tabla que itera por cada usuario (datos) y crea dos botones para editar y borrar(ruta con override)-->
     <div class="container mt-4">
       <h2 class="text-white">👥 Lista de Usuarios</h2>
 
@@ -52,6 +57,9 @@
         </div>
       </div>
 
+
+      <!--construye formulario para editar, metodo override para borrar, autollenar datos con ejs
+      y boton -->
       <% if (usuarioParaEditar) { %>
         <hr class="text-white" />
         <h3 class="text-white">✏️ Editar Usuario</h3>
@@ -71,6 +79,11 @@
         </form>
       <% } %>
     </div>
+
+   
+
+
+    <!--alert para confirmar borrado-->
     <script>
   function confirmarEliminacion() {
   const confirmado = confirm("¿Eliminar este usuario?");
@@ -83,14 +96,25 @@
   }
 }
 </script>
+
+<!--sesion cerrada-->
 <div id="notificacion" class="oculto"></div>
 
-
+    <!--llamada al script cerrar-->
     <script src="/js/logout.js"></script>
     
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <% if (mensaje) { %>
+  <script>
+    // Mostrar alerta con el mensaje recibido desde el backend
+    alert("<%= mensaje %>");
+
+    // Si existe el formulario de edición, se resetea después del mensaje
+    document.getElementById("formEditar")?.reset();
+  </script>
+<% } %>
   </body>
 </html>

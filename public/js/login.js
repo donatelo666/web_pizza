@@ -1,16 +1,16 @@
-console.log("Script cargado");
+//script de login con token , sanitizacion de datos, notificacion
+
 const sanitize2 = (str) => str.replace(/[<>"'`]/g, ""); //sanitizacion de ingreso de datos
 
 function mostrarNotificacion2() {
-  //mensaje para el usuario , la pone en modo "visible"
   const mensaje = `✅ Bienvenido <br>
     Has iniciado sesión correctamente.<br><br>
     Serás redirigido a la página de ordenes en unos segundos...<br><br>
     <button id="btnIrEditar" class="btn btn-light">Ir ahora</button>`;
   const notificacion = document.getElementById("notificacion2");
   notificacion.innerHTML = mensaje;
-  notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
-  notificacion.classList.add("visible"); // define funcion que muestra una notificacion
+  notificacion.classList.remove("oculto"); //quita el oculto
+  notificacion.classList.add("visible"); // pone
   //  con estilos
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //escucha el submit con prevent default
 
     const formData = new FormData(e.target);
     const data = {
@@ -46,16 +46,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (res.ok && result.token) {
-        localStorage.setItem("token", result.token);
-        mostrarNotificacion2();
+        localStorage.setItem("token", result.token); //pone el token
+        mostrarNotificacion2(); //llama la notificacion
 
         const redireccion = setTimeout(() => {
           window.location.href = "/editar";
-        }, 10000);
+        }, 10000); //redireccion
 
         document.getElementById("btnIrEditar").addEventListener("click", () => {
           clearTimeout(redireccion);
-          window.location.href = "/editar";
+          window.location.href = "/editar"; //escucha evento click
         });
       } else {
         alert(result.error || "Error al iniciar sesión");

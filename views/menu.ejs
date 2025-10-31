@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu</title>
-    <!--union con el menu.css , fuente de google "lemon" , union con bootstrap-->
+    <!--union con el css , fuente de google "lemon" , union con bootstrap-->
     <link rel="stylesheet" href="/css/estilo_menu.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,7 +31,7 @@
     <header class="head">
       <p>MENU TMNT PIZZA</p>
     </header>
-    <!--texto simple con css-->
+    <!--textos simples con css-->
     <section class="menu1">
       <p class="texto1">selecciona entre personal, mediana y familiar</p>
       <p class="texto2">$20.000</p>
@@ -91,12 +91,13 @@
       <p class="texto5">Ahora escoge uno de nuestros sabores...</p>
     </section>
 
-    <!--carrusel de bootstrap, tipo transicion slide ,pone contenedor para las imgenes,
-     agrega imagenes primera en active , en block , tamaño 100%,
-    descripcion 3 veces  -->
+    <!--carrusel con bootstrap que se genera desde la base de datos -->
     <div id="carouselpizza" class="carousel slide" >
   
-  <!-- Indicadores -->
+  <!-- Indicadores
+   Genera un botón indicador por cada pizza en el arreglo,
+Marca el primero como activo,
+Asigna correctamente los atributos para que Bootstrap lo entienda. -->
   <div class="carousel-indicators">
     <% pizzas.forEach((pizza, index) => { %>
       <button 
@@ -110,7 +111,8 @@
     <% }); %>
   </div>
 
-  <!-- Slides -->
+  <!-- Slides; genera las diapositivas de las pizzas con nombre e ingredientes
+   , pone la primera en activo usando la base de datos -->
   <div class="carousel-inner">
     <% pizzas.forEach((pizza, index) => { %>
       <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
@@ -126,7 +128,7 @@
     <% }); %>
   </div>
 
-  <!-- Controles -->
+  <!-- Controles del carrusel-->
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselpizza" data-bs-slide="prev">
     <span class="carousel-control-prev-icon"></span>
   </button>
@@ -137,7 +139,7 @@
 
     
 
-    <!--footer con dos botones y css-->
+    <!--footer con tres botones y css-->
     <footer class="footer_menu">
       <a href="/inicio" class="regresa-btn">Inicio</a>
       <a href="/contacto" class="ordena-btn"
@@ -147,6 +149,9 @@
         >Ordenar</a
       >
     </footer>
+
+     <!--script que escucha el click del boton ordenar ,  notificacion que desaparece
+    despues de diez segundos, frena el avance si el usuario no es cliente ni admin -->
     <script>
       function mostrarNotificacion() {
         const mensaje = `✅ Debes iniciar sesión para ordenar,<br>Si no tienes una cuenta<br> debes registrarte`;
@@ -164,11 +169,11 @@
       document.getElementById("editar-btn").addEventListener("click", (e) => {
         if (!localStorage.getItem("token")) {
           e.preventDefault(); // ⛔ detiene el comportamiento por defecto (como ir al href)
-          mostrarNotificacion(); // ✅ muestra el mensaje
-          return; // ⛔ evita que siga ejecutando el resto
+          mostrarNotificacion(); // ✅ muestra la notificacion
+          return; 
         }
 
-        // ✅  lógica para mostrar la pestaña "Ordenar"
+        // ✅  ir a ordenar pestaña
         window.location.href = "/editar";
       });
     </script>

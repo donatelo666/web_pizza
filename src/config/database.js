@@ -1,6 +1,8 @@
+//importa dotenv para seguridad, mysqlpromise
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 
+//guarda info personal con el .env
 const conexion = mysql.createPool({
   host: process.env.host,
   database: process.env.database,
@@ -8,7 +10,7 @@ const conexion = mysql.createPool({
   password: process.env.password,
 });
 
-// Opcional: prueba la conexión una vez
+//  prueba la conexión una vez y envia console log
 (async () => {
   try {
     const conn = await conexion.getConnection();
@@ -19,4 +21,5 @@ const conexion = mysql.createPool({
   }
 })();
 
+//exporta la conexion para uso
 module.exports = conexion;

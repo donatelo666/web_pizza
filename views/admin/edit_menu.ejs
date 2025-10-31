@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>editar el menu</title>
 
-    <!-- relacion con la pagina de css , links para fuentes de google "lemon", bootstrap-->
+    <!-- relacion con  css , links para fuentes de google "lemon", bootstrap-->
     <link rel="stylesheet" href="/css/edit.menu.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,16 +20,19 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-
+    <!--color-->
     <style>
       body {
         background-color: #58c06e;
       }
     </style>
   </head>
+
   <body>
+    <!--navbar en partials-->
     <%- include('../partials/navbarAdmin') %>
 
+    <!--tabla-->
     <table class="table table-dark table-striped">
       <h1 class="text">Editar menú de pizzas</h1>
 
@@ -43,6 +46,8 @@
       </thead>
       
     <table class="table table-dark table-striped">
+    
+  <!--itera por cada pizza y crea el formulario de editar con imagen, boton guardar-->
   <tbody>
     <% pizzas.forEach(pizza => { %>
       <tr>
@@ -68,9 +73,10 @@
   </tbody>
 </table>
 
-
+    <!--pizza actualizada con exito-->
     <div id="notificacion" class="oculto"></div>
 
+    <!--script para manejar formulario con notificacion , tiempo maximo-->
     <script>
       function mostrarNotificacion() {
         const mensaje = `✅ Muy bien, pizza actualizada con éxito en el menú`;
@@ -89,6 +95,7 @@
         }, 8000);
       }
 
+      //escucha el boton , previene default ,llama el backend y maneja errores 
       document.querySelectorAll("form[id^='form-']").forEach((form) => {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
@@ -102,7 +109,7 @@
 
             let data;
             try {
-              data = await res.json(); // puede fallar si el servidor responde con HTML
+              data = await res.json(); 
             } catch (jsonError) {
               console.warn("La respuesta no es JSON:", jsonError);
               const raw = await res.text();
@@ -124,6 +131,7 @@
       });
     </script>
 
+    <!--formulario de crear pizza con titulo , ingredientes e imagen-->
     <form
       enctype="multipart/form-data"
       id="formCrearPizza"
@@ -144,26 +152,28 @@
 
       <button type="submit" class="btn btn-primary mt-2">Crear Pizza</button>
     </form>
-
+    <!--pizza creada en el menu -->
     <div id="notificacion2" class="oculto"></div>
+
+    <!--script con notificacion-->
     <script>
       function mostrarNotificacion2() {
         const mensaje = `✅ Muy bien pizza creada con exito en el menu  `;
         const notificacion = document.getElementById("notificacion2");
         notificacion.innerHTML = mensaje;
-        notificacion.classList.remove("oculto"); //quita el oculto del div que contiene la notificaion
-        notificacion.classList.add("visible"); // define funcion que muestra una notificacion
-        //  con estilos
-        //mensaje para el usuario , la pone en modo "visible"
+        notificacion.classList.remove("oculto"); //quita el oculto 
+        notificacion.classList.add("visible"); // visible
+        
+        
 
-        // Ocultar después de 25 segundos , remueve visible despues de 25 segundos y pone oculto
-        // a la notificacion
-        setTimeout(() => {
+        // Ocultar después de 8 secs
+                setTimeout(() => {
           notificacion.classList.remove("visible");
           notificacion.classList.add("oculto");
         }, 8000);
       }
 
+      //escucha el boton, usa la ruta , maneja errores y llama la notificacion
       document
         .getElementById("formCrearPizza")
         .addEventListener("submit", async (e) => {
@@ -178,7 +188,7 @@
 
             let data;
             try {
-              data = await res.json(); // puede fallar si no hay JSON
+              data = await res.json(); 
             } catch (err) {
               console.warn("Respuesta no es JSON:", err);
               data = {};
@@ -196,8 +206,11 @@
           }
         });
     </script>
+
+    <!--sesion cerrada -->
     <div id="notificacion3" class="oculto"></div>
 
+    <!--script para cerrar sesion escuchando el click, notificacion, quita token y redirige-->
     <script>
       let redireccion; // ✅ variable global
 

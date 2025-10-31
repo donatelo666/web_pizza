@@ -1,3 +1,5 @@
+//modulo principal y router para activar la vista que renderiza editar
+
 const express = require("express");
 const router = express.Router();
 

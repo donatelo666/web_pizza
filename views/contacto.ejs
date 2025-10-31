@@ -36,6 +36,7 @@
       <p class="texto2">Horario: viernes, sabado y domingo 4 a 11 pm.</p>
     </section>
 
+    <!--formulario para hacer registro, ruta del backend, metodo , inputs, pattern y notificacion-->
     <section>
       <form id="registroForm" action="/auth/register" method="POST">
         <h2>Registro</h2>
@@ -57,6 +58,7 @@
       </form>
       <div id="notificacion" class="oculto"></div>
 
+      <!--formulario para hacer login, ruta del backend, metodo , inputs, pattern y notificacion-->
       <form id="loginForm" action="/auth/login" method="POST">
         <h2>Login</h2>
         <input
@@ -78,12 +80,12 @@
       <div id="notificacion2" class="oculto"></div>
     </section>
 
+    <!--llamada para los scripts de registro y login-->
     <script src="/js/registro.js"></script>
 
     <script src="/js/login.js"></script>
 
     <!--tarjeta con estilos que contiene un texto e imagen con link a wapp , usa archivo css-->
-
     <div class="container mt-5">
       <div
         class="card mb-3 border-0 fondo-personalizado"
@@ -109,14 +111,15 @@
         </div>
       </div>
     </div>
-    <!--div de la notificacion para mostrarla en pantalla-->
-    <!--footer con dos botones que tiene estilos de css-->
+    <!--footer con tres botones que tiene estilos de css-->
     <footer class="footer_contacto">
       <a href="/inicio" class="inicio-btn">Inicio</a>
       <a href="/menu" class="menu-btn">Menu</a>
       <a href="/editar" class="editar-btn" id="editar-btn">Ordenar</a>
     </footer>
 
+    <!--script que escucha el click del boton ordenar ,  notificacion que desaparece
+    despues de diez segundos, frena el avance si el usuario no es cliente ni admin -->
     <script>
       function mostrarNotificacion3() {
         const mensaje = `✅ Debes iniciar sesión para ordenar,<br>Si no tienes una cuenta<br> debes registrarte`;
@@ -135,15 +138,15 @@
         if (!localStorage.getItem("token")) {
           e.preventDefault(); // ⛔ detiene el comportamiento por defecto (como ir al href)
           mostrarNotificacion3(); // ✅ muestra el mensaje
-          return; // ⛔ evita que siga ejecutando el resto
+          return;
         }
 
-        // ✅  lógica para mostrar la pestaña "Ordenar"
+        // ✅  para mostrar la pestaña "Ordenar"
         window.location.href = "/editar";
       });
     </script>
 
-    <!--estilo que da color de fondo a la tarjeta con texto e imagen de wapp-->
+    <!-- color de fondo para tarjeta de wapp-->
     <style>
       .fondo-personalizado {
         background-color: #59ca68;
@@ -155,6 +158,8 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+
+    <!--notificaciones de registro y login-->
     <div id="notificacion2" class="oculto"></div>
 
     <div id="notificacion3" class="oculto"></div>
