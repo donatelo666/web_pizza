@@ -49,7 +49,7 @@ npm install
 
 2 Configura tu archivo .env:
 
-## Base de Datos
+ Base de Datos
 
 -- Tabla usuarios
 CREATE TABLE usuarios (
@@ -84,18 +84,31 @@ CREATE TABLE promociones (
   descripcion TEXT
 );
 
-Endpoints  principales
-Método	        Ruta	      Descripción
-POST	/api/register	  Registro de usuario
-POST	/api/login	      Inicio de sesión
-GET	    /api/orders	      Consultar carrito (protegido)
-POST	/api/orders	      Crear carrito (protegido)
-PUT	    /api/orders/:id	  Actualizar pedido(protegido)
-DELETE	/api/orders/:id	  Eliminar pedido(protegido)
+Endpoints    principales
 
+Método	        Ruta	        Descripción
+
+POST	  /api/register	      Registro de usuario
+POST	  /api/login	        Inicio de sesión
+GET	    /api/orders	        Consultar carrito (protegido)
+POST	  /api/orders	        Crear carrito (protegido)
+PUT	    /api/orders/:id	    Actualizar pedido(protegido)
+DELETE	/api/orders/:id	    Eliminar pedido(protegido)
+
+📦 Dependencias principales
+
+- express
+- mysql2
+- dotenv
+- cookie-parser
+- jsonwebtoken
+- ejs
+- multer
+- bcryptjs
 
 
 🔐 Seguridad
+
 Contraseñas cifradas con bcrypt
 
 Tokens JWT para autenticación
@@ -103,6 +116,7 @@ Tokens JWT para autenticación
 Middleware para protección de rutas y control de roles
 
 👨‍💻 Autor
+
 David Sebastian Sandoval Desarrollador web apasionado por crear aplicaciones dinámicas, seguras y visualmente atractivas. 📫 [chopolonsio@hotmail.com]
 
 

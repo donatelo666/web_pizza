@@ -60,9 +60,6 @@ router.post(
     body("sabor").isIn(["champiñones", "hawaiana", "mexicana", "salami"]),
   ],
   async (req, res) => {
-    console.log("Solicitud recibida");
-    console.log("Body:", req.body); //mensajes de consola
-
     const { nombre, telefono, tamano, sabor } = req.body; //cuerpo
     const usuarioId = req.usuarioId; //id
 
