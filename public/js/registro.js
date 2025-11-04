@@ -7,12 +7,13 @@ function mostrarNotificacion() {
   notificacion.classList.remove("oculto"); //quita el oculto
   notificacion.classList.add("visible"); // pone
 
-  // Ocultar después de 10 segundos
-
-  setTimeout(() => {
-    notificacion.classList.remove("visible");
-    notificacion.classList.add("oculto");
-  }, 10000);
+  //notificacion con 10 segundos, no se ejecuta si esta en test
+  if (process.env.NODE_ENV !== "test") {
+    setTimeout(() => {
+      notificacion.classList.remove("visible");
+      notificacion.classList.add("oculto");
+    }, 10000);
+  }
 }
 
 //carga el DOM , esucha el submit , previene default , sanitiza

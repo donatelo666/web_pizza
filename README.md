@@ -115,6 +115,35 @@ Tokens JWT para autenticación
 
 Middleware para protección de rutas y control de roles
 
+
+🧪 Pruebas
+
+Este proyecto incluye pruebas automatizadas para las funcionalidades principales del backend, implementadas con Jest y Supertest.
+
+🔍 Cobertura de pruebas
+
+Registro de usuario:
+
+Verifica el flujo completo de registro.
+✅ Pasa con datos válidos.
+❌ Falla correctamente con datos incompletos o inválidos.
+
+Login con JWT y bcrypt:
+
+Comprueba el inicio de sesión y la generación de tokens.
+✅ Pasa con credenciales válidas.
+❌ Falla con credenciales incorrectas o vacías.
+
+Ordenar (carrito de compras):
+
+Testea la creación de pedidos protegida con token JWT.
+✅ Pasa con datos completos y token válido.
+❌ Falla con datos incompletos o sin autenticación.
+
+🎯 Objetivo
+
+Estas pruebas garantizan el correcto funcionamiento de las rutas principales del sistema (autenticación, autorización y flujo de pedido) y validan que la API responda adecuadamente tanto en casos exitosos como en escenarios con errores de validación o seguridad.
+
 👨‍💻 Autor
 
 David Sebastian Sandoval Desarrollador web apasionado por crear aplicaciones dinámicas, seguras y visualmente atractivas. 📫 [chopolonsio@hotmail.com]

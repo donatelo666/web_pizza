@@ -110,7 +110,7 @@
 
       <div class="d-flex justify-content-between mt-4">
         <!--boton-->
-        <button onclick="enviarOrden()" class="btn btn-success">
+        <button onclick="enviarOrden()" class="btn btn-success" type="button">
           Enviar orden
         </button>
         <!--contador de pizza en carrito -->
@@ -211,11 +211,11 @@
 
           //fetch que itera por cada orden
           carrito.forEach((orden) => {
-            fetch("http://localhost:3000/api/ordenes/", {
+            fetch("http://localhost:3000/api/ordenes", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: token, // pone el token
+                Authorization: `Bearer ${token}`, // pone el token
               },
               body: JSON.stringify(orden), // convierte en objeto jason
             })
@@ -282,10 +282,10 @@
           const token = localStorage.getItem("token");
 
           //usa la api get y pone el token
-          fetch(`http://localhost:3000/ordenes/${ordenId}`, {
+          fetch(`http://localhost:3000/api/ordenes/${ordenId}`, {
             method: "GET",
             "Content-Type": "application/json",
-            headers: { Authorization: token }, // ✅ aquí va el token
+            Authorization: `Bearer ${token}`, // ✅ aquí va el token
           })
             .then((response) => {
               if (!response.ok) {
@@ -418,11 +418,11 @@
           const sabor = document.getElementById("edit_sabor").value;
           const token = localStorage.getItem("token");
 
-          fetch(`http://localhost:3000/ordenes/${id}`, {
+          fetch(`http://localhost:3000/api/ordenes/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: token, // ✅ aquí va el token
+              Authorization: `Bearer ${token}`, // ✅ aquí va el token
             },
             //convierte el archivo a jason
             body: JSON.stringify({ nombre, telefono, tamano, sabor }),
@@ -461,10 +461,10 @@
       function eliminarOrden(ordenId) {
         const token = localStorage.getItem("token");
 
-        fetch(`http://localhost:3000/ordenes/${ordenId}`, {
+        fetch(`http://localhost:3000/api/ordenes/${ordenId}`, {
           method: "DELETE",
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         }) //errores
           .then((response) => {

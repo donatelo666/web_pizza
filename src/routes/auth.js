@@ -10,14 +10,21 @@ const { body, validationResult } = require("express-validator");
 router.post(
   "/register",
   [
-    body("nombre").trim().escape().isLength({ min: 4 }),
-    body("password").isLength({ min: 4 }),
+    body("nombre")
+      .trim()
+      .escape()
+      .isLength({ min: 4 })
+      .withMessage("El nombre es requerido"),
+
+    body("password")
+      .isLength({ min: 4 })
+      .withMessage("El password es requerido"),
   ],
   async (req, res) => {
     const { nombre, password } = req.body;
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
-      return res.status(400).json({ error: "Datos inválidos" }); //error por mala insercion de datos
+      return res.status(400).json({ error: errores.array()[0].msg }); //doble error definido en el validador por cada input
     }
 
     try {
@@ -43,7 +50,7 @@ router.post(
         rol: "cliente", //rol
       });
 
-      return res.status(200).json({ mensaje: "Registro exitoso" }); //respuesta
+      return res.status(200).json({ message: "Registro exitoso" }); //respuesta
     } catch (error) {
       return res.status(500).json({ error: "Error al registrar" });
     }
@@ -54,14 +61,21 @@ router.post(
 router.post(
   "/login",
   [
-    body("nombre").trim().escape().isLength({ min: 4 }),
-    body("password").isLength({ min: 4 }),
+    body("nombre")
+      .trim()
+      .escape()
+      .isLength({ min: 4 })
+      .withMessage("El nombre es requerido"),
+
+    body("password")
+      .isLength({ min: 4 })
+      .withMessage("El password es requerido"),
   ],
   async (req, res) => {
     const { nombre, password } = req.body;
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
-      return res.status(400).json({ error: "Datos inválidos" });
+      return res.status(400).json({ error: errores.array()[0].msg }); //doble error definido en el validador por cada input
     }
 
     try {

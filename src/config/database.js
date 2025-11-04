@@ -10,7 +10,7 @@ const conexion = mysql.createPool({
   password: process.env.password,
 });
 
-//  prueba la conexión una vez y envia console log
+//prueba la conexión una vez y envia console log
 (async () => {
   try {
     const conn = await conexion.getConnection();
