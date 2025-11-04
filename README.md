@@ -7,7 +7,7 @@ Aplicación web completa para administrar y ordenar pizzas con carrito, desarrol
 ## 🚀 Características principales
 
 - 🔐 Autenticación con JWT y cookies seguras
-- 🧑‍🍳 Panel de administración con edición de menú, usuarios, órdenes y promociones
+- 🧑‍🍳 Panel de administración con edición de menú, usuarios, órdenes, promociones, carrito y edicion de ordenes.
 - 🖼️ Subida de imágenes con Multer y eliminación automática de archivos antiguos
 - 🎠 Carruseles dinámicos de pizzas, imágenes y menú con Bootstrap 5
 - 🧾 Notificaciones visuales animadas con CSS
@@ -16,6 +16,13 @@ Aplicación web completa para administrar y ordenar pizzas con carrito, desarrol
 - 📱 Diseño responsive y experiencia de usuario pulida
 
 ---
+
+### 🧾 Formularios dinámicos (Ordenar y Editar)
+
+Los formularios de orden y edición incluyen **selects dinámicos** que muestran los sabores disponibles en la base de datos (`tabla pizzas`).
+
+Estos selects se actualizan automáticamente cuando el administrador cambia los sabores desde el panel de administración en editar menu.
+De esta forma, el cliente siempre ve las opciones actualizadas sin necesidad de modificar el código.
 
 ## 🛠️ Tecnologías utilizadas
 
