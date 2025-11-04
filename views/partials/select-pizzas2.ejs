@@ -1,0 +1,6 @@
+<select name="edit_sabor" id="edit_sabor" required>
+  <option value="">Seleccioná una pizza...</option>
+  <% pizzas.forEach(pizza => { %>
+  <option value="<%= pizza.nombre %>"><%= pizza.nombre %></option>
+  <% }) %>
+</select>

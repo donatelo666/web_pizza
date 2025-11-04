@@ -20,9 +20,7 @@ router.post(
     body("tamano")
       .isIn(["personal", "mediana", "familiar"])
       .withMessage("El tamaño es requerido"),
-    body("sabor")
-      .isIn(["champiñones", "hawaiana", "mexicana", "salami"])
-      .withMessage("El sabor es requerido"),
+    body("sabor").notEmpty().withMessage("Debes seleccionar un sabor."),
   ],
   async (req, res) => {
     const errores = validationResult(req);
@@ -98,9 +96,7 @@ router.put(
     body("tamano")
       .isIn(["personal", "mediana", "familiar"])
       .withMessage("Tamaño inválido"),
-    body("sabor")
-      .isIn(["champiñones", "hawaiana", "mexicana", "salami"])
-      .withMessage("Sabor inválido"),
+    body("sabor").notEmpty().withMessage("Debes seleccionar un sabor."),
   ],
   async (req, res) => {
     const errores = validationResult(req);

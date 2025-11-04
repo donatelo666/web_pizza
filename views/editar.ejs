@@ -91,13 +91,9 @@
       <br />
 
       <label for="sabor">Sabor:</label>
-      <select id="sabor" name="sabor" required pattern="[A-Za-z]{4,20}">
-        <option value="">-- Selecciona un sabor --</option>
-        <option value="champiñones">Champiñones</option>
-        <option value="hawaiana">Hawaiana</option>
-        <option value="mexicana">Mexicana</option>
-        <option value="salami">Salami y cabano</option></select
-      ><br />
+
+      <%- include('partials/select-pizzas', { pizzas }) %>
+
       <button type="submit" class="agregar">Agregar al carrito</button>
     </form>
 
@@ -374,13 +370,8 @@
       <br /><br />
       <label for="edit_sabor">Sabor:</label>
       <br />
-      <select id="edit_sabor" name="edit_sabor" required>
-        <option value="">-- Selecciona un sabor --</option>
-        <option value="champiñones">Champiñones</option>
-        <option value="hawaiana">Hawaiana</option>
-        <option value="mexicana">Mexicana</option>
-        <option value="salami">Salami y cabano</option>
-      </select>
+      <%- include('partials/select-pizzas2', { pizzas }) %>
+
       <br /><br />
 
       <button type="submit" class="actualizar">Actualizar orden</button
@@ -390,27 +381,43 @@
     <!--script que toma la informacion del formulario con evento submit, previene la recarga
     crea variables y el token , usa la api put del server , pone el token -->
     <script>
+      // 🟢 Notificación de éxito
       function mostrarNotificacion2() {
-        const mensaje = `✅ Muy bien<br><br>tu orden ha sido actualizada y<br><br>pronto estara en el horno. `;
+        const mensaje = `✅ Muy bien<br><br>tu orden ha sido actualizada y<br><br>pronto estará en el horno.`;
         const notificacion = document.getElementById("notificacion2");
         notificacion.innerHTML = mensaje;
-        notificacion.classList.remove("oculto"); // quita
-        notificacion.classList.add("visible"); // pone visible
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
 
-        //  remueve visible despues de 25 segundos y pone oculto
-        // a la notificacion
+        // Ocultar después de 25 segundos
         setTimeout(() => {
           notificacion.classList.remove("visible");
           notificacion.classList.add("oculto");
-        }, 25000);
+        }, 10000);
       }
 
+      // 🔴 Notificación de error
+      function mostrarError(mensaje) {
+        const notificacion = document.getElementById("notificacion-error");
+
+        notificacion.innerHTML = `⚠️ Error<br><br>${mensaje}`;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        // Ocultar después de 10 segundos
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 10000);
+      }
+
+      // 🧩 Escucha del envío del formulario
       document
         .getElementById("editar")
         .addEventListener("submit", function (e) {
-          e.preventDefault(); //escucha el evento
+          e.preventDefault(); // Evita el reload
 
-          //valores y token
+          // 🔹 Captura valores del formulario
           const id = document.getElementById("edit_id").value;
           const nombre = document.getElementById("edit_nombre").value;
           const telefono = document.getElementById("edit_telefono").value;
@@ -418,28 +425,36 @@
           const sabor = document.getElementById("edit_sabor").value;
           const token = localStorage.getItem("token");
 
+          // 🔹 Envío con fetch
           fetch(`http://localhost:3000/api/ordenes/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // ✅ aquí va el token
+              Authorization: `Bearer ${token}`,
             },
-            //convierte el archivo a jason
             body: JSON.stringify({ nombre, telefono, tamano, sabor }),
           })
-            .then((response) => response.json())
-            .then((data) => {
-              mostrarNotificacion2(); //  muestra la notificacion
+            .then(async (response) => {
+              const data = await response.json();
+
+              if (!response.ok) {
+                // ❌ Error HTTP
+                throw new Error(data.error || "Error al actualizar la orden");
+              }
+
+              // ✅ Éxito
+              mostrarNotificacion2();
             })
             .catch((error) => {
-              console.error(error);
-              alert("Error al actualizar la orden"); // mensaje de error
+              console.error("❌ Error:", error.message);
+              mostrarError(error.message); // Muestra mensaje visual
             });
         });
     </script>
 
-    <!--div de la notificacion2 para mostrarla en pantalla-->
+    <!--div de la notificacion2 y not-error para mostrarla en pantalla-->
     <div id="notificacion2" class="oculto"></div>
+    <div id="notificacion-error" class="oculto"></div>
 
     <!--formulario para eliminar con campo id y boton submit, pattern -->
     <form id="eliminarOrden">

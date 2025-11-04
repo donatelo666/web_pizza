@@ -432,3 +432,21 @@ tr:hover {
   transform: scale(1.05);
   opacity: 0.9;
 }
+
+#notificacion-error {
+  border-left: 6px solid #dc3545; /* Rojo error */
+  color: #a10000;
+}
+#notificacion-error {
+  position: fixed;
+  top: 80px;
+  right: 200px;
+  background: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  z-index: 1000;
+  max-width: 300px;
+}
