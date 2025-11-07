@@ -5,7 +5,7 @@ const pool = require("../src/config/database"); //para poner la base de datos
 describe("Registro de usuario", () => {
   it("debería registrar un usuario con nombre y password válidos", async () => {
     const res = await request(app).post("/auth/register").send({
-      nombre: "david2",
+      nombre: "david4",
       password: "secure123",
     });
 

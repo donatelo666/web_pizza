@@ -43,19 +43,19 @@ describe("Ruta protegida POST /api/ordenes", () => {
     expect(res.body.error).toMatch(/El nombre es requerido/i);
   });
 
-  it("debería fallar si el sabor no es válido", async () => {
+  it("debería fallar si el tamaño no es válido", async () => {
     const res = await request(app)
       .post("/api/ordenes")
       .set("Authorization", `Bearer ${token}`)
       .send({
         nombre: "David",
         telefono: "3001234567",
-        tamano: "mediana",
-        sabor: "pepperoni", // no permitido
+        tamano: "Errado",
+        sabor: "mexicana", // no permitido
       });
 
     expect(res.statusCode).toBe(400);
-    expect(res.body.error).toMatch(/El sabor es requerido/i);
+    expect(res.body.error).toMatch(/El Tamaño es requerido/i);
   });
 
   it("debería fallar si no se envía token", async () => {
