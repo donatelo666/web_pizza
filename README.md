@@ -71,7 +71,7 @@ npm start
 
 
 
-```
+
 
 Configuracion base de datos
 ´´´
@@ -100,6 +100,11 @@ tamano VARCHAR(50),
 sabor VARCHAR(100),
 id_usuario INT
 );
+
+ALTER TABLE ordenes
+ADD CONSTRAINT fk_usuario
+FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+ON DELETE CASCADE; ##union con tabla usuarios, al borrar un usuario borra sus ordenes tambn
 
 -- Tabla promociones
 CREATE TABLE promociones (
@@ -176,3 +181,4 @@ Este proyecto incluye pruebas automatizadas para las funcionalidades principales
 David Sebastian Sandoval
 Desarrollador web apasionado por crear aplicaciones dinámicas, seguras y visualmente atractivas.
 📫 chopolonsio@hotmail.com
+```
