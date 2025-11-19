@@ -144,3 +144,11 @@
   background-color: #544ae4;
   transform: scale(1.05);
 }
+.mi-navbar {
+  font-family: "Lemon"; /*  fuente que prefieras */
+  font-size: 1.3rem; /* tamaño */
+  font-weight: bold; /* aplica negrita */
+}
+.mi-navbar .nav-link {
+  color: #9ae372;
+}

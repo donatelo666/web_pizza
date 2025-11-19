@@ -1,0 +1,43 @@
+<!--header con nav bar con links y manejo de css-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success mi-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/inicio">🍕 Tortugas Ninja Pizzeria</a>
+
+    <!-- Botón para colapsar en móviles -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarContenido"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse" id="navbarContenido">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!--links del navbar-->
+        <li class="nav-item">
+          <a class="nav-link" href="/menu">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contacto">Contacto y registro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/promos">Promociones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="irOrdenar" href="/editar">Ordenar</a>
+        </li>
+      </ul>
+
+      <!--boton para ir a iniciar sesion con link #-->
+      <a class="btn btn-outline-light me-2" href="/contacto#loginForm"
+        >Iniciar sesión</a
+      >
+
+      <!-- Botón de cerrar sesión con id para usar logout.js-->
+      <button class="btn btn-outline-light" id="logout">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>

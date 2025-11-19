@@ -1,4 +1,12 @@
 /*estilos para cada objeto de la pagina headers , formularios , botones y cerrar sesion*/
+.mi-navbar {
+  font-family: "Lemon"; /*  fuente que prefieras */
+  font-size: 1.3rem; /* tamaño */
+  font-weight: bold; /* aplica negrita */
+}
+.mi-navbar .nav-link {
+  color: #9ae372;
+}
 .head {
   padding: 20px 0;
   text-align: center;

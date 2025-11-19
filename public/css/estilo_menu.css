@@ -1,12 +1,21 @@
 /*multiples css de cada parte de la pagina menu secciones , textos , carruseles y botones*/
+
+.mi-navbar {
+  font-family: "Lemon"; /*  fuente que prefieras */
+  font-size: 1.3rem; /* tamaño */
+  font-weight: bold; /* aplica negrita */
+}
+.mi-navbar .nav-link {
+  color: #9ae372;
+}
 .head {
   padding: 20px 0;
   text-align: center;
   font-family: "Lemon";
   margin: 0 auto;
-  color: #32c332;
+  color: #118611;
   font-size: 70px;
-  background-color: #6587c7;
+  background-color: #94aedd;
   border-radius: 20px;
 }
 
@@ -262,4 +271,19 @@
 #carouselpizza .carousel-control-prev:hover,
 .carousel-control-next:hover {
   opacity: 0.8;
+}
+#Notificacion4 {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: large;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
 }

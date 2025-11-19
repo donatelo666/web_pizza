@@ -26,6 +26,8 @@
     </style>
   </head>
   <body>
+    <!--navbar en partials-->
+    <%- include('partials/navbar') %>
     <!--header con css-->
     <header class="head">
       <p>Promociones vigentes hoy</p>
@@ -70,6 +72,31 @@
             window.location.href = "/editar";
           }
         });
+      });
+    </script>
+    <script>
+      function mostrarNotificacion() {
+        const mensaje = `✅ Debes iniciar sesión para ordenar,<br>Si no tienes una cuenta<br> debes registrarte`;
+        const notificacion = document.getElementById("notificacion");
+        notificacion.innerHTML = mensaje;
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
+
+        setTimeout(() => {
+          notificacion.classList.remove("visible");
+          notificacion.classList.add("oculto");
+        }, 10000);
+      }
+
+      document.getElementById("irOrdenar").addEventListener("click", (e) => {
+        if (!localStorage.getItem("token")) {
+          e.preventDefault(); // ⛔ detiene el comportamiento por defecto (como ir al href)
+          mostrarNotificacion(); // ✅ muestra el mensaje
+          return;
+        }
+
+        // ✅  para mostrar la pestaña "Ordenar"
+        window.location.href = "/editar";
       });
     </script>
 

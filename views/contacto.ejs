@@ -27,6 +27,8 @@
   </head>
 
   <body>
+    <!--navbar en partials-->
+    <%- include('partials/navbar') %>
     <!--header con css-->
     <header class="head">
       <p>Contacto, registro y login<br />para ordenar</p>
@@ -115,7 +117,6 @@
     <footer class="footer_contacto">
       <a href="/inicio" class="inicio-btn">Inicio</a>
       <a href="/menu" class="menu-btn">Menu</a>
-      <a href="/editar" class="editar-btn" id="editar-btn">Ordenar</a>
     </footer>
 
     <!--script que escucha el click del boton ordenar ,  notificacion que desaparece
@@ -134,7 +135,7 @@
         }, 10000);
       }
 
-      document.getElementById("editar-btn").addEventListener("click", (e) => {
+      document.getElementById("irOrdenar").addEventListener("click", (e) => {
         if (!localStorage.getItem("token")) {
           e.preventDefault(); // ⛔ detiene el comportamiento por defecto (como ir al href)
           mostrarNotificacion3(); // ✅ muestra el mensaje

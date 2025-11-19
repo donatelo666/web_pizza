@@ -1,12 +1,20 @@
 /*maneja todos los estilos de cada elemento en la pagina , header, formularios, secciones y tarjeta*/
+.mi-navbar {
+  font-family: "Lemon"; /*  fuente que prefieras */
+  font-size: 1.3rem; /* tamaño */
+  font-weight: bold; /* aplica negrita */
+}
+.mi-navbar .nav-link {
+  color: #9ae372;
+}
 .head {
   padding: 20px 0;
   text-align: center;
   font-family: "Lemon";
   margin: 0 auto;
-  color: #922a10;
+  color: #df1c1c;
   font-size: 70px;
-  background-color: #d15047;
+  background-color: #dd726a;
   border-radius: 20px;
 }
 
