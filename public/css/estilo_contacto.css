@@ -1,4 +1,11 @@
-/*maneja todos los estilos de cada elemento en la pagina , header, formularios, secciones y tarjeta*/
+/* ====== ESTILOS BASE ====== */
+body {
+  background-color: #dd9c52;
+  margin: 0;
+  padding: 0;
+  font-family: "Lemon", sans-serif;
+}
+/*nav bar */
 .mi-navbar {
   font-family: "Lemon"; /*  fuente que prefieras */
   font-size: 1.3rem; /* tamaño */
@@ -13,7 +20,8 @@
   font-family: "Lemon";
   margin: 0 auto;
   color: #df1c1c;
-  font-size: 70px;
+  font-size: clamp(2rem, 5vw, 4rem); /* escala automáticamente */
+
   background-color: #dd726a;
   border-radius: 20px;
 }
@@ -78,7 +86,7 @@ textarea:focus {
 }
 
 .texto2 {
-  font-size: 45px;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   padding: 50px 0;
   text-align: center;
   font-family: "Lemon";
@@ -90,39 +98,20 @@ textarea:focus {
   background-color: #5975d4;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 200px;
-
+  justify-content: space-around; /* más flexible que gap fijo */
   padding: 20px;
   font-family: "Lemon";
   border-radius: 20px;
 }
 
-.footer_menu a:hover {
+.footer_contacto a:hover {
   text-decoration: underline;
 }
 
-.inicio-btn {
-  background-color: #c06bda;
-  color: rgb(172, 57, 12);
-  font-weight: bold;
-  font-size: 28px;
-  text-decoration: none;
-  padding: 18px 36px;
-  border-radius: 10px;
-  font-family: "Lemon";
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.inicio-btn:hover {
-  background-color: #a12fa1;
-  transform: scale(1.05);
-}
-
+.inicio-btn,
 .menu-btn {
-  background-color: #50cab6;
-  color: rgb(196, 48, 11);
+  background-color: #d98ff0;
+  color: rgb(240, 236, 235);
   font-weight: bold;
   font-size: 28px;
   text-decoration: none;
@@ -133,8 +122,9 @@ textarea:focus {
   transition: background-color 0.3s ease;
 }
 
+.inicio-btn:hover,
 .menu-btn:hover {
-  background-color: #394ec5;
+  background-color: #a12fa1;
   transform: scale(1.05);
 }
 
@@ -165,22 +155,6 @@ button[type="submit"]:hover {
   /* Efecto de agrandamiento sutil */
 }
 
-#notificacion {
-  position: fixed;
-  top: 60px;
-  left: 430px;
-
-  background-color: #4caf50;
-  color: white;
-  padding: 16px 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: Arial, sans-serif;
-  font-size: large;
-  z-index: 1000;
-  transition: opacity 0.5s ease;
-}
-
 .oculto {
   display: none;
 }
@@ -190,62 +164,63 @@ button[type="submit"]:hover {
   opacity: 1;
 }
 
-#notificacion2 {
+/* Notificaciones */
+#notificacion,
+#notificacion2,
+#notificacion3 {
   position: fixed;
   top: 60px;
-  left: 430px;
-
+  left: 20px;
+  right: 20px;
   background-color: #4caf50;
   color: white;
   padding: 16px 24px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: Arial, sans-serif;
-  font-size: large;
+  font-family: "Lemon", sans-serif;
+  font-size: 1rem;
   z-index: 1000;
   transition: opacity 0.5s ease;
 }
-#btnIrEditar {
-  background-color: #4bc77f;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 18px;
-  font-family: "Lemon";
-}
-.editar-btn {
-  background-color: #6b89da;
-  color: rgb(172, 57, 12);
-  font-weight: bold;
-  font-size: 28px;
-  text-decoration: none;
-  padding: 18px 36px;
-  border-radius: 10px;
-  font-family: "Lemon";
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
+.fondo-personalizado {
+  background-color: #59ca68;
 }
 
-.editar-btn:hover {
-  background-color: #2f5da1;
-  transform: scale(1.05);
+/* ====== MEDIA QUERIES ====== */
+@media (max-width: 992px) {
+  .footer_contacto {
+    font-size: 1.5rem;
+  }
 }
 
-/* Estilo base de la notificación */
-#notificacion3 {
-  position: fixed;
-  top: 80px;
-  left: 200px;
-  max-width: 300px;
-  padding: 15px 20px;
-  background-color: #28a745; /* verde éxito */
-  color: #fff;
-  font-size: 20px;
-  font-family: "Lemon";
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  line-height: 1.4;
+@media (max-width: 768px) {
+  .inicio-btn,
+  .menu-btn {
+    font-size: 1rem;
+    padding: 12px 20px;
+    width: 100%;
+    text-align: center;
+  }
+  .footer_contacto {
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.2rem;
+  }
+  .card-text {
+    font-size: 1.2rem;
+    padding: 20px 0;
+  }
+}
+@media (max-width: 480px) {
+  .mi-navbar {
+    font-size: 1rem;
+  }
+  .inicio-btn,
+  .menu-btn {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+  .footer_contacto {
+    font-size: 1rem;
+  }
 }

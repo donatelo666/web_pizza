@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu</title>
     <!--union con el css , fuente de google "lemon" , union con bootstrap-->
-    <link rel="stylesheet" href="/css/estilo_menu.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,12 +17,9 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    <!--color de fondo-->
-    <style>
-      body {
-        background-color: #5ad3b7;
-      }
-    </style>
+        <link rel="stylesheet" href="/css/estilo_menu.css" />
+
+   
   </head>
 
   <body>
@@ -49,21 +45,21 @@
         <div class="carousel-item active">
           <img
             src="/img/personal.png"
-            class="d-block w-100"
+            class="d-block mx-auto"
             alt="pizza personal"
           />
         </div>
         <div class="carousel-item">
           <img
             src="/img/mediana.png"
-            class="d-block w-100"
+            class="d-block mx-auto"
             alt="pizza mediana"
           />
         </div>
         <div class="carousel-item">
           <img
             src="/img/familiar.png"
-            class="d-block w-100"
+            class="d-block mx-auto"
             alt="pizza familiar"
           />
         </div>
@@ -121,7 +117,7 @@ Asigna correctamente los atributos para que Bootstrap lo entienda. -->
       <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
         <img 
           src="<%= pizza.ruta_imagen %>" 
-          class="d-block w-100" 
+          class="d-block mx-auto" 
           alt="Pizza <%= pizza.nombre %>">
         <div class="carousel-caption d-none d-md-block">
           <h5><%= pizza.nombre %></h5>
