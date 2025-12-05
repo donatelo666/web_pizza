@@ -129,7 +129,7 @@ router.put(
         [nombre, telefono, tamano, sabor, id]
       );
 
-      res.status(200).json({ mensaje: "Orden actualizada con éxito" });
+      res.status(200).json({ mensaje: "Orden actualizada con exito" });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -167,7 +167,7 @@ router.delete(
       }
 
       await database.query("DELETE FROM ordenes WHERE id = ?", [id]);
-      res.status(200).json({ mensaje: "Orden eliminada con éxito" });
+      res.status(200).json({ mensaje: "Orden eliminada con exito" });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

@@ -29,7 +29,7 @@
 }
 
 .tarjeta-elegante .btn {
-  background-color: #ff5722;
+  background-color: #af2f09;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -39,7 +39,7 @@
 }
 
 .tarjeta-elegante .btn:hover {
-  background-color: #e64a19;
+  background-color: #751f05;
 }
 .contenedor-tarjetas {
   display: flex;
@@ -53,7 +53,8 @@
   font-family: "Lemon";
   margin: 0 auto;
   color: #771385;
-  font-size: 70px;
+  font-size: clamp(2rem, 5vw, 4rem); /* escala automáticamente */
+
   background-color: #b76aca;
   border-radius: 20px;
 }

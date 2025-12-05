@@ -1,6 +1,6 @@
 /* ====== ESTILOS BASE ====== */
 body {
-  background-color: #5ad3b7;
+  background-color: #5de6c6;
   margin: 0;
   padding: 0;
   font-family: "Lemon", sans-serif;
@@ -21,9 +21,9 @@ body {
   text-align: center;
   font-family: "Lemon";
   margin: 0 auto;
-  color: #118611;
+  color: #055205;
   font-size: clamp(2rem, 5vw, 4rem); /* escala automáticamente */
-  background-color: #94aedd;
+  background-color: #9cb4e2;
   border-radius: 20px;
 }
 
@@ -38,10 +38,10 @@ body {
   border-radius: 20px;
 }
 .menu1 {
-  background-color: #9889d1;
+  background-color: #a392e7;
 }
 .menu3 {
-  background-color: #ad5abe;
+  background-color: #e1aaec;
 }
 
 .texto1,
@@ -53,7 +53,7 @@ body {
   text-align: center;
   font-family: "Lemon";
   margin: 0 auto;
-  color: #129125;
+  color: #830d26;
   font-weight: bold;
 }
 
@@ -63,13 +63,13 @@ body {
   text-align: center;
   font-family: "Lemon";
   margin: 0 auto;
-  color: #c0b237;
+  color: #095307;
   font-weight: bold;
 }
 
 /* Footer */
 .footer_menu {
-  background-color: #e4bb4d;
+  background-color: #e2c060;
   display: flex;
   align-items: center;
   justify-content: space-around; /* más flexible que gap fijo */
@@ -85,8 +85,8 @@ body {
 /* Botones */
 .regresa-btn,
 .ordena-btn {
-  background-color: #8edd69;
-  color: rgb(15, 117, 29);
+  background-color: #85bfe6;
+  color: rgb(5, 70, 14);
   font-weight: bold;
   font-size: 1.5rem;
   text-decoration: none;
@@ -98,7 +98,7 @@ body {
 }
 .regresa-btn:hover,
 .ordena-btn:hover {
-  background-color: #239151;
+  background-color: #043a1a;
   transform: scale(1.05);
 }
 

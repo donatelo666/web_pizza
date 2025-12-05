@@ -31,7 +31,7 @@ body {
 /* Botones */
 .contact-btn,
 .menu-btn {
-  background-color: #2ecc71;
+  background-color: #07662f;
   color: white;
   font-weight: bold;
   font-size: 28px;
@@ -45,7 +45,7 @@ body {
 
 .contact-btn:hover,
 .menu-btn:hover {
-  background-color: #27ae60;
+  background-color: #046b2f;
   transform: scale(1.05);
 }
 

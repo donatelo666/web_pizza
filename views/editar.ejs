@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,6 +19,10 @@
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
+    />
+    <meta
+      name="description"
+      content="Este es un sitio web de e-commerce especializado en pizzas artesanales, con opciones variadas y entrega rápida."
     />
 
     <!--color de fondo  -->
@@ -462,7 +466,7 @@
     <form id="eliminarOrden">
       <h3>Eliminar mi orden</h3>
 
-      <label for="Orden_id">Id de la orden:</label>
+      <label for="idOrden">Id de la orden:</label>
       <input
         type="number"
         id="idOrden"
@@ -590,41 +594,42 @@
       <a href="/contacto" class="contacto-btn" id="contact-btn">Contacto</a>
 
       <a href="/menu" class="menu-btn" id="menu-btn">Menu</a>
-
-      <!--boton de cerrar sesion -->
-      <button id="logout" class="logout-btn">Cerrar sesión</button>
     </footer>
 
     <!--div de cerrar sesion -->
-    <div id="Notificacion4" class="oculto"></div>
+    <div id="notificacion4" class="oculto"></div>
 
     <!--script que escucha el submit para cerrar y redirige a inicio con notificacion-->
     <script>
       function mostrarNotificacion4() {
-        //mensaje para el usuario , la pone en modo "visible"
-        const mensaje = `✅ Sesion cerrada<br>
-    Serás redirigido a la página de inicio en unos segundos...<br><br>
-    <button id="btnIrInicio" class="btn btn-light">Ir ahora</button>`;
-        const notificacion = document.getElementById("Notificacion4");
+        const mensaje = `✅ Sesión cerrada<br>
+      Serás redirigido a la página de inicio en unos segundos...<br><br>
+      <button id="btnIrInicio" class="btn btn-light">Ir ahora</button>`;
+        const notificacion = document.getElementById("notificacion4");
         notificacion.innerHTML = mensaje;
-        notificacion.classList.remove("oculto"); //quita el oculto
-        notificacion.classList.add("visible"); // pone visible
+        notificacion.classList.remove("oculto");
+        notificacion.classList.add("visible");
       }
 
-      document.getElementById("logout").addEventListener("click", () => {
-        localStorage.removeItem("token"); // ✅ elimina el token al usuario
-        mostrarNotificacion4(); // llama la notificacion
+      document.addEventListener("DOMContentLoaded", () => {
+        let redireccion;
 
-        //escucha al boton de la notificacion
-        document.getElementById("btnIrInicio").addEventListener("click", () => {
-          clearTimeout(redireccion);
-          window.location.href = "/inicio";
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("token"); // elimina token
+          mostrarNotificacion4();
+
+          // escucha al botón dentro de la notificación
+          document
+            .getElementById("btnIrInicio")
+            .addEventListener("click", () => {
+              clearTimeout(redireccion);
+              window.location.href = "/inicio";
+            });
+
+          redireccion = setTimeout(() => {
+            window.location.href = "/inicio";
+          }, 10000);
         });
-
-        const redireccion = setTimeout(() => {
-          window.location.href = "/inicio";
-        }, 10000);
-        //  Redirige inmediatamente si el usuario hace clic
       });
     </script>
 

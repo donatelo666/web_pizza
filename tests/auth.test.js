@@ -1,6 +1,6 @@
 const request = require("supertest");
-const app = require("../app"); // Asegúrate de exportar tu instancia de Express
-const pool = require("../src/config/database"); //para poner la base de datos
+const app = require("../app"); // instancia de Express
+const pool = require("../src/config/database"); // base de datos
 
 describe("Registro de usuario", () => {
   it("debería registrar un usuario con nombre y password válidos", async () => {
@@ -9,7 +9,7 @@ describe("Registro de usuario", () => {
       password: "secure123",
     });
 
-    expect(res.statusCode).toBe(200); // o 200 si usas ese código
+    expect(res.statusCode).toBe(200); //  200
     expect(res.body).toHaveProperty("message");
     expect(res.body.message).toMatch(/Registro exitoso/i);
   });
@@ -19,7 +19,7 @@ describe("Registro de usuario", () => {
       password: "secure123",
     });
 
-    expect(res.statusCode).toBe(400); // o el código que uses para validación
+    expect(res.statusCode).toBe(400); // 400 error
     expect(res.body).toHaveProperty("error");
     expect(res.body.error).toMatch(/El nombre es requerido/i);
   });
@@ -67,5 +67,5 @@ describe("Login de usuario", () => {
 });
 
 afterAll(async () => {
-  await pool.end(); // cierra la conexión del pool de la base de datos
+  await pool.end(); // cierra la conexión de base de datos
 });
